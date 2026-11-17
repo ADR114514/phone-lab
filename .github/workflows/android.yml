@@ -64,3 +64,6 @@ jobs:
 
       - name: Run end-to-end analysis on synthetic demo data
         run: python analysis/tests/run_all.py
+
+      - name: Partial-batch power health check (in-progress experiments)
+        run: python analysis/power/summarize_partial.py --data data/demo/power/20261118_PC-20261118-001 --out /tmp/power-partial
