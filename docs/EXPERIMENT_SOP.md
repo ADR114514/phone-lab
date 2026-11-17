@@ -108,6 +108,26 @@
 
 ---
 
+## 真机联调注意事项（OnePlus 12 / Android 16 实测）
+
+- **权限**：部分厂商 ROM（ColorOS）会限制 `adb install -g` 与 `pm grant`，App 内的授权引导是唯一可靠路径；
+  首次使用请逐项点"授权/去授权"，并在系统弹窗里选择"使用时允许"。
+- **充电**：联调时手机通过 USB 连接电脑会进入充电状态，功耗/温升数据全部失效（CSV 的 `charging=1`）。
+  必须拔线、仅用无线 adb 或提前导出数据；正式实验前确认 `charging=0`。
+- **电流读数**：OnePlus 12 的 `BATTERY_PROPERTY_CURRENT_NOW` 在充电时接近 0（−124 µA）；
+  放电状态才有意义，且不同厂商符号相反——分析脚本已取绝对值。
+- **能量计数**：该机型不支持 `BATTERY_PROPERTY_ENERGY_COUNTER`，已按契约留空；
+  请用 `charge_counter_uah` 差分与电量百分比交叉校验。
+- **Wi-Fi**：Android 12+ 读取 RSSI 必须同时满足"定位权限 + 定位开关"；扫描结果可能被系统节流，
+  App 会用缓存结果并在 note 标注"cache/受限"。
+- **录音**：该机型支持 `MediaRecorder.AudioSource.UNPROCESSED`（无 AGC/降噪），优先使用；
+  加速度计实际采样率 200.4 Hz，已写入 meta.json。
+- **熄屏待机**：OnePlus/ColorOS 即使授予精确闹钟权限，也可能把 `setExactAndAllowWhileIdle` 按 App Standby 策略
+  批量延后数小时（`dumpsys alarm` 可见 policy adjustment）。App 已改用 `setAlarmClock`（用户可见闹钟通道）
+  并在 IDLE 工况持有守护 `PARTIAL_WAKE_LOCK`，保证 5 min 准点；代价是待机功耗含数十 mW CPU 驻留开销，
+  报告中需说明，并建议做一次"开/关守护"对照实验量化偏差。
+  实验前务必确认：电池优化豁免、通知权限、精确闹钟权限、屏幕锁定方式（建议关闭锁屏密码或用测试机）。
+
 ## 通用：数据归档与 Git 提交规范
 
 1. 每次实验结束当天，把 App 导出的会话目录复制到 `data/raw/<app>/<session>/`。

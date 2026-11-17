@@ -57,11 +57,33 @@ note=charging_during_sample; screen_on_expected_off; unavailable:energy_counter_
 
 修复后：`analysis/tests/run_all.py` 仍 **68/68** 全绿（演示数据回归）。
 
+## 3.1 待机采样调度问题与修复（重要）
+
+第一次熄屏待机测试（PC-20261118-002）只拿到 1 个采样点：预期 01:19:28 的第 2 点直到 01:35 仍未写入。
+排查过程与证据：
+
+1. `dumpsys alarm` 显示我们的 `SAMPLE_ALARM` 是 **ELAPSED_WAKEUP 且 windowLength≈224 s**，并被系统加上
+   `policy adjustment=+2d23h52m`（App Standby / battery_saver 批量延后）——即系统把"精确闹钟"当非精确闹钟批量延迟；
+2. App 侧 `session.log` 记录 `exactAlarm=true`，说明系统 API 报有权限，但 ROM 策略仍会延后；
+3. 进程、前台服务、Doze 白名单（`dumpsys deviceidle whitelist` 含本 App）均正常，排除被杀；
+4. 重新启动 App 后，控制器会把到期点补采并标 `late_sample`（设计如此），说明数据链路正常，只是唤醒源不可靠。
+
+已实现的修复（`SamplingScheduler` / `SamplingService`）：
+
+- 有精确闹钟权限时改用 `AlarmManager.setAlarmClock()`（用户可见闹钟通道，OEM 节流更少）；
+  失败时退回 `setExactAndAllowWhileIdle`；
+- **待机工况准点守护**：IDLE 工况期间持有 `PARTIAL_WAKE_LOCK`（上限 40 min），保证 Handler 准点触发；
+  切换到其它工况/暂停/结束立即释放；
+- 代价与诚实说明：IDLE 工况的功耗会包含 CPU 驻留开销（数十 mW 量级），报告中必须注明；
+  建议用"开/关守护"各跑一次同批次，做偏差对照。
+
+> 该修复的最后一轮真机复测因手机锁屏（需要机主输入密码）未能完成，已在 `docs/VERIFICATION.md` 中标注为"待复测"。
+
 ## 4. 尚未完成（需要完整实验）
 
 | 项 | 说明 |
 |---|---|
-| 完整 24 组功耗批次 | 需拔线、按 SOP 连续跑 4 工况 × 30 min（本次仅验证首点后中止） |
+| 完整 24 组功耗批次 | 需拔线、按 SOP 连续跑 4 工况 × 30 min（本次仅验证首点与中止）；待机准点修复待解锁手机复测 |
 | 完整 24 组 Wi-Fi 数据 | 本次只测 P01；其余 7 个点位需到现场按 SOP 采集 |
 | 完整 5×15 声振数据 | 本次为 2 工况各 1 组链路验证；需真实风扇/吹风机 5 工况 × 15 组 |
 | 盲测 15 组与录屏 | 需完整数据集后按 App 内盲测流程执行并录屏 |

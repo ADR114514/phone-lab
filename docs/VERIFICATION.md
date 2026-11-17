@@ -101,6 +101,10 @@ VibroDiag 录制 2 工况各 1 组（44.1 kHz UNPROCESSED WAV + 200.4 Hz 加速�
 PowerTrace 前台服务启动并写入首点后中止批次。过程中修复了分析管线在"少样本/不完整批次"下的两个鲁棒性问题。
 详见 [`DEVICE_TEST_REPORT.md`](DEVICE_TEST_REPORT.md)。
 
+**待复测**：真机发现 ColorOS 会把 `setExactAndAllowWhileIdle` 批量延后（`dumpsys alarm` 可见 +2 天 policy adjustment），
+已改为 `setAlarmClock` + IDLE 工况守护 `PARTIAL_WAKE_LOCK`；最后一轮 5 min 准点复测因设备锁屏未能完成，
+解锁后可复测（预期第 2 个采样点出现在 300 s ± 90 s 内）。
+
 ## 7. 必须由真机完成的验证（本机无设备）
 
 | 项 | 为什么需要真机 | 对应 SOP 检查点 |

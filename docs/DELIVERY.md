@@ -41,7 +41,8 @@
 | APK 签名与元数据（apksigner/aapt2） | ✅ 三个 APK 均 v2+ 签名、minSdk 31 / arm64-v8a |
 | `lintDebug` | ✅ 0 errors / 0 warnings |
 | Kotlin↔Python 特征一致性 | ✅ 32 维特征相对误差 < 1e-3 |
-| 真机安装与实测 | ⏳ **待你在 Android 12+ 真机上完成**（当前环境无设备/模拟器），逐项清单见 `docs/VERIFICATION.md` |
+| 真机联调（OnePlus 12 / Android 16） | ✅ 三 App 安装、权限、核心采集、数据落盘、ZIP 导出与评估均已验证（见 `docs/DEVICE_TEST_REPORT.md`） |
+| 完整 24/24/75 组实验 | ⏳ **待你按 SOP 完成**（当前环境无设备/模拟器），逐项清单见 `docs/VERIFICATION.md` |
 
 ## 4. 本地验证命令
 

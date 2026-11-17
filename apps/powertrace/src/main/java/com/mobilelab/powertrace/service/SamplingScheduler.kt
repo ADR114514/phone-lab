@@ -10,6 +10,7 @@ import android.os.SystemClock
 import androidx.core.content.ContextCompat
 import com.mobilelab.core.log.LabLog
 import com.mobilelab.core.permission.canScheduleExactAlarms
+import com.mobilelab.powertrace.MainActivity
 
 /**
  * 采样调度：Handler + AlarmManager.setExactAndAllowWhileIdle 双保险。
@@ -48,11 +49,34 @@ class SamplingScheduler(private val context: Context) {
         val triggerElapsed = SystemClock.elapsedRealtime() + delay
         runCatching {
             if (exactAlarmAvailable) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerElapsed, alarmIntent)
+                // 国产 ROM（实测 OnePlus/ColorOS Android 16）会把 setExactAndAllowWhileIdle
+                // 在 App Standby/省电策略下批量延后（dumpsys alarm 可见 +2 天 policy adjustment）。
+                // setAlarmClock 属于"用户可见闹钟"通道，系统与 OEM 都更少节流，因此优先使用；
+                // 代价是状态栏会出现闹钟图标（SOP 中已说明，实验期间正常现象）。
+                val showIntent = PendingIntent.getActivity(
+                    context,
+                    SHOW_REQUEST_CODE,
+                    Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+                )
+                alarmManager.setAlarmClock(
+                    AlarmManager.AlarmClockInfo(wallClockAtMs, showIntent),
+                    alarmIntent,
+                )
             } else {
                 alarmManager.setAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerElapsed, alarmIntent)
             }
-        }.onFailure { LabLog.e(TAG, "schedule alarm failed exact=$exactAlarmAvailable", it) }
+        }.onFailure {
+            // setAlarmClock 失败时退回普通精确闹钟，保证有唤醒来源。
+            LabLog.e(TAG, "setAlarmClock failed exact=$exactAlarmAvailable, fallback to setExact", it)
+            runCatching {
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    triggerElapsed,
+                    alarmIntent,
+                )
+            }.onFailure { LabLog.e(TAG, "fallback exact alarm also failed", it) }
+        }
 
         val runnable = Runnable {
             runCatching {
@@ -75,6 +99,7 @@ class SamplingScheduler(private val context: Context) {
     private companion object {
         const val TAG = "PowerTraceSched"
         const val REQUEST_CODE = 4101
+        const val SHOW_REQUEST_CODE = 4102
         const val MAX_DELAY_MS = 31L * 60L * 1000L
     }
 }

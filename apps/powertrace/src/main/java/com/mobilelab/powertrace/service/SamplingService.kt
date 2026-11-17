@@ -11,7 +11,9 @@ import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.mobilelab.core.log.LabLog
 import com.mobilelab.powertrace.data.CampaignEngine
+import com.mobilelab.powertrace.data.CampaignState
 import com.mobilelab.powertrace.data.CampaignStatus
+import com.mobilelab.powertrace.data.ConditionId
 import com.mobilelab.powertrace.data.PowerTraceController
 import com.mobilelab.powertrace.data.PumpOutcome
 import com.mobilelab.powertrace.data.SamplingConfig
@@ -39,6 +41,18 @@ class SamplingService : Service() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private lateinit var scheduler: SamplingScheduler
     private var wakeLock: PowerManager.WakeLock? = null
+
+    /**
+     * 待机工况的"准点守护"锁。
+     *
+     * 真机实测（OnePlus/ColorOS Android 16）即使拿到 SCHEDULE_EXACT_ALARM，系统仍可能把
+     * AlarmManager 闹钟按 App Standby/省电策略批量延后（dumpsys alarm 可见 policy adjustment），
+     * 导致 30 min 待机工况只有 1 个采样点。待机工况屏幕熄灭、系统进入 Doze 时，
+     * 这里改为在整个 IDLE 工况持有 PARTIAL_WAKE_LOCK，让 Handler 准点触发；
+     * 代价是 CPU 无法深度休眠，待机功耗会偏高（数量级为数十 mW，报告中必须说明）。
+     * 非待机工况（屏幕亮着）不需要该锁，拿到后立即释放。
+     */
+    private var standbyGuardLock: PowerManager.WakeLock? = null
     private var rawTicker: Job? = null
 
     override fun onCreate() {
@@ -69,6 +83,7 @@ class SamplingService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onDestroy() {
+        runCatching { if (standbyGuardLock?.isHeld == true) standbyGuardLock?.release() }
         scheduler.cancel()
         rawTicker?.cancel()
         rawTicker = null
@@ -88,6 +103,7 @@ class SamplingService : Service() {
             val outcome = PowerTraceController.pump()
             if (outcome is PumpOutcome.CampaignFinished) {
                 scheduler.cancel()
+                updateStandbyGuard(null)
                 AppNotifications.notifyCampaignFinished(this, outcome.state)
                 stopSamplingService()
                 return
@@ -100,6 +116,7 @@ class SamplingService : Service() {
                 return
             }
             ensureRawTicker(state.rawSeriesEnabled)
+            updateStandbyGuard(state)
             scheduleNext()
             AppNotifications.updateSamplingNotification(this, state)
         } catch (t: Throwable) {
@@ -113,6 +130,7 @@ class SamplingService : Service() {
     private suspend fun handlePause() {
         val state = PowerTraceController.pauseCampaign()
         scheduler.cancel()
+        updateStandbyGuard(null)
         LabLog.i(TAG, "sampling paused")
         AppNotifications.updateSamplingNotification(this, state)
         stopSamplingService()
@@ -144,12 +162,14 @@ class SamplingService : Service() {
     private suspend fun handleAbort() {
         val state = PowerTraceController.abortCampaign()
         scheduler.cancel()
+        updateStandbyGuard(null)
         state?.let { AppNotifications.notifyCampaignAborted(this, it) }
         stopSamplingService()
     }
 
     private fun scheduleNext() {
         val state = PowerTraceController.state.value
+        updateStandbyGuard(state)
         if (state == null || state.status != CampaignStatus.RUNNING) {
             scheduler.cancel()
             return
@@ -213,6 +233,30 @@ class SamplingService : Service() {
         }
     }
 
+    /** 待机工况（IDLE）准点守护：仅该工况持锁，切走/暂停/结束立即释放。 */
+    private fun updateStandbyGuard(state: CampaignState?) {
+        val needGuard = state != null && state.status == CampaignStatus.RUNNING &&
+            state.current?.condition?.id == ConditionId.IDLE.id
+        runCatching {
+            if (needGuard) {
+                if (standbyGuardLock == null) {
+                    val pm = getSystemService(PowerManager::class.java)
+                    standbyGuardLock = pm.newWakeLock(
+                        PowerManager.PARTIAL_WAKE_LOCK,
+                        "PowerTrace:standby-guard",
+                    ).apply { setReferenceCounted(false) }
+                }
+                if (standbyGuardLock?.isHeld != true) {
+                    standbyGuardLock?.acquire(STANDBY_GUARD_TIMEOUT_MS)
+                    LabLog.w(TAG, "standby guard acquired: IDLE sampling keeps CPU awake (documented bias)")
+                }
+            } else if (standbyGuardLock?.isHeld == true) {
+                standbyGuardLock?.release()
+                LabLog.i(TAG, "standby guard released")
+            }
+        }.onFailure { LabLog.e(TAG, "standby guard update failed", it) }
+    }
+
     companion object {
         private const val TAG = "PowerTraceService"
 
@@ -224,6 +268,9 @@ class SamplingService : Service() {
         const val ACTION_ABORT = "com.mobilelab.powertrace.action.ABORT"
         const val ACTION_STOP = "com.mobilelab.powertrace.action.STOP"
         const val ACTION_RAW_TICK = "com.mobilelab.powertrace.action.RAW_TICK"
+
+        /** 待机守护锁上限 40 min（30 min 工况 + 缓冲），到期自动释放避免泄漏。 */
+        const val STANDBY_GUARD_TIMEOUT_MS = 40L * 60L * 1000L
 
         fun intent(context: Context, action: String): Intent =
             Intent(context, SamplingService::class.java).setAction(action)
