@@ -1,5 +1,7 @@
 package com.mobilelab.signalmap.vm
 
+import android.annotation.SuppressLint
+
 import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -67,6 +69,8 @@ sealed interface MeasurementUi {
  */
 class SurveyViewModel(application: Application) : AndroidViewModel(application) {
 
+    // AndroidViewModel 持有的就是 applicationContext，不存在 Activity 泄漏。
+    @SuppressLint("StaticFieldLeak")
     private val context = application.applicationContext
     private val store = StateStore(context)
     private val repository = SurveyRepository(context)

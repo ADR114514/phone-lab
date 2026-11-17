@@ -1,6 +1,8 @@
 package com.mobilelab.vibrodiag.audio
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -12,6 +14,7 @@ import com.mobilelab.core.log.LabLog
 import com.mobilelab.core.signal.WavWriter
 import com.mobilelab.vibrodiag.data.AccelSample
 import com.mobilelab.vibrodiag.model.AccelMode
+import androidx.core.content.ContextCompat
 import com.mobilelab.vibrodiag.sensor.AccelProbe
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -112,6 +115,12 @@ class RecordingEngine(private val context: Context) {
     /** Starts audio + accel capture; returns null on success or a Chinese error message. */
     fun start(request: RecordingRequest): String? {
         if (running) return "已有录音正在进行"
+        // 显式复核 RECORD_AUDIO：未授权时直接给出可操作的错误，而不是依赖构造异常。
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            return "未授予录音权限：请在系统设置中允许麦克风后重试"
+        }
         this.request = request
         cachedOutput = null
         stopRequested = false

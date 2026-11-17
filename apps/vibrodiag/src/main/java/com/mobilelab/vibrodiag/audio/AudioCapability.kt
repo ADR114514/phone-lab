@@ -52,8 +52,8 @@ object AudioProbe {
                 note = "未授予麦克风权限，无法探测音频源",
             )
         }
-        val unprocessed = canInitialize(MediaRecorder.AudioSource.UNPROCESSED, bufferBytes)
-        val mic = canInitialize(MediaRecorder.AudioSource.MIC, bufferBytes)
+        val unprocessed = canInitialize(context, MediaRecorder.AudioSource.UNPROCESSED, bufferBytes)
+        val mic = canInitialize(context, MediaRecorder.AudioSource.MIC, bufferBytes)
         val label = when {
             unprocessed -> "UNPROCESSED"
             mic -> "MIC"
@@ -81,10 +81,10 @@ object AudioProbe {
             AudioFormat.ENCODING_PCM_16BIT,
         )
         val bufferBytes = bufferSizeBytes(minBuffer)
-        if (canInitialize(MediaRecorder.AudioSource.UNPROCESSED, bufferBytes)) {
+        if (canInitialize(context, MediaRecorder.AudioSource.UNPROCESSED, bufferBytes)) {
             return MediaRecorder.AudioSource.UNPROCESSED to "UNPROCESSED"
         }
-        if (canInitialize(MediaRecorder.AudioSource.MIC, bufferBytes)) {
+        if (canInitialize(context, MediaRecorder.AudioSource.MIC, bufferBytes)) {
             return MediaRecorder.AudioSource.MIC to "MIC"
         }
         return null
@@ -95,7 +95,13 @@ object AudioProbe {
         return if (minBufferSize > 0) maxOf(minBufferSize * 2, fallback) else fallback
     }
 
-    private fun canInitialize(source: Int, bufferBytes: Int): Boolean {
+    private fun canInitialize(context: Context, source: Int, bufferBytes: Int): Boolean {
+        // 显式复核 RECORD_AUDIO：AudioRecord 构造在无权限时会抛 SecurityException。
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            return false
+        }
         var record: AudioRecord? = null
         return try {
             record = AudioRecord(

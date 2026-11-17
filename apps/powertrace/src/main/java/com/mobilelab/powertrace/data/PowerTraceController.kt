@@ -1,5 +1,6 @@
 package com.mobilelab.powertrace.data
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.mobilelab.core.log.LabLog
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +35,9 @@ object PowerTraceController {
     private var initialized = false
     private lateinit var appContext: Context
     private lateinit var repo: TraceRepository
+
+    // 进程内单例只持有 applicationContext（见 init），不会泄漏 Activity。
+    @SuppressLint("StaticFieldLeak")
     private lateinit var metricsCollector: MetricsCollector
     private lateinit var exporter: ExportManager
 

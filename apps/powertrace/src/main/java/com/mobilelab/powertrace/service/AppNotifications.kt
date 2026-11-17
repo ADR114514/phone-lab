@@ -1,13 +1,17 @@
 package com.mobilelab.powertrace.service
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.mobilelab.core.log.LabLog
 import com.mobilelab.core.time.TimeFmt
 import com.mobilelab.powertrace.MainActivity
@@ -85,6 +89,14 @@ object AppNotifications {
 
     /** 批次完成提醒（非前台通知）。 */
     fun notifyCampaignFinished(context: Context, state: CampaignState) {
+        // POST_NOTIFICATIONS 是 Android 13+ 运行时权限：显式复核后再调用，拒绝时静默跳过。
+        if (Build.VERSION.SDK_INT >= 33 &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            LabLog.w("PowerTraceNotify", "POST_NOTIFICATIONS denied, skip finished notification")
+            return
+        }
         runCatching {
             val notification = NotificationCompat.Builder(context, CHANNEL_EVENTS)
                 .setSmallIcon(R.drawable.ic_launcher)
@@ -98,6 +110,13 @@ object AppNotifications {
     }
 
     fun notifyCampaignAborted(context: Context, state: CampaignState) {
+        if (Build.VERSION.SDK_INT >= 33 &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            LabLog.w("PowerTraceNotify", "POST_NOTIFICATIONS denied, skip aborted notification")
+            return
+        }
         runCatching {
             val notification = NotificationCompat.Builder(context, CHANNEL_EVENTS)
                 .setSmallIcon(R.drawable.ic_launcher)
@@ -111,6 +130,12 @@ object AppNotifications {
     }
 
     fun updateSamplingNotification(context: Context, state: CampaignState?) {
+        if (Build.VERSION.SDK_INT >= 33 &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
         runCatching {
             NotificationManagerCompat.from(context).notify(ID_SAMPLING, samplingNotification(context, state))
         }.onFailure { LabLog.w("PowerTraceNotify", "update notification failed: ${it.message}") }

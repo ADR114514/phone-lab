@@ -1,10 +1,13 @@
 package com.mobilelab.signalmap.service
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiManager
+import android.os.Build
 import androidx.core.content.ContextCompat
 import com.mobilelab.core.log.LabLog
 import com.mobilelab.signalmap.data.ScanEntry
@@ -117,10 +120,23 @@ class WifiReader(private val context: Context) {
             if (registered) runCatching { manager.unregisterScanResultsCallback(callback) }
         }
 
+        // Android 12+ 读取扫描缓存需要定位权限（13+ 还需 NEARBY_WIFI_DEVICES）：
+        // 在这里显式复核，权限缺失时返回空列表而不是依赖 SecurityException 兜底。
+        val canReadScanResults =
+            ContextCompat.checkSelfPermission(app, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                (Build.VERSION.SDK_INT < 33 ||
+                    ContextCompat.checkSelfPermission(app, Manifest.permission.NEARBY_WIFI_DEVICES) ==
+                    PackageManager.PERMISSION_GRANTED)
         @Suppress("DEPRECATION")
-        val raw: List<ScanResult> = runCatching { manager.scanResults }
-            .onFailure { LabLog.w(TAG, "getScanResults failed: ${it.message}") }
-            .getOrDefault(emptyList())
+        val raw: List<ScanResult> = if (canReadScanResults) {
+            runCatching { manager.scanResults }
+                .onFailure { LabLog.w(TAG, "getScanResults failed: ${it.message}") }
+                .getOrDefault(emptyList())
+        } else {
+            LabLog.w(TAG, "scan results skipped: location/nearby-wifi permission missing")
+            emptyList()
+        }
 
         val entries = raw.mapNotNull { result -> toEntry(result, timestampIso) }
         val note = when {
