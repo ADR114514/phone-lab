@@ -1,0 +1,48 @@
+{
+  "schema": "phonelab.manifest/1",
+  "project": "03-vibro-diag",
+  "app": "VibroDiag",
+  "appVersion": "1.0.0-demo",
+  "generatedAt": 1763449200000,
+  "synthetic": true,
+  "dataSource": "SYNTHETIC_DEMO",
+  "disclaimer": "本目录全部数据由 data/demo/generate_demo.py 合成，仅用于验证分析管线，不是真机实测数据；课程报告中的结果必须使用 data/raw 下的真实采集数据。",
+  "device": {
+    "model": "Pixel 7",
+    "manufacturer": "Google",
+    "brand": "google",
+    "device": "panther",
+    "androidRelease": "14",
+    "sdkInt": 34,
+    "socManufacturer": "Google",
+    "socModel": "Tensor G2",
+    "abi": "arm64-v8a",
+    "supportedAbis": "arm64-v8a;armeabi-v7a",
+    "screenWidthPx": 1080,
+    "screenHeightPx": 2400,
+    "densityDpi": 420,
+    "refreshRateHz": 90.0,
+    "batteryCapacityMah": 4355,
+    "locale": "zh-CN",
+    "timeZone": "Asia/Shanghai"
+  },
+  "session": {
+    "sessionId": "VD-20261118-001",
+    "startedAt": "2026-11-18T15:00:00+08:00",
+    "conditions": [
+      "C1_NORMAL_LOW",
+      "C2_NORMAL_HIGH",
+      "C3_IMBALANCE",
+      "C4_BLOCKED",
+      "C5_HAIRDRYER"
+    ],
+    "groupsPerCondition": 3,
+    "targetGroupsPerCondition": 3,
+    "durationSec": 3.0,
+    "audioSampleRate": 22050,
+    "audioBitsPerSample": 16,
+    "accelSampleRateHz": 200,
+    "model": "knn(k=3, zscore)",
+    "note": "演示数据：为控制仓库体积，每组只采 3 次、每次 3 s、22.05 kHz（真机为 15 次 x 15 s x 44.1 kHz）"
+  }
+}

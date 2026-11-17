@@ -1,0 +1,33 @@
+{
+  "schema": "phonelab.vibro/1",
+  "session_id": "VD-20261118-001",
+  "condition_id": "C5_HAIRDRYER",
+  "condition_label": "吹风机热风档",
+  "group_index": 1,
+  "recorded_at_ms": 1763449440000,
+  "duration_s": 3.0,
+  "synthetic": true,
+  "dataSource": "SYNTHETIC_DEMO",
+  "audio": {
+    "sample_rate": 22050,
+    "channels": 1,
+    "bits": 16,
+    "source": "UNPROCESSED",
+    "file": "g01_C5_HAIRDRYER_audio.wav",
+    "rms_dbfs": -18.34,
+    "peak_dbfs": -8.53
+  },
+  "accel": {
+    "sample_rate_hz": 200,
+    "file": "g01_C5_HAIRDRYER_accel.csv",
+    "rms_ms2": 1.563,
+    "peak_ms2": 4.357,
+    "samples": 600
+  },
+  "placement": "手机平放于吹风机正前方 30cm 桌面（演示数据，热风高速档）",
+  "device_distance_cm": 30,
+  "noise_condition": "quiet",
+  "noise_spl_db": null,
+  "operator": "synthetic",
+  "notes": "合成演示数据，仅供分析管线验证"
+}

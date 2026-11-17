@@ -1,0 +1,5 @@
+﻿condition_id,thermal_start,thermal_max,thermal_delta,thermal_rise_events,cpu_freq_first_half_mhz,cpu_freq_second_half_mhz,cpu_freq_drop_pct,cpu_temp_peak_c,throttled,raw_detail
+IDLE,0,0,0.000000,0,793.000000,798.666667,-0.714586,37.300000,False,
+VIDEO,1,1,0.000000,0,1529.333333,1486.000000,2.833479,43.600000,False,
+NAVCAM,1,2,1.000000,1,1922.666667,1847.333333,3.918169,47.600000,False,raw 首次 thermal 上升于 150 s，频率 1886 -> 1896 MHz
+GAME,2,4,2.000000,2,2144.000000,1824.000000,14.925373,55.800000,True,raw 首次 thermal 上升于 450 s，频率 2093 -> 1836 MHz

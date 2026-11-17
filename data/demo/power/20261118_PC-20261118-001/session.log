@@ -1,0 +1,4 @@
+2026-11-18T13:00:00+08:00 INFO  campaign started PC-20261118-001 (SYNTHETIC DEMO DATA)
+2026-11-18T13:00:00+08:00 INFO  block A IDLE 6 samples expected
+2026-11-18T14:08:45+08:00 WARN  block B VIDEO sample 5 late by 45 s (late_sample)
+2026-11-18T16:50:00+08:00 INFO  campaign finished, 24/24 samples, synthetic demo

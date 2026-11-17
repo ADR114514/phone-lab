@@ -1,0 +1,115 @@
+{
+  "schema": "phonelab.vibro.eval/1",
+  "session_id": "VD-20261118-001",
+  "synthetic": true,
+  "training": {
+    "samples": 15,
+    "features": 32,
+    "model": "knn(k=3, zscore)",
+    "loocv_accuracy": 0.8666666666666667,
+    "confusion_matrix": {
+      "C1_NORMAL_LOW": [
+        1,
+        0,
+        2,
+        0,
+        0
+      ],
+      "C2_NORMAL_HIGH": [
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      "C3_IMBALANCE": [
+        0,
+        0,
+        3,
+        0,
+        0
+      ],
+      "C4_BLOCKED": [
+        0,
+        0,
+        0,
+        3,
+        0
+      ],
+      "C5_HAIRDRYER": [
+        0,
+        0,
+        0,
+        0,
+        3
+      ]
+    },
+    "per_condition_accuracy": {
+      "C1_NORMAL_LOW": 0.3333333333333333,
+      "C2_NORMAL_HIGH": 1.0,
+      "C3_IMBALANCE": 1.0,
+      "C4_BLOCKED": 1.0,
+      "C5_HAIRDRYER": 1.0
+    }
+  },
+  "blind_test": {
+    "trials": 15,
+    "correct": 14,
+    "accuracy": 0.9333333333333333
+  },
+  "noise": [
+    {
+      "snr_db": 20.0,
+      "white": 1.0,
+      "pink": 1.0
+    },
+    {
+      "snr_db": 10.0,
+      "white": 0.4666666666666667,
+      "pink": 1.0
+    },
+    {
+      "snr_db": 5.0,
+      "white": 0.2,
+      "pink": 0.5333333333333333
+    },
+    {
+      "snr_db": 0.0,
+      "white": 0.2,
+      "pink": 0.2
+    },
+    {
+      "snr_db": -5.0,
+      "white": 0.2,
+      "pink": 0.2
+    }
+  ],
+  "denoise": [
+    {
+      "snr_db": 20.0,
+      "white": 1.0,
+      "pink": 1.0
+    },
+    {
+      "snr_db": 10.0,
+      "white": 1.0,
+      "pink": 1.0
+    },
+    {
+      "snr_db": 5.0,
+      "white": 1.0,
+      "pink": 1.0
+    },
+    {
+      "snr_db": 0.0,
+      "white": 0.2,
+      "pink": 0.6666666666666666
+    },
+    {
+      "snr_db": -5.0,
+      "white": 0.2,
+      "pink": 0.2
+    }
+  ],
+  "notes": "合成演示数据，仅用于验证分析管线"
+}

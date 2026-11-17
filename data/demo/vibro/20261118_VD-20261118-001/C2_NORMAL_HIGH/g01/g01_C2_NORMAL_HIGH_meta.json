@@ -1,0 +1,33 @@
+{
+  "schema": "phonelab.vibro/1",
+  "session_id": "VD-20261118-001",
+  "condition_id": "C2_NORMAL_HIGH",
+  "condition_label": "风扇高档正常",
+  "group_index": 1,
+  "recorded_at_ms": 1763449260000,
+  "duration_s": 3.0,
+  "synthetic": true,
+  "dataSource": "SYNTHETIC_DEMO",
+  "audio": {
+    "sample_rate": 22050,
+    "channels": 1,
+    "bits": 16,
+    "source": "UNPROCESSED",
+    "file": "g01_C2_NORMAL_HIGH_audio.wav",
+    "rms_dbfs": -24.99,
+    "peak_dbfs": -17.75
+  },
+  "accel": {
+    "sample_rate_hz": 200,
+    "file": "g01_C2_NORMAL_HIGH_accel.csv",
+    "rms_ms2": 1.346,
+    "peak_ms2": 3.034,
+    "samples": 600
+  },
+  "placement": "手机平放于风扇底座正前方 30cm 桌面（演示数据）",
+  "device_distance_cm": 30,
+  "noise_condition": "quiet",
+  "noise_spl_db": null,
+  "operator": "synthetic",
+  "notes": "合成演示数据，仅供分析管线验证"
+}

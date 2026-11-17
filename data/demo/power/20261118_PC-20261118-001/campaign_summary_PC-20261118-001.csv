@@ -1,0 +1,5 @@
+﻿condition_id,condition_label,duration_min,start_level_pct,end_level_pct,level_drop_pct,avg_power_w,peak_power_w,energy_wh,avg_current_ma,temp_start_c,temp_end_c,temp_rise_c,thermal_max,thermal_rise_events,avg_cpu_freq_mhz,avg_screen_brightness_pct,net_rx_mb,net_tx_mb,notes
+IDLE,待机,30,100.0,98.4,1.6,0.596,0.622,0.250,137.2,28.8,30.7,1.9,0,0,796,0,0.51,0.22,演示数据：锁屏息屏待机，未充电
+VIDEO,短视频,30,98.1,91.4,6.7,2.574,2.915,1.082,597.1,31.6,34.6,3.0,1,0,1508,51,155.28,8.13,演示数据：同一短视频 App 连续播放，亮度 50%，音量 50%
+NAVCAM,导航拍摄,30,90.1,77.6,12.5,4.729,5.132,2.000,1117.6,33.5,35.8,2.3,2,1,1885,60,103.12,253.44,演示数据：导航 15 min + 1080p 录像 15 min，定位与相机常开
+GAME,高帧率游戏,30,75.3,60.0,15.3,5.913,6.673,2.458,1439.9,34.0,40.0,6.0,4,2,1984,54,50.01,6.72,演示数据：90/120fps 模式游戏，画质高，后段出现热节流

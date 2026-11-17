@@ -1,0 +1,45 @@
+{
+  "schema": "phonelab.manifest/1",
+  "project": "02-power-thermal",
+  "app": "PowerTrace",
+  "appVersion": "1.0.0-demo",
+  "generatedAt": 1763438400000,
+  "synthetic": true,
+  "dataSource": "SYNTHETIC_DEMO",
+  "disclaimer": "本目录全部数据由 data/demo/generate_demo.py 合成，仅用于验证分析管线，不是真机实测数据；课程报告中的结果必须使用 data/raw 下的真实采集数据。",
+  "device": {
+    "model": "Pixel 7",
+    "manufacturer": "Google",
+    "brand": "google",
+    "device": "panther",
+    "androidRelease": "14",
+    "sdkInt": 34,
+    "socManufacturer": "Google",
+    "socModel": "Tensor G2",
+    "abi": "arm64-v8a",
+    "supportedAbis": "arm64-v8a;armeabi-v7a",
+    "screenWidthPx": 1080,
+    "screenHeightPx": 2400,
+    "densityDpi": 420,
+    "refreshRateHz": 90.0,
+    "batteryCapacityMah": 4355,
+    "locale": "zh-CN",
+    "timeZone": "Asia/Shanghai"
+  },
+  "campaign": {
+    "campaignId": "PC-20261118-001",
+    "startedAt": "2026-11-18T13:00:00+08:00",
+    "conditions": [
+      "IDLE",
+      "VIDEO",
+      "NAVCAM",
+      "GAME"
+    ],
+    "order": "A:IDLE B:VIDEO C:NAVCAM D:GAME",
+    "sampleIntervalSec": 300,
+    "samplesPerCondition": 6,
+    "rawSeriesEnabled": true,
+    "screenBrightnessPct": 50,
+    "charging": false
+  }
+}

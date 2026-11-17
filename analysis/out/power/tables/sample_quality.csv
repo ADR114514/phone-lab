@@ -1,0 +1,5 @@
+﻿condition_id,condition_label,rows,expected_rows,missing_sample_index,late_samples,late_indices,late_note_count,charging_rows,level_rise_rows,power_recompute_max_rel_err,neg_current_rows,cpu_temp_missing,fps_missing,duration_span_s
+IDLE,待机,6,6,,0,,0,0,0,0.000753,6,0,6,1500.000000
+VIDEO,短视频,6,6,,1,5,1,0,0,0.000196,6,0,0,1500.000000
+NAVCAM,导航拍摄,6,6,,0,,0,0,0,0.000101,6,0,6,1500.000000
+GAME,高帧率游戏,6,6,,0,,0,0,0,0.000078,6,0,0,1500.000000

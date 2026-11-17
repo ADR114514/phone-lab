@@ -1,0 +1,5 @@
+﻿condition_id,energy_trapz_wh,energy_rated_wh,energy_from_charge_counter_wh,energy_from_summary_wh,trapz_minus_charge_wh,trapz_minus_summary_wh,duration_min
+IDLE,0.250000,0.298000,0.293562,,-0.043562,,30.000000
+VIDEO,1.082213,1.287167,1.261300,,-0.179088,,30.000000
+NAVCAM,1.999917,2.364583,2.287854,,-0.287937,,30.000000
+GAME,2.457833,2.956333,2.730068,,-0.272235,,30.000000

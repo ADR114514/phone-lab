@@ -1,0 +1,9 @@
+﻿point_id,point_name,point_type,wall_material,obstruction,distance_m,floor,photo_file
+P01,教学楼 2F 走廊中段（基准点）,corridor,none,无墙体遮挡，AP 在走廊上方吊顶内,5.0,2,
+P02,走廊 90° 转角,corner,concrete,两侧承重墙，转角 90°，非视距,10.0,2,
+P03,电梯口,elevator,metal,金属电梯门与井道，强反射,10.0,2,
+P04,楼梯间,stairwell,concrete,混凝土楼梯间隔墙 + 上下楼层反射,14.0,2,
+P05,宿舍门口（金属门）,dorm,metal,金属防盗门关闭，门缝泄漏,16.0,3,
+P06,教室靠窗（玻璃幕墙）,classroom,glass,单层玻璃幕墙 + 窗帘,16.0,2,
+P07,实验室设备间（机柜）,lab,mixed,机柜金属板 + 轻质隔墙混合,20.0,1,
+P08,室外连廊/操场,outdoor,none,无墙体，视距但距离远,30.0,1,
