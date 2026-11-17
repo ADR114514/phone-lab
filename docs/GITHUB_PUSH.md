@@ -3,7 +3,17 @@
 > 仓库已在本地 `phone-lab/`、分支 `main`、14 个分阶段提交、工作区干净。
 > 下面任选一种方式，把作者身份改成你自己的 GitHub 身份后推送。
 
-## 方式 A（推荐）：一条命令推送
+## 方式 A0（最省事）：给我一个 PAT，我全自动发布
+
+```powershell
+powershell -File tools/publish-github.ps1 -Token "<github_pat_...>" -RepoName phone-lab
+```
+
+脚本会：校验 token 身份 → 仓库不存在则通过 API 创建 → 把 17 个提交作者改成你的 GitHub 身份 →
+推送 main 分支 → 打印仓库地址。token 只在内存中使用，不写入 `.git/config` 或任何文件；
+推完请到 https://github.com/settings/tokens 撤销。
+
+## 方式 A（手动指定仓库地址）：一条命令推送
 
 1. 在 GitHub 网页 **New repository** 创建空仓库（不要勾选 README/.gitignore），名字建议 `phone-lab`。
 2. 生成 **fine-grained PAT**：Settings → Developer settings → Personal access tokens → Fine-grained tokens →
