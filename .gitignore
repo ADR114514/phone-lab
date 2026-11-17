@@ -1,0 +1,41 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration (SDK path, signing)
+local.properties
+*.jks
+*.keystore
+keystore.properties
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+captures/
+
+# Local toolchain copies used for offline builds on this machine
+.toolchain/
+.gradle-home/
+
+# Generated artifacts
+*.apk
+*.aab
+apps/*/build/
+core/build/
+
+# Python analysis
+analysis/.venv/
+analysis/__pycache__/
+*.pyc
+
+
+# Experimental data: CSV/JSON/PNG/JPG are committed (small), WAV/MP4 go through Git LFS.
+data/raw/**/*.zip
+data/raw/**/temp/
+# transient tool dirs
+.tmp-pip/
+**/.tmp-pip/
+# Kotlin build cache
+.kotlin/
