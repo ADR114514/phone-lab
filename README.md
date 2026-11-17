@@ -94,6 +94,22 @@ phone-lab/
 |---|---|---|
 | ![](docs/screenshots/powertrace-home.png) | ![](docs/screenshots/signalmap-measure.png) | ![](docs/screenshots/vibrodiag-features.png) |
 
+## 7.2 已知限制与工程取舍（真机实测发现）
+
+- **OEM 闹钟节流**：OnePlus/ColorOS Android 16 即使授予精确闹钟权限，也会把 `setExactAndAllowWhileIdle`
+  按 App Standby 策略批量延后（`dumpsys alarm` 可见 +2 天 policy adjustment）。App 已改为
+  `setAlarmClock` + IDLE 工况守护 `PARTIAL_WAKE_LOCK`；代价是待机功耗包含数十 mW CPU 驻留开销，
+  报告需注明，建议做"开/关守护"对照。
+- **充电状态**：联调/测试时 USB 连接会充电，功耗数据无效（CSV `charging=1`），正式实验必须拔线。
+- **机型差异**：`current_now` 符号、能量计数、thermal zone 路径、AudioRecord 源、Wi-Fi 扫描节流均与机型相关，
+  App 已按"不可用字段留空 + session.log 说明"处理。
+- **完整实验仍需人工执行**：24/24/75 组数据、盲测录屏与抗噪实验需按 SOP 在真机上完成。
+
+## 7.3 真机测试工具
+
+`tools/device-smoke-test.ps1` 可一键完成：安装三个 APK → 启动并抓屏 → 抓崩溃日志 → 拉取实验数据目录，
+便于复现本次真机联调，或在你自己的手机上做安装冒烟。
+
 ## 8. 构建与测试状态（本机验证）
 
 | 模块 | assembleDebug | 单元测试 |
