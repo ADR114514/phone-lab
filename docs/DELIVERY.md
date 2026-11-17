@@ -27,7 +27,19 @@
 4. **录制盲测视频**：从开始盲测到显示准确率全程录屏，上传后把链接写进 README/报告。
 5. **GitHub 推送**：见第 4 节；推送后把仓库链接填入报告与面试材料。
 
-## 3. 本地验证命令
+## 3. 本机已完成的验证（2026-11-18）
+
+| 检查 | 结果 |
+|---|---|
+| `:apps:powertrace:assembleDebug` / `testDebugUnitTest` | ✅ 构建通过；31 项单测全过 |
+| `:apps:signalmap:assembleDebug` / `testDebugUnitTest` | ✅ 构建通过；55 项单测全过 |
+| `:apps:vibrodiag:assembleDebug` / `testDebugUnitTest` | ✅ 构建通过；40 项单测全过（含 Kotlin/Python 特征一致性） |
+| `testDebugUnitTest`（全仓） | ✅ 通过 |
+| APK 元数据（aapt2） | ✅ 三个 APK 均 minSdk 31 / targetSdk 36 / arm64-v8a，权限与规格一致 |
+| `python analysis/tests/run_all.py` | ✅ 68/68 断言全绿（合成演示数据） |
+| 真机安装与实测 | ⏳ **待你在 Android 12+ 真机上完成**（当前环境无设备/模拟器） |
+
+## 4. 本地验证命令
 
 ```bash
 # 构建三个 APK
@@ -40,7 +52,7 @@ powershell -File tools/verify-apk.ps1
 python analysis/tests/run_all.py
 ```
 
-## 4. GitHub 推送（拿到账号后）
+## 5. GitHub 推送（拿到账号后）
 
 ```bash
 cd phone-lab
@@ -50,7 +62,7 @@ git push -u origin main
 
 > 若需要提交 WAV：先 `git lfs install`，再用 `git add data/raw/...`；否则把 WAV 打包上传到 Release 并在 README 链链接。
 
-## 5. 课程交付物对照
+## 6. 课程交付物对照
 
 - 课题02：`data/raw/power/<session>/campaign_*.csv`（恰好 24 行）+ `analysis/out/power/` + 报告。
 - 课题03：`data/raw/wifi/<session>/survey_*.csv`（恰好 24 行）+ photos + `analysis/out/wifi/` + 报告。

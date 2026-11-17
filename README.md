@@ -91,7 +91,7 @@ phone-lab/
 | `core` | ✅ | ✅ 22 项（CSV/JSON/FFT/WAV/统计/时间） |
 | `apps/powertrace` | ✅ | ✅ 31 项（功率/能量/CSV 契约/批次状态机/状态编解码） |
 | `apps/signalmap` | ✅ | ✅ 55 项（RTT 统计/CSV 契约/进度状态机/BSSID 哈希/信道） |
-| `apps/vibrodiag` | ✅ | ✅ 特征/FFT/kNN/噪声/报告/WAV I/O |
+| `apps/vibrodiag` | ✅ | ✅ 40 项（特征/FFT/kNN/噪声/报告/WAV I/O/Kotlin-Python 特征一致性） |
 | `analysis`（Python） | — | ✅ `analysis/tests/run_all.py` 68 项断言全绿（演示数据） |
 
 三个 APK 均为 `minSdk 31 / targetSdk 36 / arm64-v8a`，可用 `tools/verify-apk.ps1` 复核。
