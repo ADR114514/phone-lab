@@ -1,0 +1,7 @@
+# phone-lab analysis pipeline dependencies
+# Python 3.14 (tested) / 3.11+ should also work.
+# 只用标准科学计算栈：numpy 做数值/FFT/kNN，pandas 做表格，matplotlib 出图。
+# 明确不使用 scipy / scikit-learn：滤波、最小二乘、kNN、统计量都在 analysis/common 里用 numpy 实现。
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
