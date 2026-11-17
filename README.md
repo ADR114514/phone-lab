@@ -96,6 +96,8 @@ phone-lab/
 
 三个 APK 均为 `minSdk 31 / targetSdk 36 / arm64-v8a`，可用 `tools/verify-apk.ps1` 复核。
 
+`./gradlew lintDebug`：**0 errors**（23 条 warning 均为 ChromeOS ABI、备份规则、KTX 风格等非阻断项）。
+
 ## 9. 分析结果示例（基于 `data/demo` 合成数据，**非真实实验结论**）
 
 - 功耗：待机 0.60 W / 短视频 2.57 W / 导航拍摄 4.73 W / 游戏 5.91 W；活动指示量回归 R²≈0.96；
