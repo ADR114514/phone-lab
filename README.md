@@ -84,6 +84,16 @@ phone-lab/
 
 ---
 
+## 7.1 真机验证（OnePlus 12 / Android 16）
+
+已在真机上完成三 App 安装、权限引导、核心采集流程、数据落盘与导出验证（详见
+[`docs/DEVICE_TEST_REPORT.md`](docs/DEVICE_TEST_REPORT.md)）。真实数据样例：Wi-Fi P01 三次重复 RSSI −44/−44/−45 dBm、
+延迟 12 ms、单次扫描 15 个 AP；声振 15 s UNPROCESSED WAV 44.1 kHz + 200.4 Hz 加速度；功耗首点电池 78%/37.0 °C/thermal 1。
+
+| PowerTrace | SignalMap | VibroDiag |
+|---|---|---|
+| ![](docs/screenshots/powertrace-home.png) | ![](docs/screenshots/signalmap-measure.png) | ![](docs/screenshots/vibrodiag-features.png) |
+
 ## 8. 构建与测试状态（本机验证）
 
 | 模块 | assembleDebug | 单元测试 |

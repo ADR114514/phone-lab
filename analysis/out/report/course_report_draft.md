@@ -1,6 +1,6 @@
 # phone-lab 课程设计总报告（草稿）
 
-> 自动生成时间：2026-11-18 00:29；由 analysis/report/build_report.py 合并 analysis/out/{power,wifi,vibro}/*_report.md。
+> 自动生成时间：2026-11-18 01:12；由 analysis/report/build_report.py 合并 analysis/out/{power,wifi,vibro}/*_report.md。
 >
 > **数据来源声明：本稿中的分析结果基于 data/demo 合成演示数据（SYNTHETIC），用于证明分析管线与报告结构可用，不是真机实测结果。提交课程报告前必须替换为 data/raw 下的真实实验数据并重新运行三条管线。**
 

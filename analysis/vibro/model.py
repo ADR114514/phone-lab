@@ -135,9 +135,14 @@ def loocv(features: np.ndarray, labels: list[str], k: int = K) -> dict:
     labels = list(labels)
     folds: list[dict] = []
     if len(labels) < 2:
+        # 真实数据边采边测时常常只有 1 组：直接返回可用的空评估，而不是缺字段，
+        # 让报告与 CSV 仍能生成并明确标注"样本数不足，未做留一法"。
+        order = sorted(set(labels))
         return {"folds": folds, "accuracy": 0.0,
-                "confusion": confusion_matrix(sorted(set(labels)), [], []),
-                "per_condition": {label: 0.0 for label in sorted(set(labels))}}
+                "confusion": confusion_matrix(order, [], []),
+                "per_condition": {label: 0.0 for label in order},
+                "labels": order,
+                "note": f"样本数不足 2（n={len(labels)}），跳过 LOOCV"}
     for index in range(len(labels)):
         mask = np.arange(len(labels)) != index
         classifier = KnnClassifier(k).fit(features[mask], [labels[i] for i in np.where(mask)[0]])

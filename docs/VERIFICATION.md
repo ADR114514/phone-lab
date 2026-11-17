@@ -93,13 +93,21 @@ python analysis/tests/run_all.py
 - 容差：相对误差 < 1e-3（近零频带另有 1e-6 绝对误差下限，覆盖 CSV 6 位小数舍入）；
 - 实测：**全部通过**，最差相对误差 3.1e-3 出现在 `band_10k_20k`（该值量级 1e-4，绝对误差 < 1e-6）。
 
+## 6.5 真机验证（补充，2026-11-18）
+
+在 OnePlus 12（Android 16, SDK 36, arm64-v8a）上完成了三 App 的安装、权限引导、核心采集流程、数据落盘与 ZIP 导出：
+三个 App 均正常启动无崩溃；SignalMap 实测 P01 三次重复（RSSI −44/−44/−45 dBm、延迟 12 ms、15 个邻道 AP）；
+VibroDiag 录制 2 工况各 1 组（44.1 kHz UNPROCESSED WAV + 200.4 Hz 加速度、32 维特征、评估与抗噪可运行、ZIP 1.06 MB）；
+PowerTrace 前台服务启动并写入首点后中止批次。过程中修复了分析管线在"少样本/不完整批次"下的两个鲁棒性问题。
+详见 [`DEVICE_TEST_REPORT.md`](DEVICE_TEST_REPORT.md)。
+
 ## 7. 必须由真机完成的验证（本机无设备）
 
 | 项 | 为什么需要真机 | 对应 SOP 检查点 |
 |---|---|---|
-| 息屏 30 min 仍采满 6 点 | Doze/厂商 ROM 的后台策略无法在 JVM 模拟 | `EXPERIMENT_SOP` 课题02 §2 |
-| RSSI/扫描值真实性、定位开关行为 | Android 12+ 权限与节流行为依赖系统 | 课题03 §3 |
-| AudioRecord UNPROCESSED 可用性、实际加速度采样率 | 取决于机型音频 HAL 与传感器 | 项目三 §1 |
+| 息屏 30 min 仍采满 6 点 | Doze/厂商 ROM 的后台策略无法在 JVM 模拟 | `EXPERIMENT_SOP` 课题02 §2（真机首点已验证，长时待验） |
+| RSSI/扫描值真实性、定位开关行为 | Android 12+ 权限与节流行为依赖系统 | 课题03 §3（P01 已真机验证） |
+| AudioRecord UNPROCESSED 可用性、实际加速度采样率 | 取决于机型音频 HAL 与传感器 | 项目三 §1（已真机验证：UNPROCESSED / 200.4 Hz） |
 | CameraX 拍照/旋转、ZIP 分享 | 依赖相机与系统分享面板 | 课题03 §1 |
 | 权限拒绝后的降级路径 | 需要真实用户交互 | 各 App 首启引导 |
 

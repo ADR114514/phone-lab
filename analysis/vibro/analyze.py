@@ -226,11 +226,26 @@ def evaluate_training(data: dict) -> dict:
     result = vm.loocv(data["X"], data["y"], k=data["k"])
     order = [cid for cid in data["conditions"] if cid in result.get("labels", [])]
     order += [cid for cid in result.get("labels", []) if cid not in order]
+    if not order:
+        # 空数据集/极小数据集兜底：用样本标签保证标签与混淆矩阵维度一致。
+        order = list(dict.fromkeys(data["y"]))
+    matrix = result.get("confusion") or []
+    if len(matrix) != len(order) or any(len(row) != len(order) for row in matrix):
+        matrix = [[0] * len(order) for _ in order]
+    result["confusion"] = matrix
+    result.setdefault("folds", [])
+    result.setdefault("accuracy", 0.0)
+    result.setdefault("per_condition", {label: 0.0 for label in order})
     result["labels"] = order
+    result["note"] = result.get("note", "")
     return result
 
 
 def confusion_frame(labels: list[str], matrix: list[list[int]]) -> pd.DataFrame:
+    if not labels:
+        frame = pd.DataFrame()
+        frame.index.name = "真实\\预测"
+        return frame
     frame = pd.DataFrame(matrix, index=labels, columns=labels)
     frame.index.name = "真实\\预测"
     return frame
@@ -443,7 +458,7 @@ def make_figures(data: dict, result: dict, blind: pd.DataFrame, noise: pd.DataFr
     axes[0].set_xscale("log")
     axes[0].set_xlabel("频率 / Hz")
     axes[0].set_ylabel("平均功率谱 / dB")
-    axes[0].set_title("5 工况平均音频功率谱")
+    axes[0].set_title(f"{len(labels)} 工况平均音频功率谱")
     axes[0].legend(fontsize=6.5)
     # 干净 / 加噪 / 去噪 对比（取第一个样本）
     example = data["samples"][0]
@@ -473,18 +488,26 @@ def make_figures(data: dict, result: dict, blind: pd.DataFrame, noise: pd.DataFr
     fig, axes = plt.subplots(2, 3, figsize=(11.0, 6.0))
     features = data["features"]
     for axis, name in zip(axes.ravel(), key_features):
-        groups = []
-        for condition in labels:
+        # 部分采集（真实数据边采边分析）时某些工况可能没有样本：
+        # 只画非空分组，并让 positions 与分组数量严格对应。
+        nonempty = []
+        for index, condition in enumerate(labels):
             values = pd.to_numeric(features.loc[features["condition_id"] == condition, name],
                                    errors="coerce").dropna().to_numpy(dtype=float)
-            groups.append(values)
-        axis.boxplot(groups, positions=range(len(labels)), widths=0.55, patch_artist=True,
+            if values.size:
+                nonempty.append((index, condition, values))
+        if not nonempty:
+            axis.set_axis_off()
+            axis.set_title(FEATURE_DESCRIPTIONS.get(name, name) + "（无数据）", fontsize=9)
+            continue
+        axis.boxplot([values for _, _, values in nonempty],
+                     positions=[index for index, _, _ in nonempty], widths=0.55, patch_artist=True,
                      boxprops={"facecolor": "#E8F3FF", "color": "#2E5BFF"},
                      medianprops={"color": "#E74C3C"})
-        axis.set_xticks(range(len(labels)))
-        axis.set_xticklabels([label.split("_")[0] for label in labels], fontsize=8)
+        axis.set_xticks([index for index, _, _ in nonempty])
+        axis.set_xticklabels([condition.split("_")[0] for _, condition, _ in nonempty], fontsize=8)
         axis.set_title(FEATURE_DESCRIPTIONS.get(name, name), fontsize=9)
-    fig.suptitle("关键特征在 5 工况下的分布（箱线图）")
+    fig.suptitle(f"关键特征在 {len(labels)} 个工况下的分布（箱线图）")
     fig.tight_layout()
     names.append(Path(plot_utils.save(fig, figure_dir / "feature_distribution.png")).name)
 
@@ -891,6 +914,7 @@ def main(argv: list[str] | None = None) -> int:
           f"特征表/混淆矩阵/抗噪表、vibro_report.md、evaluation_*.json")
     print(f"[vibro] 样本 {summary['samples']} 组（{len(summary['conditions'])} 工况）；"
           f"LOOCV 准确率 {summary['loocv_accuracy']:.1%}")
+
     if np.isfinite(summary["blind_accuracy"]):
         print(f"[vibro] 盲测 {summary['blind_trials']} 组，准确率 {summary['blind_accuracy']:.1%}")
     if summary["synthetic"]:

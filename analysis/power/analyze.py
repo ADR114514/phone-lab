@@ -68,6 +68,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--data", default=None,
                         help="PowerTrace 导出目录；缺省时自动在 data/demo/power 或 data/raw/power 下找最新会话")
     parser.add_argument("--out", default=None, help="输出目录，默认 analysis/out/power")
+    parser.add_argument("--partial-check", action="store_true",
+                        help="只检查导出目录完整性（允许未完成批次，不生成分析报告）")
     args = parser.parse_args(argv)
     repo_root = ANALYSIS_DIR.parent
     if args.data is None:
@@ -805,6 +807,42 @@ def build_report(data: dict, quality: pd.DataFrame, issues: list[str], metrics: 
 
 # ---------------------------------------------------------------- 入口
 
+def partial_check(data_dir: Path) -> int:
+    """检查（可能不完整的）PowerTrace 导出目录，给出现场补采建议。
+
+    真实采集常按工况分批完成，此时完整分析会缺列/缺文件；本模式只做完整性
+    体检并返回退出码（0=可分析，1=尚不完整），不生成报告，避免用户看到 traceback。
+    """
+    if not data_dir.is_dir():
+        print(f"[power] 数据目录不存在: {data_dir}")
+        return 1
+    print(f"[power] 检查目录: {data_dir}")
+    present = 0
+    for condition_id in CONDITION_ORDER:
+        path = data_dir / f"session_{condition_id}.csv"
+        if not path.is_file():
+            print(f"  [缺失] session_{condition_id}.csv")
+            continue
+        frame = pd.read_csv(path, encoding="utf-8-sig")
+        missing_columns = [c for c in SESSION_COLUMNS if c not in frame.columns]
+        present += 1
+        status = "OK" if not missing_columns else f"缺列 {missing_columns}"
+        print(f"  [有]   session_{condition_id}.csv  行数={len(frame)}  {status}")
+    campaign = [p for p in data_dir.glob("campaign_*.csv") if "summary" not in p.name]
+    print(f"  [{'有' if campaign else '缺失'}] campaign_*.csv（4 工况合并 24 行）")
+    summary = list(data_dir.glob("campaign_summary_*.csv"))
+    print(f"  [{'有' if summary else '缺失'}] campaign_summary_*.csv")
+    print(f"  [{'有' if (data_dir / 'manifest.json').is_file() else '缺失'}] manifest.json")
+    print(f"  [{'有' if (data_dir / 'session.log').is_file() else '缺失'}] session.log")
+    complete = present == len(CONDITION_ORDER) and bool(campaign)
+    if complete:
+        print("[power] 目录完整，可以运行完整分析。")
+        return 0
+    print(f"[power] 批次尚不完整（{present}/{len(CONDITION_ORDER)} 个工况）：请按 SOP 补齐后再分析；"
+          "若只想核对已采数据，可先看上面的行数/列检查结果。")
+    return 1
+
+
 def run(data_dir: Path, out_dir: Path) -> dict:
     data = load_power_dir(data_dir)
     synthetic = is_synthetic(data)
@@ -838,6 +876,8 @@ def run(data_dir: Path, out_dir: Path) -> dict:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     data_dir = Path(args.data).resolve()
+    if args.partial_check:
+        return partial_check(data_dir)
     out_dir = Path(args.out).resolve()
     print(f"[power] 读取 {data_dir}")
     summary = run(data_dir, out_dir)
