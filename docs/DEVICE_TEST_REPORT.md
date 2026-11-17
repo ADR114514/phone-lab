@@ -97,3 +97,17 @@ note=charging_during_sample; screen_on_expected_off; unavailable:energy_counter_
 | SignalMap 点位/测量入口 | `docs/screenshots/signalmap-measure.png` |
 | VibroDiag 本组特征摘要 | `docs/screenshots/vibrodiag-features.png` |
 | VibroDiag 抗噪评估 | `docs/screenshots/vibrodiag-noise-eval.png` |
+
+### 3.2 修复后的观察（设备锁屏状态下，2026-11-18 01:37–01:43）
+
+- 重新安装带守护的 APK 并启动 App 后，控制器补采了样本 2（elapsed=300 s，实际写入 01:37:08，
+  标注 `late_sample(+150s)`），并成功获取 `PowerTrace:standby-guard` 部分唤醒锁；
+- 设备锁屏后的 6 分钟内，`dumpsys power` 能看到守护锁被系统反复 ACQ/REL（01:37:08 ACQ → 01:37:50 REL →
+  01:37:52 ACQ → 01:38:30 REL），进程未 frozen、前台服务仍在、`dumpsys alarm` 中 `setAlarmClock` 闹钟
+  windowLength=0 且已过期，但下一个 5 min 采样点（01:39:38）在 4 分钟后仍未写入；
+- 结论：**ColorOS 的"睡眠待机优化/应用冻结"会在深睡阶段接管唤醒与唤醒锁**，仅靠应用侧
+  `setAlarmClock`+wakelock 不能 100% 保证准点。需要用户在系统设置中配合：
+  设置 → 电池 → 更多 → **关闭"睡眠待机优化"**；应用详情 → 耗电管理 → **允许后台活动/自启动**；
+  必要时在开发者选项里保持"充电时不锁定屏幕"仅用于调试。
+- 这进一步说明 SOP 中"实验前先跑 10 分钟试采，确认前 3 个点准点后再开始 30 min 正式批次"的必要性；
+  App 已对迟到点标注 `late_sample`，分析报告会统计迟到/缺失并给出剔除建议，不会伪造数据。
