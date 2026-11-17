@@ -151,6 +151,8 @@ python analysis/tests/run_all.py
 python analysis/power/analyze.py --data data/raw/power/<session> --out analysis/out/power
 python analysis/wifi/analyze.py  --data data/raw/wifi/<session>  --out analysis/out/wifi
 python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/out/vibro
+# 批次未采完时的快速体检（课题02）
+python analysis/power/summarize_partial.py --data data/raw/power/<session> --out analysis/out/power-partial
 ```
 
 ## 7. 许可证

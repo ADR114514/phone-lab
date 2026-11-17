@@ -79,6 +79,13 @@ note=charging_during_sample; screen_on_expected_off; unavailable:energy_counter_
 
 > 该修复的最后一轮真机复测因手机锁屏（需要机主输入密码）未能完成，已在 `docs/VERIFICATION.md` 中标注为"待复测"。
 
+### 3.3 真机不完整批次已可用分析工具体检
+
+把手机上 3 个测试会话（PC-20261118-001/002/003）拉到电脑后，用新增的
+`analysis/power/summarize_partial.py` 对 PC-20261118-002 体检，输出：
+已采 IDLE 3/6 点、late_sample 2 个、charging 3 个；并明确提示"缺 VIDEO/NAVCAM/GAME，需补采后跑正式分析"。
+说明"边采边看"的数据链路可用，且工具对充电/迟到样本给出可执行建议（拔线重采、关闭系统睡眠待机优化）。
+
 ## 4. 尚未完成（需要完整实验）
 
 | 项 | 说明 |

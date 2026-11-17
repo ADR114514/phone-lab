@@ -169,3 +169,15 @@ analysis/out/
 - 原始数据只读：清洗/剔除只输出到 `analysis/out`，不覆盖 `data/raw`；
 - 不修改 `core/`、`apps/`、根构建文件；本目录只依赖 numpy/pandas/matplotlib；
 - 报告里出现的每个数字都应能由 `analysis/out/` 的表格或本文件描述的口径复现。
+
+## 附：不完整批次快速体检（课题02）
+
+正式分析要求 24 行完整批次（4 工况 × 6 点）。实验中途想核对已采数据时，用：
+
+```powershell
+python analysis/power/summarize_partial.py --data data/raw/power/<session> --out analysis/out/power-partial
+```
+
+输出 `tables/partial_condition_metrics.csv` 与 `partial_power_report.md`：已采工况的点数、平均/峰值功率、
+能量（单点按 5 min 估算）、电量/温度变化、thermal 峰值、迟到点数、充电样本数，并列出缺失工况。
+它只做体检，不做归因建模；数据补齐后再运行 `analyze.py`。
