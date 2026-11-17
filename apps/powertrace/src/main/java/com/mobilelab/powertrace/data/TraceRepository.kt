@@ -1,6 +1,7 @@
 package com.mobilelab.powertrace.data
 
 import android.content.Context
+import androidx.core.content.edit
 import com.mobilelab.core.device.DeviceSnapshot
 import com.mobilelab.core.device.collectDeviceSnapshot
 import com.mobilelab.core.device.deviceManifestJson
@@ -35,15 +36,15 @@ class TraceRepository(context: Context) {
     fun loadState(): CampaignState? = StateCodec.decode(statePrefs.getString(KEY_STATE, null))
 
     fun saveState(state: CampaignState?) {
-        statePrefs.edit().apply {
+        statePrefs.edit {
             if (state == null) remove(KEY_STATE) else putString(KEY_STATE, StateCodec.encode(state))
-        }.apply()
+        }
     }
 
     fun isRawSeriesEnabled(): Boolean = settingPrefs.getBoolean(KEY_RAW_SERIES, false)
 
     fun setRawSeriesEnabled(enabled: Boolean) {
-        settingPrefs.edit().putBoolean(KEY_RAW_SERIES, enabled).apply()
+        settingPrefs.edit { putBoolean(KEY_RAW_SERIES, enabled) }
     }
 
     // ---------------------------------------------------------------- ID / 目录
@@ -58,7 +59,7 @@ class TraceRepository(context: Context) {
             Regex("PC-$day-(\\d{3})").find(dir.name)?.groupValues?.getOrNull(1)?.toIntOrNull()
         }.maxOrNull() ?: 0
         val next = maxOf(stored, onDisk) + 1
-        settingPrefs.edit().putInt(key, next).apply()
+        settingPrefs.edit { putInt(key, next) }
         return next
     }
 

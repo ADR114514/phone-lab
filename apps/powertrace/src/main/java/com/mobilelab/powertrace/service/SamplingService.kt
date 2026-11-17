@@ -184,11 +184,8 @@ class SamplingService : Service() {
 
     private fun startAsForeground() {
         val notification = AppNotifications.samplingNotification(this, PowerTraceController.state.value)
-        val type = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
-        } else {
-            0
-        }
+        // minSdk is 31: the dataSync foreground service type is always available.
+        val type = ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
         runCatching {
             ServiceCompat.startForeground(this, AppNotifications.ID_SAMPLING, notification, type)
         }.onFailure { LabLog.e(TAG, "startForeground failed", it) }

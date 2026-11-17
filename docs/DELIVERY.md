@@ -38,7 +38,10 @@
 | `lintDebug`（全仓） | ✅ 0 errors（权限受限 API 均已显式复核） |
 | APK 元数据（aapt2） | ✅ 三个 APK 均 minSdk 31 / targetSdk 36 / arm64-v8a，权限与规格一致 |
 | `python analysis/tests/run_all.py` | ✅ 68/68 断言全绿（合成演示数据） |
-| 真机安装与实测 | ⏳ **待你在 Android 12+ 真机上完成**（当前环境无设备/模拟器） |
+| APK 签名与元数据（apksigner/aapt2） | ✅ 三个 APK 均 v2+ 签名、minSdk 31 / arm64-v8a |
+| `lintDebug` | ✅ 0 errors / 0 warnings |
+| Kotlin↔Python 特征一致性 | ✅ 32 维特征相对误差 < 1e-3 |
+| 真机安装与实测 | ⏳ **待你在 Android 12+ 真机上完成**（当前环境无设备/模拟器），逐项清单见 `docs/VERIFICATION.md` |
 
 ## 4. 本地验证命令
 

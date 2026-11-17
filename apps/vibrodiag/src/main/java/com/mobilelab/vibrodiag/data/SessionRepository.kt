@@ -1,6 +1,7 @@
 package com.mobilelab.vibrodiag.data
 
 import android.content.Context
+import androidx.core.content.edit
 import com.mobilelab.core.device.DeviceSnapshot
 import com.mobilelab.core.device.deviceManifestJson
 import com.mobilelab.core.files.Storage
@@ -393,9 +394,9 @@ object SessionRepositoryFactory {
         val repository = SessionRepository(app, dir, sessionId)
         repository.ensureLayout()
         repository.writeDatasetIndex()
-        app.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
-            .putString(KEY_DIR, dir.absolutePath)
-            .apply()
+        app.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit {
+            putString(KEY_DIR, dir.absolutePath)
+        }
         LabLog.attach(File(dir, "session.log"))
         LabLog.i("Session", "created " + sessionId + " at " + dir.absolutePath)
         return repository

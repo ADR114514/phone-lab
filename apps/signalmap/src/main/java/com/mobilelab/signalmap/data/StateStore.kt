@@ -1,6 +1,7 @@
 package com.mobilelab.signalmap.data
 
 import android.content.Context
+import androidx.core.content.edit
 
 /**
  * Persists everything that must survive a process death: operator settings,
@@ -35,18 +36,18 @@ class StateStore(context: Context) {
         ).sanitized()
         set(value) {
             val v = value.sanitized()
-            prefs.edit()
-                .putString(KEY_HTTP_URL, v.httpTestUrl)
-                .putString(KEY_TCP_TARGET, v.tcpTarget)
-                .putInt(KEY_RTT_ATTEMPTS, v.rttAttempts)
-                .putInt(KEY_HTTP_ATTEMPTS, v.httpAttempts)
-                .putInt(KEY_GATEWAY_ATTEMPTS, v.gatewayAttempts)
-                .putInt(KEY_TCP_TIMEOUT_MS, v.tcpTimeoutMs)
-                .putBoolean(KEY_THROUGHPUT, v.throughputEnabled)
-                .putInt(KEY_THROUGHPUT_BYTES, v.throughputBytes)
-                .putString(KEY_THROUGHPUT_URL, v.throughputUrl)
-                .putBoolean(KEY_HASH_BSSID, v.hashBssidOnExport)
-                .apply()
+            prefs.edit {
+                putString(KEY_HTTP_URL, v.httpTestUrl)
+                putString(KEY_TCP_TARGET, v.tcpTarget)
+                putInt(KEY_RTT_ATTEMPTS, v.rttAttempts)
+                putInt(KEY_HTTP_ATTEMPTS, v.httpAttempts)
+                putInt(KEY_GATEWAY_ATTEMPTS, v.gatewayAttempts)
+                putInt(KEY_TCP_TIMEOUT_MS, v.tcpTimeoutMs)
+                putBoolean(KEY_THROUGHPUT, v.throughputEnabled)
+                putInt(KEY_THROUGHPUT_BYTES, v.throughputBytes)
+                putString(KEY_THROUGHPUT_URL, v.throughputUrl)
+                putBoolean(KEY_HASH_BSSID, v.hashBssidOnExport)
+            }
         }
 
     // ------------------------------------------------------------------ points
@@ -86,17 +87,18 @@ class StateStore(context: Context) {
     }
 
     fun savePoints(points: List<SurveyPoint>) {
-        val editor = prefs.edit().putString(KEY_POINTS_ORDER, points.joinToString(",") { it.id })
-        points.forEach { p ->
-            editor.putString(pointKey(p.id, "name"), p.name)
-                .putString(pointKey(p.id, "type"), p.type.id)
-                .putString(pointKey(p.id, "wall"), p.wallMaterial.id)
-                .putString(pointKey(p.id, "obstruction"), p.obstruction)
-                .putString(pointKey(p.id, "distance"), p.distanceM?.toString() ?: "")
-                .putInt(pointKey(p.id, "floor"), p.floor ?: 0)
-                .putString(pointKey(p.id, "photo"), p.photoFile)
+        prefs.edit {
+            putString(KEY_POINTS_ORDER, points.joinToString(",") { it.id })
+            points.forEach { p ->
+                putString(pointKey(p.id, "name"), p.name)
+                putString(pointKey(p.id, "type"), p.type.id)
+                putString(pointKey(p.id, "wall"), p.wallMaterial.id)
+                putString(pointKey(p.id, "obstruction"), p.obstruction)
+                putString(pointKey(p.id, "distance"), p.distanceM?.toString() ?: "")
+                putInt(pointKey(p.id, "floor"), p.floor ?: 0)
+                putString(pointKey(p.id, "photo"), p.photoFile)
+            }
         }
-        editor.apply()
     }
 
     // ---------------------------------------------------------------- progress
@@ -106,39 +108,39 @@ class StateStore(context: Context) {
     )
 
     fun saveProgress(progress: SurveyProgress) {
-        prefs.edit()
-            .putString(KEY_PROGRESS_REPEATS, progress.toStorage())
-            .putString(KEY_PROGRESS_TIMESTAMPS, progress.lastTimestampsToStorage())
-            .apply()
+        prefs.edit {
+            putString(KEY_PROGRESS_REPEATS, progress.toStorage())
+            putString(KEY_PROGRESS_TIMESTAMPS, progress.lastTimestampsToStorage())
+        }
     }
 
     // ----------------------------------------------------------------- session
     var sessionId: String?
         get() = prefs.getString(KEY_SESSION_ID, null)
-        set(value) = prefs.edit().putString(KEY_SESSION_ID, value).apply()
+        set(value) = prefs.edit { putString(KEY_SESSION_ID, value) }
 
     var sessionDirName: String?
         get() = prefs.getString(KEY_SESSION_DIR, null)
-        set(value) = prefs.edit().putString(KEY_SESSION_DIR, value).apply()
+        set(value) = prefs.edit { putString(KEY_SESSION_DIR, value) }
 
     var sessionStartedAtMs: Long
         get() = prefs.getLong(KEY_SESSION_STARTED, 0L)
-        set(value) = prefs.edit().putLong(KEY_SESSION_STARTED, value).apply()
+        set(value) = prefs.edit { putLong(KEY_SESSION_STARTED, value) }
 
     /** Forgets the session so the next measurement start creates a fresh one. */
     fun clearSession() {
-        prefs.edit()
-            .remove(KEY_SESSION_ID)
-            .remove(KEY_SESSION_DIR)
-            .remove(KEY_SESSION_STARTED)
-            .apply()
+        prefs.edit {
+            remove(KEY_SESSION_ID)
+            remove(KEY_SESSION_DIR)
+            remove(KEY_SESSION_STARTED)
+        }
     }
 
     fun clearProgress() {
-        prefs.edit()
-            .remove(KEY_PROGRESS_REPEATS)
-            .remove(KEY_PROGRESS_TIMESTAMPS)
-            .apply()
+        prefs.edit {
+            remove(KEY_PROGRESS_REPEATS)
+            remove(KEY_PROGRESS_TIMESTAMPS)
+        }
     }
 
     private fun pointKey(id: String, field: String) = "point_${id}_$field"

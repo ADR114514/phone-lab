@@ -37,6 +37,11 @@ android {
         jvmTarget = "17"
     }
 
+    lint {
+        // 课程要求：仅 arm64-v8a（ARMv8 基线），因此 ChromeOS x86_64 ABI 提示不适用。
+        disable += "ChromeOsAbiSupport"
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"

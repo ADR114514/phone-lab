@@ -1,6 +1,7 @@
 package com.mobilelab.vibrodiag.model
 
 import android.content.Context
+import androidx.core.content.edit
 import com.mobilelab.vibrodiag.features.NoiseType
 
 /** User configurable acquisition/evaluation defaults, persisted in SharedPreferences. */
@@ -52,16 +53,16 @@ data class AppSettings(
 
         fun save(context: Context, settings: AppSettings) {
             val normalized = settings.normalized()
-            context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
-                .putInt(KEY_DURATION, normalized.durationS)
-                .putString(KEY_ACCEL_MODE, normalized.accelMode.id)
-                .putString(KEY_NOISE_TYPE, normalized.defaultNoiseType.id)
-                .putInt(KEY_SNR, normalized.defaultSnrDb)
-                .putString(KEY_PLACEMENT, normalized.placement)
-                .putInt(KEY_DISTANCE, normalized.distanceCm)
-                .putString(KEY_NOISE_CONDITION, normalized.noiseCondition)
-                .putString(KEY_OPERATOR, normalized.operator)
-                .apply()
+            context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit {
+                putInt(KEY_DURATION, normalized.durationS)
+                putString(KEY_ACCEL_MODE, normalized.accelMode.id)
+                putString(KEY_NOISE_TYPE, normalized.defaultNoiseType.id)
+                putInt(KEY_SNR, normalized.defaultSnrDb)
+                putString(KEY_PLACEMENT, normalized.placement)
+                putInt(KEY_DISTANCE, normalized.distanceCm)
+                putString(KEY_NOISE_CONDITION, normalized.noiseCondition)
+                putString(KEY_OPERATOR, normalized.operator)
+            }
         }
     }
 }
