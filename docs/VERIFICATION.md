@@ -106,7 +106,24 @@ python analysis/tests/run_all.py
 APK 已具备安装条件；按 `docs/USER_GUIDE.md` 安装后逐条跑 SOP 即可。若真机验证发现问题，
 优先看 `session.log`（每个会话目录内）定位。
 
-## 8. 复现命令汇总
+## 8. 全新克隆验证（自包含性）
+
+```bash
+git clone <repo> clone-test && cd clone-test
+# 只需提供 SDK 路径（Android Studio 或 local.properties），其余全部来自仓库
+./gradlew :apps:powertrace:assembleDebug :apps:signalmap:assembleDebug :apps:vibrodiag:assembleDebug testDebugUnitTest
+python analysis/tests/run_all.py
+```
+
+| 检查 | 结果 |
+|---|---|
+| 克隆体积 / 受版本控制文件数 | 11.6 MB / 400 个文件 |
+| 克隆后三 App 构建 + 148 项单测 | ✅ 通过 |
+| 克隆后分析管线 68 项断言 | ✅ 全绿（data/demo 随身携带） |
+| Markdown 相对链接（26 个文件 / 53 条） | ✅ 全部可解析（`tools/check-docs.py`，已接入 CI） |
+| GitHub Actions YAML | ✅ YAML 语法校验通过 |
+
+## 9. 复现命令汇总
 
 ```bash
 ./gradlew clean

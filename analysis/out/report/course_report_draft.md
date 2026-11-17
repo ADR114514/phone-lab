@@ -1,6 +1,6 @@
 # phone-lab 课程设计总报告（草稿）
 
-> 自动生成时间：2026-11-18 00:17；由 analysis/report/build_report.py 合并 analysis/out/{power,wifi,vibro}/*_report.md。
+> 自动生成时间：2026-11-18 00:29；由 analysis/report/build_report.py 合并 analysis/out/{power,wifi,vibro}/*_report.md。
 >
 > **数据来源声明：本稿中的分析结果基于 data/demo 合成演示数据（SYNTHETIC），用于证明分析管线与报告结构可用，不是真机实测结果。提交课程报告前必须替换为 data/raw 下的真实实验数据并重新运行三条管线。**
 
@@ -90,19 +90,19 @@
 
 图表：
 
-![电量-时间曲线](figures/battery_curve.png)
+![电量-时间曲线](../power/figures/battery_curve.png)
 
 *电量-时间曲线*
 
-![功率/电流-时间曲线](figures/power_current.png)
+![功率/电流-时间曲线](../power/figures/power_current.png)
 
 *功率/电流-时间曲线*
 
-![温度-时间曲线](figures/temperature.png)
+![温度-时间曲线](../power/figures/temperature.png)
 
 *温度-时间曲线*
 
-![4 工况指标对比](figures/condition_compare.png)
+![4 工况指标对比](../power/figures/condition_compare.png)
 
 *4 工况指标对比*
 
@@ -122,7 +122,7 @@
 - 非负约束剔除项：CPU 频率、网络吞吐、屏幕亮度（与其它项共线或系数为负）。
 - 拟合质量：R² = 0.956，RMSE = 0.435 W，平均实测 3.453 W，模型预测合计 3.453 W。
 
-![高功耗模块归因](figures/module_attribution.png)
+![高功耗模块归因](../power/figures/module_attribution.png)
 
 *高功耗模块归因*
 
@@ -150,7 +150,7 @@
 
 判定规则：thermal_status 在工况内上升（Δ≥1 或出现上升事件）**且** CPU 平均频率后半段较前半段下降 ≥5% 时标记为热节流。
 
-![热节流检测](figures/thermal_throttle.png)
+![热节流检测](../power/figures/thermal_throttle.png)
 
 *热节流检测*
 
@@ -247,11 +247,11 @@ python analysis/power/analyze.py --data data/raw/power/<session> --out analysis/
 
 稳定性评分 = 100 × (1 - min(1, RSSI 标准差 / |RSSI 均值|))，用于衡量同一位置重复测量的可复现性。
 
-![8 点位 RSSI 均值与标准差](figures/rssi_bar.png)
+![8 点位 RSSI 均值与标准差](../wifi/figures/rssi_bar.png)
 
 *8 点位 RSSI 均值与标准差*
 
-![各点位延迟分布](figures/latency_dist.png)
+![各点位延迟分布](../wifi/figures/latency_dist.png)
 
 *各点位延迟分布*
 
@@ -269,11 +269,11 @@ python analysis/power/analyze.py --data data/raw/power/<session> --out analysis/
 
 - 结论框架：混凝土约 -18 dB、金属约 -25 dB、玻璃约 -6 dB、混合材质约 -14 dB；实测均值与经验值的偏差反映墙体厚度、含水率、入射角度与多径叠加，写入报告时应结合实际点位描述解释偏差。
 
-![RSSI-距离关系与路径损耗拟合](figures/pathloss_fit.png)
+![RSSI-距离关系与路径损耗拟合](../wifi/figures/pathloss_fit.png)
 
 *RSSI-距离关系与路径损耗拟合*
 
-![按材质分组的等效附加衰减](figures/attenuation_material_box.png)
+![按材质分组的等效附加衰减](../wifi/figures/attenuation_material_box.png)
 
 *按材质分组的等效附加衰减*
 
@@ -317,11 +317,11 @@ python analysis/power/analyze.py --data data/raw/power/<session> --out analysis/
 | P05 | 金属 | -83.3 | 196.2 | 8.03 | 盲区 | RSSI 低于 -80 dBm（覆盖不足） | 立即补点（走廊/门口附近新增 AP 或室分天线）并做信道规划 | P0 |
 | P03 | 金属 | -80.0 | 150.6 | 6.47 | 盲区 | 丢包率过高（重传/干扰） | 立即补点（走廊/门口附近新增 AP 或室分天线）并做信道规划 | P0 |
 
-![盲区分级地图](figures/blind_zone_map.png)
+![盲区分级地图](../wifi/figures/blind_zone_map.png)
 
 *盲区分级地图*
 
-![同信道干扰与延迟](figures/interference.png)
+![同信道干扰与延迟](../wifi/figures/interference.png)
 
 *同信道干扰与延迟*
 
@@ -406,7 +406,7 @@ python analysis/wifi/analyze.py --data data/raw/wifi/<session> --out analysis/ou
 
 完整特征定义见 docs/feature_spec.md；本脚本实现与 App 的 FeatureExtractor 逐条对齐（帧起点/谱归一化/频带分母/谐波 bin/短帧补零等约定），共 32 个数值特征 + 6 个标签列 = 38 列。
 
-![关键特征在 5 工况下的分布](figures/feature_distribution.png)
+![关键特征在 5 工况下的分布](../vibro/figures/feature_distribution.png)
 
 *关键特征在 5 工况下的分布*
 
@@ -434,7 +434,7 @@ python analysis/wifi/analyze.py --data data/raw/wifi/<session> --out analysis/ou
 | C4_BLOCKED | 3 | 100% | 0 |
 | C5_HAIRDRYER | 3 | 100% | 0 |
 
-![LOOCV 混淆矩阵](figures/confusion_matrix.png)
+![LOOCV 混淆矩阵](../vibro/figures/confusion_matrix.png)
 
 *LOOCV 混淆矩阵*
 
@@ -461,7 +461,7 @@ python analysis/wifi/analyze.py --data data/raw/wifi/<session> --out analysis/ou
 - 盲测表（blind_test_VD-20261118-001.csv）记录的准确率：93.3%；脚本按 features_file 重新提取特征再预测的准确率：93.3%；两者一致率 100.0%。
 - 盲测样本不参与训练；预测发生在揭示真实标签之前（App 侧记录），此处用脚本复核可复现性。
 
-![盲测逐工况准确率](figures/blind_test.png)
+![盲测逐工况准确率](../vibro/figures/blind_test.png)
 
 *盲测逐工况准确率*
 
@@ -482,7 +482,7 @@ python analysis/wifi/analyze.py --data data/raw/wifi/<session> --out analysis/ou
 - 粉红噪声：SNR 20 dB 时准确率 100.0%，SNR 0 dB 时降至 20.0%；低于 0.6 的失效点出现在 SNR ≈ 5 dB。
   - 谱减法去噪在 SNR ≤5 dB 区间平均提升 +31.1%（最大 +46.7%）。
 
-![抗噪准确率曲线（去噪前后）](figures/noise_accuracy.png)
+![抗噪准确率曲线（去噪前后）](../vibro/figures/noise_accuracy.png)
 
 *抗噪准确率曲线（去噪前后）*
 

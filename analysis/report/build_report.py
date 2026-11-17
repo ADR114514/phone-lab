@@ -66,6 +66,16 @@ def shift_headings(text: str, levels: int = 1) -> str:
     return "\n".join(lines)
 
 
+def rebase_report_links(text: str, key: str) -> str:
+    """分报告里的 figures/、tables/ 链接是相对 analysis/out/<key>/ 的。
+
+    总报告位于 analysis/out/report/，直接拼进来会让 GitHub 上的图片链接失效，
+    这里统一补上 ../<key>/ 前缀。
+    """
+    return (text.replace("](figures/", f"](../{key}/figures/")
+                .replace("](tables/", f"](../{key}/tables/"))
+
+
 def read_reports(root: Path) -> dict[str, dict]:
     reports = {}
     for key, (title, filename) in REPORT_FILES.items():
@@ -191,7 +201,7 @@ def build_draft(root: Path, title: str, reports: dict[str, dict]) -> str:
         lines.append(f"# {part_numbers[key]}：{report['title']}")
         lines.append("")
         if report["text"]:
-            lines.append(shift_headings(report["text"], levels=1))
+            lines.append(rebase_report_links(shift_headings(report["text"], levels=1), key))
             lines.append("")
         else:
             lines.append(f"> 未找到 {report['path']}，请先运行对应的 analyze.py。")
