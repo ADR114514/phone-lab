@@ -72,7 +72,10 @@ fun TraceRoot() {
         Route.PREFLIGHT -> PreflightScreen(
             access = access,
             onRefresh = { accessTick++ },
-            onPassed = { navigate(Route.WIZARD) },
+            onPassed = {
+                accessTick++
+                navigate(Route.WIZARD)
+            },
             onBack = { navigate(Route.HOME) },
         )
 
@@ -97,7 +100,11 @@ fun TraceRoot() {
                 PreflightScreen(
                     access = access,
                     onRefresh = { accessTick++ },
-                    onPassed = { navigate(Route.WIZARD) },
+                    onPassed = {
+                        // 通过后必须刷新 access 快照并触发重组，否则 route 仍是 WIZARD，界面不会离开检查页。
+                        accessTick++
+                        navigate(Route.WIZARD)
+                    },
                     onBack = { navigate(Route.HOME) },
                 )
             }

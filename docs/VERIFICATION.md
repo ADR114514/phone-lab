@@ -148,3 +148,12 @@ python analysis/tests/run_all.py
 powershell -File tools/verify-apk.ps1
 python analysis/tests/run_all.py
 ```
+
+## 强制权限门禁（2026-11-18 真机验证）
+
+- PowerTrace 在“新建批次”后若必需权限未全部满足，会进入《开始前强制检查》页；
+- 必需项：通知权限、电池优化豁免、精确闹钟、厂商“后台活动/自启动”（勾选确认）、系统“睡眠待机优化”已关闭（勾选确认）；
+- 未全部完成时按钮为“必需项未完成”（不可点击），无法进入批次配置；
+- 厂商路径按 Build.MANUFACTURER 显示 OnePlus/OPPO/realme、小米/Redmi、华为/荣耀、vivo/iQOO 及通用路径；
+- 通过后进入“配置实验参数”页，可正常开始采集；
+- 截图：docs/screenshots/powertrace-preflight.png。
