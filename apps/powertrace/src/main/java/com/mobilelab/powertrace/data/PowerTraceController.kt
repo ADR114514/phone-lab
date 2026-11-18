@@ -505,6 +505,10 @@ object PowerTraceController {
 
     fun isRawSeriesEnabled(): Boolean = if (initialized) repo.isRawSeriesEnabled() else false
 
+    fun isStandbyGuardEnabled(): Boolean = repo.isStandbyGuardEnabled()
+
+    fun setStandbyGuardEnabled(enabled: Boolean) = repo.setStandbyGuardEnabled(enabled)
+
     fun setRawSeriesEnabled(enabled: Boolean) {
         checkInitialized()
         repo.setRawSeriesEnabled(enabled)

@@ -1,6 +1,7 @@
 package com.mobilelab.powertrace.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,6 +39,7 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
     var rawEnabled by remember { mutableStateOf(PowerTraceController.isRawSeriesEnabled()) }
+    var guardEnabled by remember { mutableStateOf(PowerTraceController.isStandbyGuardEnabled()) }
     val running = campaign?.status == com.mobilelab.powertrace.data.CampaignStatus.RUNNING
 
     LabScaffold(
@@ -80,6 +82,26 @@ fun SettingsScreen(
                         "默认关闭（30 min ≈ 360 行，写入压力较大）。开启后仅在设备醒着时记录，作为补充数据。"
                     },
                 )
+            }
+
+            SectionCard(title = "待机准点守护（实验性）") {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text(
+                            text = "IDLE 工况持有部分唤醒锁",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = LabColors.TextPrimary,
+                        )
+                        HintText("仅当系统把 5 min 采样点延后（迟到>90 s）时开启；开启后待机功耗含数十 mW CPU 驻留开销，报告中需说明。优先尝试关闭系统睡眠待机优化并允许应用后台活动。")
+                    }
+                    Switch(
+                        checked = guardEnabled,
+                        onCheckedChange = { checked ->
+                            guardEnabled = checked
+                            PowerTraceController.setStandbyGuardEnabled(checked)
+                        },
+                    )
+                }
             }
 
             SectionCard(title = "授权入口") {

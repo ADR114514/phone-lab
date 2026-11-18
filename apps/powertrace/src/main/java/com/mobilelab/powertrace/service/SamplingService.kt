@@ -235,7 +235,8 @@ class SamplingService : Service() {
 
     /** 待机工况（IDLE）准点守护：仅该工况持锁，切走/暂停/结束立即释放。 */
     private fun updateStandbyGuard(state: CampaignState?) {
-        val needGuard = state != null && state.status == CampaignStatus.RUNNING &&
+        val guardEnabled = runCatching { PowerTraceController.isStandbyGuardEnabled() }.getOrDefault(false)
+        val needGuard = guardEnabled && state != null && state.status == CampaignStatus.RUNNING &&
             state.current?.condition?.id == ConditionId.IDLE.id
         runCatching {
             if (needGuard) {

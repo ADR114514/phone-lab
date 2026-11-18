@@ -124,7 +124,7 @@
   加速度计实际采样率 200.4 Hz，已写入 meta.json。
 - **熄屏待机**：OnePlus/ColorOS 即使授予精确闹钟权限，也可能把 `setExactAndAllowWhileIdle` 按 App Standby 策略
   批量延后数小时（`dumpsys alarm` 可见 policy adjustment）。App 已改用 `setAlarmClock`（用户可见闹钟通道）
-  并在 IDLE 工况持有守护 `PARTIAL_WAKE_LOCK`，保证 5 min 准点；代价是待机功耗含数十 mW CPU 驻留开销，
+  并在设置页提供“待机准点守护”开关（默认关闭；开启后 IDLE 工况持有 `PARTIAL_WAKE_LOCK`）；代价是待机功耗含数十 mW CPU 驻留开销，
   报告中需说明，并建议做一次"开/关守护"对照实验量化偏差。
   实验前务必确认：电池优化豁免、通知权限、精确闹钟权限、屏幕锁定方式（建议关闭锁屏密码或用测试机）。
 - **ColorOS/OnePlus 额外设置（实测必须）**：设置 → 电池 → 更多设置 → 关闭"睡眠待机优化"；

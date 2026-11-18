@@ -43,6 +43,13 @@ class TraceRepository(context: Context) {
 
     fun isRawSeriesEnabled(): Boolean = settingPrefs.getBoolean(KEY_RAW_SERIES, false)
 
+    /** IDLE 工况准点守护（默认关闭：会引入 CPU 驻留功耗偏差，仅在系统延迟采样时启用）。 */
+    fun isStandbyGuardEnabled(): Boolean = settingPrefs.getBoolean(KEY_STANDBY_GUARD, false)
+
+    fun setStandbyGuardEnabled(enabled: Boolean) {
+        settingPrefs.edit { putBoolean(KEY_STANDBY_GUARD, enabled) }
+    }
+
     fun setRawSeriesEnabled(enabled: Boolean) {
         settingPrefs.edit { putBoolean(KEY_RAW_SERIES, enabled) }
     }
@@ -192,5 +199,6 @@ class TraceRepository(context: Context) {
         const val APP_LABEL = "PowerTrace"
         const val KEY_STATE = "campaign_state"
         const val KEY_RAW_SERIES = "raw_series_enabled"
+        const val KEY_STANDBY_GUARD = "standby_guard_enabled"
     }
 }
