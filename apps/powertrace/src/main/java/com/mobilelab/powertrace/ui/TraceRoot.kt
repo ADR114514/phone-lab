@@ -19,7 +19,7 @@ import com.mobilelab.powertrace.data.PowerTraceController
 import com.mobilelab.powertrace.data.SystemAccess
 
 /** 5 个页面。 */
-enum class Route { HOME, WIZARD, SAMPLING, RESULTS, SETTINGS }
+enum class Route { HOME, PREFLIGHT, WIZARD, SAMPLING, RESULTS, SETTINGS }
 
 /**
  * 根导航：单 Activity 内用可保存的 route 字符串做导航，
@@ -61,7 +61,7 @@ fun TraceRoot() {
 
     BackHandler(enabled = route != Route.HOME) {
         routeName = when (route) {
-            Route.WIZARD, Route.SETTINGS -> Route.HOME.name
+            Route.PREFLIGHT, Route.WIZARD, Route.SETTINGS -> Route.HOME.name
             Route.SAMPLING -> Route.HOME.name
             Route.RESULTS -> Route.HOME.name
             Route.HOME -> Route.HOME.name
@@ -69,6 +69,13 @@ fun TraceRoot() {
     }
 
     when (route) {
+        Route.PREFLIGHT -> PreflightScreen(
+            access = access,
+            onRefresh = { accessTick++ },
+            onPassed = { navigate(Route.WIZARD) },
+            onBack = { navigate(Route.HOME) },
+        )
+
         Route.HOME -> HomeScreen(
             campaign = campaign,
             access = access,
@@ -77,11 +84,24 @@ fun TraceRoot() {
             onNavigate = navigate,
         )
 
-        Route.WIZARD -> WizardScreen(
-            access = access,
-            onBack = { navigate(Route.HOME) },
-            onStarted = { navigate(Route.SAMPLING) },
-        )
+        Route.WIZARD -> {
+            val preflightPassed = access.notifications && access.batteryUnrestricted && access.exactAlarm &&
+                PowerTraceController.isOemBackgroundConfirmed() && PowerTraceController.isOemSleepConfirmed()
+            if (preflightPassed) {
+                WizardScreen(
+                    access = access,
+                    onBack = { navigate(Route.HOME) },
+                    onStarted = { navigate(Route.SAMPLING) },
+                )
+            } else {
+                PreflightScreen(
+                    access = access,
+                    onRefresh = { accessTick++ },
+                    onPassed = { navigate(Route.WIZARD) },
+                    onBack = { navigate(Route.HOME) },
+                )
+            }
+        }
 
         Route.SAMPLING -> SamplingScreen(
             campaign = campaign,

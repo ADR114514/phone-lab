@@ -141,6 +141,12 @@ object SystemAccess {
         }
     }
 
+    fun openAppDetails(context: Context) = start(
+        context,
+        Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            .setData(android.net.Uri.fromParts("package", context.packageName, null)),
+    )
+
     fun openNotificationSettings(context: Context) = start(
         context,
         Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PhoneLab · 手机实测工具下载站</title>
+<style>
+  :root{--bg:#0b0f14;--card:#141a21;--card2:#1b2430;--line:#2b3745;--txt:#e6edf3;--sub:#8b9aa8;--acc:#4cc2ff;--warn:#ffc266;--ok:#5bd6a0}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.65}
+  .wrap{max-width:920px;margin:0 auto;padding:22px 16px 60px}
+  header{padding:26px 0 8px}
+  h1{font-size:26px;margin:0 0 6px}
+  .sub{color:var(--sub);font-size:14px}
+  .pill{display:inline-block;margin-top:10px;padding:4px 10px;border:1px solid rgba(76,194,255,.35);background:rgba(76,194,255,.12);color:var(--acc);border-radius:20px;font-size:12px}
+  h2{font-size:18px;margin:30px 0 12px;padding-left:10px;border-left:3px solid var(--acc)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+  .app{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+  .app .meta{flex:1;min-width:220px}
+  .app h3{margin:2px 0 4px;font-size:17px}
+  .tag{display:inline-block;font-size:11px;color:var(--sub);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-right:6px}
+  .size{color:var(--sub);font-size:12px;margin:6px 0}
+  .btn{display:inline-block;background:var(--acc);color:#00202e;font-weight:600;text-decoration:none;padding:10px 16px;border-radius:10px;font-size:14px;margin:6px 8px 0 0}
+  .btn.ghost{background:transparent;color:var(--acc);border:1px solid var(--acc)}
+  code,pre{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+  code{background:var(--card2);padding:2px 6px;border-radius:5px;font-size:12.5px;color:#bfe8ff;word-break:break-all}
+  pre{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto;font-size:12px;color:#cfe3f2}
+  ol,ul{padding-left:22px;margin:8px 0}
+  li{margin:4px 0}
+  .warn{color:var(--warn)}
+  .ok{color:var(--ok)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  .shot{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+  .foot{color:var(--sub);font-size:12px;margin-top:34px;border-top:1px solid var(--line);padding-top:14px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+  th{color:var(--sub);font-weight:500}
+  .hash{font-size:11px;color:var(--sub);word-break:break-all}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>PhoneLab · 手机实测工具下载站</h1>
+  <div class="sub">三款 Android 实测 App：功耗热测 / 校园 WiFi 盲区测绘 / 声振诊断仪</div>
+  <div class="pill">Android 12 及以上 · 仅 arm64（ARMv8）设备 · debug 测试版</div>
+</header>
+
+<div class="card">
+  <b>先看这里：</b>
+  <ol>
+    <li>手机系统需 <b>Android 12+</b>，且为 <b>64 位（arm64）</b> 机型（近 5 年安卓机基本都满足）。</li>
+    <li>安装时系统会提示“未知来源应用”，允许浏览器/文件管理器安装即可。</li>
+    <li>首次打开请按 App 内提示授予权限；<span class="warn">功耗实验必须拔掉充电线</span>。</li>
+    <li><b>PowerTrace 开始采集前会强制检查系统权限</b>：通知、电池优化豁免、精确闹钟、后台活动/睡眠待机优化，缺一项不能开始（避免采集中断、数据作废）。</li>
+    <li>下载后建议核对 SHA-256；完整操作请下载 <a href="docs/manual.pdf" style="color:var(--acc)">《同学操作手册（PDF）》</a>。</li>
+  </ol>
+</div>
+
+<h2>① 下载 App</h2>
+
+<div class="card app">
+  <div class="meta">
+    <h3>PowerTrace · 功耗热测仪</h3>
+    <span class="tag">课题02</span><span class="tag">4 工况 × 30 min × 6 点</span>
+    <div class="size">v1.0.0 · 26.7 MB · com.mobilelab.powertrace</div>
+    <div class="hash">SHA-256: 180c778bc2c4f9d7bc1e9a4734589c94806c2c8c1e1cac4a2de59209e6f65768</div>
+  </div>
+  <div>
+    <a class="btn" href="apk/PowerTrace-1.0.0-arm64-v8a-debug.apk" download>下载 APK</a>
+  </div>
+</div>
+
+<div class="card app">
+  <div class="meta">
+    <h3>SignalMap · 校园信号测绘</h3>
+    <span class="tag">课题03</span><span class="tag">8 点位 × 3 次</span>
+    <div class="size">v1.0.0 · 31.9 MB · com.mobilelab.signalmap</div>
+    <div class="hash">SHA-256: 8e33c18f027046787fa5a62128fa52f8989b3e5c7e9a3ce18f8d0fe1f1e7fbca</div>
+  </div>
+  <div>
+    <a class="btn" href="apk/SignalMap-1.0.0-arm64-v8a-debug.apk" download>下载 APK</a>
+  </div>
+</div>
+
+<div class="card app">
+  <div class="meta">
+    <h3>VibroDiag · 声振诊断仪</h3>
+    <span class="tag">项目三</span><span class="tag">5 工况 × 15 组</span>
+    <div class="size">v1.0.0 · 26.9 MB · com.mobilelab.vibrodiag</div>
+    <div class="hash">SHA-256: 0660d3c1fc2ce3c6eb97c94323b926d5df71095c64234b53c8f3f7c5ca7a9dca</div>
+  </div>
+  <div>
+    <a class="btn" href="apk/VibroDiag-1.0.0-arm64-v8a-debug.apk" download>下载 APK</a>
+  </div>
+</div>
+
+<h2>② 操作手册</h2>
+<div class="card">
+  <p>从安装、权限、三次实验到数据提交，完整步骤见手册：</p>
+  <a class="btn" href="docs/manual.pdf" download>下载 PDF 手册</a>
+  <a class="btn ghost" href="docs/manual.docx" download>下载 Word 手册</a>
+  <a class="btn ghost" href="docs/manual.html">在线查看</a>
+</div>
+
+<div class="card">
+  <b>安装/使用速查：</b>
+  <table>
+    <tr><th>问题</th><th>处理</th></tr>
+    <tr><td>提示“无法安装 / 已损坏”</td><td>确认系统 Android 12+、arm64；用系统浏览器重新下载；允许“未知来源”。</td></tr>
+    <tr><td>提示“有风险”</td><td>debug 测试包会提示风险，确认后继续安装（仅供课程使用）。</td></tr>
+    <tr><td>功耗数据全为 0 / 充电标记</td><td>拔掉充电线；关闭自动亮度；确认电池优化已豁免。</td></tr>
+    <tr><td>待机 5 分钟采样迟到</td><td>系统设置里关闭“睡眠待机优化”，允许 App 后台活动；先试采 10 分钟确认前 3 点。</td></tr>
+    <tr><td>WiFi 读不到 RSSI</td><td>打开系统定位开关，并授予定位权限（Android 12+ 强制要求）。</td></tr>
+    <tr><td>录音无声/特征异常</td><td>确认麦克风未被占用、手机壳不挡麦克风；安静环境重录。</td></tr>
+  </table>
+</div>
+
+<h2>③ 界面预览</h2>
+<div class="grid">
+  <div class="card"><img class="shot" src="assets/powertrace-home.png" alt="PowerTrace 首页"><div class="size" style="text-align:center">PowerTrace 功耗热测</div></div>
+  <div class="card"><img class="shot" src="assets/signalmap-measure.png" alt="SignalMap 点位"><div class="size" style="text-align:center">SignalMap 校园信号测绘</div></div>
+  <div class="card"><img class="shot" src="assets/vibrodiag-features.png" alt="VibroDiag 特征"><div class="size" style="text-align:center">VibroDiag 声振诊断</div></div>
+</div>
+
+<h2>④ 实验提醒（务必遵守）</h2>
+<div class="card">
+  <ul>
+    <li><b>功耗实验</b>：拔线、关闭自动亮度、固定亮度、环境 20–28 °C；每工况 30 min，工况间静置 10 min 降温。</li>
+    <li><b>WiFi 测绘</b>：定位开关必须打开；同一时段测完 8 个点位；每点位拍照并记录墙体材质/遮挡。</li>
+    <li><b>声振实验</b>：手机固定在同一位置（30 cm），5 工况 × 15 组；盲测时录屏 2–4 分钟作为交付视频。</li>
+    <li>数据只保存在手机 App 私有目录，用 App 内“导出/分享”保存；不要用第三方清理软件清数据。</li>
+  </ul>
+</div>
+
+<div class="foot">
+  PhoneLab 课程实测项目 · 服务器部署于宝塔面板（Nginx）· 仅用于课程教学，请勿外传安装包与实验数据。<br>
+  更新日期：2026-11-18 · 仓库：phone-lab（详见操作手册附录）
+</div>
+</div>
+</body>
+</html>

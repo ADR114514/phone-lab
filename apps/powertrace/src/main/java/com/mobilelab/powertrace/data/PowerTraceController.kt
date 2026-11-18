@@ -509,6 +509,14 @@ object PowerTraceController {
 
     fun setStandbyGuardEnabled(enabled: Boolean) = repo.setStandbyGuardEnabled(enabled)
 
+    fun isOemBackgroundConfirmed(): Boolean = if (initialized) repo.isOemBackgroundConfirmed() else false
+
+    fun setOemBackgroundConfirmed(value: Boolean) = repo.setOemBackgroundConfirmed(value)
+
+    fun isOemSleepConfirmed(): Boolean = if (initialized) repo.isOemSleepConfirmed() else false
+
+    fun setOemSleepConfirmed(value: Boolean) = repo.setOemSleepConfirmed(value)
+
     fun setRawSeriesEnabled(enabled: Boolean) {
         checkInitialized()
         repo.setRawSeriesEnabled(enabled)

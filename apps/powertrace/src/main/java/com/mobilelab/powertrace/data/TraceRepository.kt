@@ -50,6 +50,19 @@ class TraceRepository(context: Context) {
         settingPrefs.edit { putBoolean(KEY_STANDBY_GUARD, enabled) }
     }
 
+    /** 厂商后台限制/睡眠待机优化无法程序检测，由用户确认后持久化，强制检查页使用。 */
+    fun isOemBackgroundConfirmed(): Boolean = settingPrefs.getBoolean(KEY_OEM_BACKGROUND, false)
+
+    fun setOemBackgroundConfirmed(value: Boolean) {
+        settingPrefs.edit { putBoolean(KEY_OEM_BACKGROUND, value) }
+    }
+
+    fun isOemSleepConfirmed(): Boolean = settingPrefs.getBoolean(KEY_OEM_SLEEP, false)
+
+    fun setOemSleepConfirmed(value: Boolean) {
+        settingPrefs.edit { putBoolean(KEY_OEM_SLEEP, value) }
+    }
+
     fun setRawSeriesEnabled(enabled: Boolean) {
         settingPrefs.edit { putBoolean(KEY_RAW_SERIES, enabled) }
     }
@@ -200,5 +213,7 @@ class TraceRepository(context: Context) {
         const val KEY_STATE = "campaign_state"
         const val KEY_RAW_SERIES = "raw_series_enabled"
         const val KEY_STANDBY_GUARD = "standby_guard_enabled"
+        const val KEY_OEM_BACKGROUND = "oem_background_confirmed"
+        const val KEY_OEM_SLEEP = "oem_sleep_confirmed"
     }
 }
