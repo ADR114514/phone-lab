@@ -139,3 +139,8 @@ note=charging_during_sample; screen_on_expected_off; unavailable:energy_counter_
 - 勾选“后台活动/自启动”“睡眠待机优化已关闭”后，按钮变为“通过检查，去配置批次”，点击进入批次配置页；
 - 期间发现并修复：通过检查后因 route 仍为 WIZARD、无状态刷新导致界面停留在检查页；修复为通过时 accessTick++ 强制重组（提交 feat(powertrace): preflight gate）。
 - 截图：docs/screenshots/powertrace-preflight.png（检查页）。
+
+### 端到端复验（12:22，新构建 fea65977）
+
+清空 App 数据后：新建批次 → 强制检查页（两个厂商勾选框均未勾选，无法开始）→ 勾选两项 → 点“通过检查，去配置批次”
+→ 正常进入“配置实验参数”页（备注/工况顺序/开始采集 120 min），门禁链路打通。
