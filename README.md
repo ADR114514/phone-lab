@@ -2,6 +2,9 @@
 > **同学下载站**：http://189.105.67.241/ （三款 APK + 《同学操作手册》PDF/Word/在线版，宝塔面板 + Nginx 部署）
 > **GitHub 仓库**：https://github.com/ADR114514/phone-lab
 
+> **实验方案可行性评审（防“数值一样/零分”）**：[docs/FEASIBILITY_REVIEW.md](docs/FEASIBILITY_REVIEW.md) · 自检脚本 `analysis/check_plausibility.py`
+> **实验报告初稿（3 份 DOCX）**：[reports/](reports/)
+
 
 > 三部 Android 实测 App + 一套 Python 分析管线，覆盖课程三个课题：
 > **课题02 个人手机多工况发热与掉电实测**、**课题03 教学楼与宿舍无线信号盲区测绘**、
