@@ -179,6 +179,16 @@ class SamplingService : Service() {
             scheduler.cancel()
             return
         }
+        val now = System.currentTimeMillis()
+        if (due <= now) {
+            // 系统延迟投递后，若直接把过期时间交给 Handler/Alarm，会连续触发多次 pump，
+            // 在几十毫秒内补写多个采样点（时间戳几乎相同、elapsed 却差 300 s），
+            // 这种数据在报告/自动评分里会被判为伪造。这里改为推迟到一个完整间隔后再采，
+            // 保证每条记录都对应真实的不同时刻；迟到点仍写入并标 late_sample，缺失点不伪造。
+            LabLog.w(TAG, "due time is in the past: " + due + ", defer to now+interval to avoid catch-up burst")
+            scheduler.schedule(now + SamplingConfig.INTERVAL_MS)
+            return
+        }
         scheduler.schedule(due)
     }
 
