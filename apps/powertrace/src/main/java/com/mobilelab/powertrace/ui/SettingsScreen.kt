@@ -163,8 +163,9 @@ fun SettingsScreen(
                 KeyValueRow("目标设备", "Android 12+ (arm64-v8a)")
                 Spacer(Modifier.height(6.dp))
                 HintText(
-                    "功率口径：power_w = voltage_mv × |current_now_ua| / 1e9；" +
-                        "能量用矩形积分（6 × 300 s 覆盖 30 min）。不可用字段一律留空，原因写入 session.log 与 note。",
+                    "功率口径：优先电荷计差分 power_w = Δcharge_counter_uah × voltage_mv × 3.6 / (Δt_s × 1e6)（跨采样点 ≥60 s）；" +
+                        "仅当 |current_now_ua| ≥ 2 mA 时回退 voltage_mv × |current| / 1e9。" +
+                        "第 1 点没有差分、功率留空属正常；能量用矩形积分（6 × 300 s 覆盖 30 min）。",
                 )
                 HintText("数据契约：docs/DATA_DICTIONARY.md 第一节（唯一权威）。")
             }

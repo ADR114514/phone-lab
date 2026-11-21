@@ -168,6 +168,9 @@ fun SamplingScreen(
                             accent = LabColors.Primary,
                         )
                     }
+                    if (s.powerW == null) {
+                        HintText("功率需两次电荷计读数：第 1 点留空是正常的，第 2 点（+5 min）起显示；若持续为空请确认已拔掉充电线。")
+                    }
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         MetricTile(
                             label = "电池温度",
