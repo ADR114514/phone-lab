@@ -1,6 +1,31 @@
 package com.mobilelab.signalmap.ui
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.File
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +61,7 @@ import com.mobilelab.signalmap.vm.SurveyViewModel
 @Composable
 fun ResultScreen(vm: SurveyViewModel, onBack: () -> Unit) {
     val exporter = rememberFileExporter()
+    var viewerFile by remember { mutableStateOf<File?>(null) }
     val rows = vm.rows
     val aggregates = remember(rows) { aggregateByPoint(rows) }
     val notes = remember(rows) { rows.filter { it.note.isNotEmpty() } }
@@ -82,6 +108,66 @@ fun ResultScreen(vm: SurveyViewModel, onBack: () -> Unit) {
                 )
             }
 
+
+            SectionCard(title = "点位照片（" + vm.points.count { it.photoFile.isNotEmpty() } + " 张）") {
+                val withPhotos = vm.points.filter { it.photoFile.isNotEmpty() }
+                if (withPhotos.isEmpty()) {
+                    HintText("还没有照片：到点位后用相机拍照，拍完即可在这里查看；导出 ZIP 会包含 photos/ 原图。")
+                } else {
+                    withPhotos.forEach { point ->
+                        val file = vm.photoFile(point.photoFile)
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            if (file != null) {
+                                PhotoThumb(file) { viewerFile = file }
+                            } else {
+                                Box(
+                                    modifier = Modifier.size(72.dp).clip(RoundedCornerShape(8.dp)).background(LabColors.SurfaceHigh),
+                                    contentAlignment = Alignment.Center,
+                                ) { Text("缺失", style = MaterialTheme.typography.labelSmall, color = LabColors.Error) }
+                            }
+                            Spacer(Modifier.width(10.dp))
+                            Column(Modifier.weight(1f)) {
+                                Text(
+                                    text = point.id + " · " + point.name,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = LabColors.TextPrimary,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                                HintText(point.photoFile)
+                            }
+                        }
+                    }
+                    HintText("点击缩略图查看大图；照片原图在导出 ZIP 的 photos/ 目录中。")
+
+                    // 兜底：即使点位引用丢失（例如重装/清理偏好），photos/ 里的原图仍可查看。
+                    val referenced = withPhotos.map { File(it.photoFile).name }.toSet()
+                    val orphanPhotos = vm.sessionFiles?.photosDir?.listFiles()
+                        ?.filter { it.isFile && it.name.endsWith(".jpg", ignoreCase = true) && it.name !in referenced }
+                        .orEmpty()
+                        .sortedBy { it.name }
+                    if (orphanPhotos.isNotEmpty()) {
+                        HintText("未关联到点位的照片（" + orphanPhotos.size + " 张）")
+                        orphanPhotos.forEach { file ->
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                PhotoThumb(file) { viewerFile = file }
+                                Spacer(Modifier.width(10.dp))
+                                Column(Modifier.weight(1f)) {
+                                    Text(file.name, style = MaterialTheme.typography.bodyMedium, color = LabColors.TextPrimary, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                    HintText("photos/" + file.name)
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
             SectionCard(title = "导出") {
                 if (rows.isEmpty()) {
                     HintText("还没有测量数据；完成至少一次测量后即可导出。")
@@ -214,5 +300,73 @@ fun ResultScreen(vm: SurveyViewModel, onBack: () -> Unit) {
                 }
             }
         }
+        viewerFile?.let { file -> PhotoViewerDialog(file) { viewerFile = null } }
     }
 }
+@Composable
+private fun PhotoThumb(file: File, onClick: () -> Unit) {
+    val bitmap by produceState<Bitmap?>(initialValue = null, file.absolutePath) {
+        value = withContext(Dispatchers.IO) { decodeSampled(file, targetSize = 512) }
+    }
+    Box(
+        modifier = Modifier.size(72.dp).clip(RoundedCornerShape(8.dp)).background(LabColors.SurfaceHigh).clickable(onClick = onClick),
+        contentAlignment = Alignment.Center,
+    ) {
+        val bmp = bitmap
+        if (bmp != null) {
+            Image(
+                bitmap = bmp.asImageBitmap(),
+                contentDescription = file.name,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop,
+            )
+        } else {
+            Text("加载…", style = MaterialTheme.typography.labelSmall, color = LabColors.TextSecondary)
+        }
+    }
+}
+
+@Composable
+private fun PhotoViewerDialog(file: File, onDismiss: () -> Unit) {
+    val bitmap by produceState<Bitmap?>(initialValue = null, file.absolutePath) {
+        value = withContext(Dispatchers.IO) { decodeSampled(file, targetSize = 1600) }
+    }
+    Dialog(onDismissRequest = onDismiss) {
+        Surface(shape = RoundedCornerShape(14.dp), color = MaterialTheme.colorScheme.surface) {
+            Column(Modifier.padding(12.dp)) {
+                Text(
+                    text = file.name,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = LabColors.TextPrimary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Spacer(Modifier.height(8.dp))
+                val bmp = bitmap
+                if (bmp != null) {
+                    Image(
+                        bitmap = bmp.asImageBitmap(),
+                        contentDescription = file.name,
+                        modifier = Modifier.fillMaxWidth().heightIn(max = 460.dp),
+                        contentScale = ContentScale.Fit,
+                    )
+                } else {
+                    Text("图片加载失败或文件已不存在", color = LabColors.Error, style = MaterialTheme.typography.bodySmall)
+                }
+                Spacer(Modifier.height(8.dp))
+                TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) { Text("关闭") }
+            }
+        }
+    }
+}
+
+/** 按目标尺寸做 inSampleSize 采样解码，避免 3:4 原图直接进内存导致 OOM。 */
+private fun decodeSampled(file: File, targetSize: Int): Bitmap? = runCatching {
+    if (!file.isFile) return@runCatching null
+    val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+    BitmapFactory.decodeFile(file.absolutePath, bounds)
+    var sample = 1
+    while (bounds.outWidth / sample > targetSize || bounds.outHeight / sample > targetSize) sample *= 2
+    val options = BitmapFactory.Options().apply { inSampleSize = sample }
+    BitmapFactory.decodeFile(file.absolutePath, options)
+}.getOrNull()

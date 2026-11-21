@@ -3,6 +3,8 @@
 > 安装包：`apps/<app>/build/outputs/apk/debug/<app>-debug.apk`（Android 12+，arm64 真机）。
 > 安装后按本文操作；每步的数据都会落在 App 私有目录，导出用 App 内"导出/分享"按钮。
 
+> 测绘完成后可在「测量结果 → 点位照片」直接查看/点开大图；导出 ZIP 的 photos/ 目录包含原图；若点位引用丢失，结果页还会兜底列出 photos/ 中未关联的照片。
+
 ## 通用准备
 
 1. 打开开发者选项 + USB 调试（可选，用于 `tools/pull-data.ps1` 直接取数据）。
