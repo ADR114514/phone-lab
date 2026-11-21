@@ -409,6 +409,29 @@ class SurveyViewModel(application: Application) : AndroidViewModel(application) 
         LabLog.i(TAG, "settings saved: tcp=${settings.tcpTarget} rtt=${settings.rttAttempts} http=${settings.httpTestUrl}")
     }
 
+    /** 删除当前会话目录（含 photos/scan/survey）+ 进度与照片引用；之后首次测量会创建新会话。 */
+    fun deleteCurrentSession() {
+        if (measurement is MeasurementUi.Running) {
+            message = "测量进行中，无法删除"
+            return
+        }
+        val files = sessionFiles
+        val deletedRows = rows.size
+        val deletedPhotos = if (files != null) runCatching { files.photosDir.listFiles()?.size ?: 0 }.getOrDefault(0) else 0
+        files?.let { runCatching { it.dir.deleteRecursively() } }
+        store.clearProgress()
+        store.clearSession()
+        points = points.map { it.copy(photoFile = "") }
+        store.savePoints(points)
+        sessionFiles = null
+        sessionId = null
+        rows = emptyList()
+        progress = SurveyProgress.EMPTY
+        measurement = MeasurementUi.Idle
+        message = "已删除本会话数据（" + deletedRows + " 行 / " + deletedPhotos + " 张照片）"
+        LabLog.i(TAG, "session deleted by operator, rows=" + deletedRows + " photos=" + deletedPhotos)
+    }
+
     fun resetProgress() {
         if (measurement is MeasurementUi.Running) {
             message = "测量进行中，无法重置"

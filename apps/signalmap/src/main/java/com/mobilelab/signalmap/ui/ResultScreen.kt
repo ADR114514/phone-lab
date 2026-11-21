@@ -62,6 +62,7 @@ import com.mobilelab.signalmap.vm.SurveyViewModel
 fun ResultScreen(vm: SurveyViewModel, onBack: () -> Unit) {
     val exporter = rememberFileExporter()
     var viewerFile by remember { mutableStateOf<File?>(null) }
+    var confirmDelete by remember { mutableStateOf(false) }
     val rows = vm.rows
     val aggregates = remember(rows) { aggregateByPoint(rows) }
     val notes = remember(rows) { rows.filter { it.note.isNotEmpty() } }
@@ -287,6 +288,19 @@ fun ResultScreen(vm: SurveyViewModel, onBack: () -> Unit) {
                 }
             }
 
+
+            SectionCard(title = "删除数据（不可恢复）", accent = LabColors.Error) {
+                HintText("如果点位/墙体记错或数据异常，可删除整个会话后重新测量；会同时删除 survey CSV、scan 明细、photos 与进度。")
+                HintText("建议先在下方导出 ZIP 备份，再删除。")
+                Spacer(Modifier.height(10.dp))
+                SecondaryButton(
+                    text = "删除本会话数据",
+                    onClick = { confirmDelete = true },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = vm.rows.isNotEmpty(),
+                )
+            }
+
             if (notes.isNotEmpty()) {
                 SectionCard(title = "异常 / 环境备注（${notes.size} 条）") {
                     notes.forEach { row ->
@@ -301,6 +315,21 @@ fun ResultScreen(vm: SurveyViewModel, onBack: () -> Unit) {
             }
         }
         viewerFile?.let { file -> PhotoViewerDialog(file) { viewerFile = null } }
+    if (confirmDelete) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { confirmDelete = false },
+            title = { Text("删除本会话数据？") },
+            text = { Text("将删除当前会话 " + (vm.sessionId ?: "") + " 的 " + vm.rows.size + " 行测量、扫描明细与全部照片，操作不可撤销。") },
+            confirmButton = {
+                androidx.compose.material3.TextButton(onClick = {
+                    confirmDelete = false
+                    vm.deleteCurrentSession()
+                    onBack()
+                }) { Text("确认删除", color = LabColors.Error) }
+            },
+            dismissButton = { androidx.compose.material3.TextButton(onClick = { confirmDelete = false }) { Text("取消") } },
+        )
+    }
     }
 }
 @Composable

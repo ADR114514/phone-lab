@@ -13,8 +13,8 @@ android {
         applicationId = "com.mobilelab.powertrace"
         minSdk = 31
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1.0"
+        versionCode = 3
+        versionName = "1.2.0"
 
         // Research instrument targets 64-bit ARMv8-A devices only.
         // No 32-bit (armeabi-v7a) or x86 native code is shipped.

@@ -486,6 +486,30 @@ class AppState(val context: Context) {
 
     // ---------------------------------------------------------------- dataset
 
+    fun deleteConditionSamples(conditionId: String) {
+        stopPlayback()
+        val removed = repository.deleteConditionSamples(conditionId)
+        resetDerivedResults()
+        refreshSamples()
+        showMessage("已删除 " + Conditions.labelOf(conditionId) + " 的 " + removed + " 组")
+    }
+
+    fun deleteAllSamples() {
+        stopPlayback()
+        val removed = repository.deleteAllSamples()
+        resetDerivedResults()
+        refreshSamples()
+        showMessage("已删除全部 " + removed + " 组数据与派生评估")
+    }
+
+    private fun resetDerivedResults() {
+        loocv = null
+        noiseResult = null
+        noiseProgress = 0f
+        noiseRunning = false
+        evaluationFile = null
+    }
+
     fun deleteSample(sample: StoredSample) {
         stopPlayback()
         repository.deleteSample(sample)

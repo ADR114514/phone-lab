@@ -105,6 +105,14 @@ class TraceRepository(context: Context) {
     fun formatId(prefix: String, nowMs: Long, sequence: Int): String =
         String.format(Locale.US, "%s-%s-%03d", prefix, dayStamp.format(Date(nowMs)), sequence)
 
+    /** 删除整个会话目录（不可恢复）；返回是否删除成功。 */
+    fun deleteSessionDir(dirPath: String): Boolean =
+        runCatching { File(dirPath).deleteRecursively() }.getOrDefault(false)
+
+    fun clearCampaignState() {
+        saveState(null)
+    }
+
     fun createSessionDir(campaignId: String): File =
         Storage.newSessionDir(appContext, APP_TAG, campaignId)
 

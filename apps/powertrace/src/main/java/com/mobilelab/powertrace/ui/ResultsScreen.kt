@@ -75,6 +75,7 @@ fun ResultsScreen(
     var refreshKey by remember { mutableIntStateOf(0) }
     var busy by remember { mutableStateOf(false) }
     var rerunTarget by remember { mutableStateOf<ConditionId?>(null) }
+    var confirmDelete by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(campaign?.campaignId, refreshKey) {
@@ -224,6 +225,21 @@ fun ResultsScreen(
                     )
                 }
 
+
+                SectionCard(title = "删除数据（不可恢复）", accent = LabColors.Error) {
+                    HintText("删除错误批次：会删除本批次会话目录（CSV / session.log / manifest）并清空当前批次状态，之后可重新新建批次测量。")
+                    if (active) {
+                        Spacer(Modifier.height(6.dp))
+                        StatusPill("采集中/已暂停：请先在采集页暂停或放弃批次，再删除", PillTone.Warning)
+                    }
+                    Spacer(Modifier.height(10.dp))
+                    SecondaryButton(
+                        text = "删除本批次数据",
+                        onClick = { confirmDelete = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = !active && !busy,
+                    )
+                }
                 SectionCard(title = "逐文件导出（${files.size}）") {
                     if (files.isEmpty()) {
                         HintText("目录中暂无文件")
@@ -262,6 +278,35 @@ fun ResultsScreen(
         }
     }
 
+
+    if (confirmDelete) {
+        AlertDialog(
+            onDismissRequest = { confirmDelete = false },
+            title = { Text("删除本批次数据？") },
+            text = {
+                Text(
+                    "将永久删除批次 " + campaign.campaignId + " 的会话目录与 " + campaign.totalSamplesDone +
+                        " 行已采数据，操作不可撤销。建议先导出 ZIP 备份。",
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    confirmDelete = false
+                    scope.launch {
+                        busy = true
+                        val ok = PowerTraceController.deleteCampaignData()
+                        busy = false
+                        if (ok) {
+                            onBack()
+                        } else {
+                            message = "删除失败：批次不存在或仍在采集中"
+                        }
+                    }
+                }) { Text("确认删除", color = LabColors.Error) }
+            },
+            dismissButton = { TextButton(onClick = { confirmDelete = false }) { Text("取消") } },
+        )
+    }
     if (rerunTarget != null) {
         val target = rerunTarget!!
         AlertDialog(

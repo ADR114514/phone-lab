@@ -111,3 +111,11 @@ python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/
 - **SignalMap 结果页**：新增「点位照片」卡片，缩略图 + 点击全屏查看，照片引用丢失时兜底列出 photos/ 原图；
 - **VibroDiag 采集页**：保存后明确显示“下一组 / 本工况已完成”，并可直接查看数据集；
 - **PowerTrace 采集页**：首页直接显示当前工况第几点、总进度，正在充电会红色警告“数据会作废”。
+
+
+### 删除错误数据（v1.2.0）
+
+- **PowerTrace**：结果页底部「删除数据（不可恢复）」→ 删除本批次（CSV/log/manifest + 状态），之后可新建批次重测；采集中需先暂停/放弃。
+- **SignalMap**：结果页「删除数据（不可恢复）」→ 删除本会话（survey/scan/photos/进度），可重新测；建议先导出 ZIP 备份。
+- **VibroDiag**：数据集页「批量删除」→ 删除某工况全部组或全部数据（同步重建 dataset_index 并清空盲测/评估结果）。
+- 删除不可撤销；重要数据先导出 ZIP。

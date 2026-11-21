@@ -30,6 +30,7 @@ import com.mobilelab.core.ui.HintText
 import com.mobilelab.core.ui.LabScaffold
 import com.mobilelab.core.ui.LinkButton
 import com.mobilelab.core.ui.PillTone
+import com.mobilelab.core.ui.SecondaryButton
 import com.mobilelab.core.ui.SectionCard
 import com.mobilelab.core.ui.StatusPill
 import com.mobilelab.core.ui.theme.LabColors
@@ -44,6 +45,8 @@ fun DatasetScreen(state: AppState) {
     var detailText by remember { mutableStateOf<String?>(null) }
     var detailTitle by remember { mutableStateOf("") }
     var deleteTarget by remember { mutableStateOf<StoredSample?>(null) }
+    var confirmDeleteCondition by remember { mutableStateOf(false) }
+    var confirmDeleteAll by remember { mutableStateOf(false) }
 
     DisposableEffect(Unit) {
         onDispose { state.stopPlayback() }
@@ -58,6 +61,23 @@ fun DatasetScreen(state: AppState) {
         status = "共 " + state.samples.size + " 组",
         onBack = { state.screen = Screen.Home },
     ) {
+        SectionCard(title = "批量删除") {
+            HintText("采错工况/组号时：删除对应工况或全部数据后重录。删除会同步清理 dataset_index，并清空盲测/评估结果。")
+            Spacer(Modifier.height(8.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                if (filter > 0) {
+                    SecondaryButton(
+                        text = "删除「" + options[filter] + "」全部组",
+                        onClick = { confirmDeleteCondition = true },
+                        modifier = Modifier.weight(1f),
+                        enabled = state.samples.isNotEmpty(),
+                    )
+                }
+                SecondaryButton("删除全部数据", { confirmDeleteAll = true }, Modifier.weight(1f), enabled = state.samples.isNotEmpty())
+            }
+            if (filter == 0) HintText("先在顶部选择具体工况，可只删该工况；选择「全部」时只能删除全部数据。")
+        }
+        Spacer(Modifier.height(8.dp))
         ChipRow(options = options, selectedIndex = filter, onSelect = { filter = it })
         Spacer(Modifier.height(8.dp))
         LazyColumn(
@@ -89,6 +109,35 @@ fun DatasetScreen(state: AppState) {
 
     if (detailText != null) {
         TextContentDialog(detailTitle, detailText ?: "") { detailText = null }
+    }
+
+
+    if (confirmDeleteCondition) {
+        val conditionLabel = if (filter > 0) options[filter] else ""
+        ConfirmDialog(
+            title = "删除「" + conditionLabel + "」全部组？",
+            text = "将删除该工况下全部录音（WAV/加速度/特征/meta）并重建 dataset_index，操作不可撤销。",
+            confirmLabel = "删除该工况",
+            danger = true,
+            onConfirm = {
+                if (filter > 0) state.deleteConditionSamples(Conditions.all[filter - 1].id)
+                confirmDeleteCondition = false
+            },
+            onDismiss = { confirmDeleteCondition = false },
+        )
+    }
+    if (confirmDeleteAll) {
+        ConfirmDialog(
+            title = "删除全部数据？",
+            text = "将删除本会话全部录音与派生评估（盲测/抗噪/评估 JSON），并重建 dataset_index；操作不可撤销，建议先导出 ZIP 备份。",
+            confirmLabel = "删除全部",
+            danger = true,
+            onConfirm = {
+                state.deleteAllSamples()
+                confirmDeleteAll = false
+            },
+            onDismiss = { confirmDeleteAll = false },
+        )
     }
 
     val target = deleteTarget

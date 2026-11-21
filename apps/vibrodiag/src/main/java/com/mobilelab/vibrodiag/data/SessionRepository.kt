@@ -149,6 +149,35 @@ class SessionRepository internal constructor(
         LabLog.i(TAG, "deleted sample " + paths.stem)
     }
 
+    /** 删除某工况全部 15 组（WAV/CSV/meta），并重建 dataset_index。返回删除的组数。 */
+    fun deleteConditionSamples(conditionId: String): Int {
+        var removed = 0
+        for (group in 1..Conditions.TARGET_GROUPS) {
+            val dir = sampleDir(conditionId, group)
+            if (dir.exists()) {
+                if (dir.deleteRecursively()) removed++
+            }
+        }
+        conditionDir(conditionId).listFiles()
+            ?.filter { it.isDirectory && it.listFiles().isNullOrEmpty() }
+            ?.forEach { it.delete() }
+        writeDatasetIndex()
+        LabLog.i("SessionRepository", "deleted " + removed + " samples of " + conditionId)
+        return removed
+    }
+
+    /** 删除本会话全部录音与派生评估（盲测/抗噪/评估 JSON），保留 manifest/session.log。 */
+    fun deleteAllSamples(): Int {
+        var removed = 0
+        for (condition in Conditions.all) removed += deleteConditionSamples(condition.id)
+        runCatching { clearBlindTestData() }
+        runCatching { if (noiseCsvFile.exists()) noiseCsvFile.delete() }
+        runCatching { if (evaluationFile.exists()) evaluationFile.delete() }
+        writeDatasetIndex()
+        LabLog.i("SessionRepository", "deleted all samples: " + removed + " groups")
+        return removed
+    }
+
     fun writeDatasetIndex() {
         val rows = Conditions.all.map { it.id to it.label }
         Reports.writeDatasetIndex(datasetIndexFile, sessionId, rows, collectedCounts(), Conditions.TARGET_GROUPS)

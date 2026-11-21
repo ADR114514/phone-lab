@@ -243,6 +243,26 @@ object PowerTraceController {
     }
 
     /** 放弃批次：数据保留，状态置 ABORTED，并生成可导出的部分数据。 */
+    /**
+     * 删除当前批次：会话目录（CSV/log/manifest）+ 持久化状态。
+     * 采集中（RUNNING）禁止删除，避免服务仍在写文件；先暂停或放弃再删。
+     */
+    suspend fun deleteCampaignData(): Boolean = withContext(Dispatchers.IO) {
+        checkInitialized()
+        mutex.withLock {
+            val state = _state.value ?: repo.loadState() ?: return@withLock false
+            if (state.status == CampaignStatus.RUNNING) return@withLock false
+            val deleted = repo.deleteSessionDir(state.dirPath)
+            repo.clearCampaignState()
+            _state.value = null
+            _latestSample.value = null
+            _conditionSamples.value = emptyList()
+            _statusLine.value = ""
+            LabLog.i(TAG, "campaign data deleted: " + state.campaignId + " dir=" + deleted)
+            deleted
+        }
+    }
+
     suspend fun abortCampaign(): CampaignState? = withContext(Dispatchers.IO) {
         checkInitialized()
         mutex.withLock {
