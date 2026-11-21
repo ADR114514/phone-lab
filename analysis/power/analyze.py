@@ -132,6 +132,67 @@ def load_power_dir(data_dir: Path) -> dict:
             "summary": summary, "raw": raw, "manifest": manifest}
 
 
+def apply_charge_power_fallback(data: dict) -> list[str]:
+    """CURRENT_NOW 不可用时，用 charge_counter 差分补 power_w。
+
+    实测 OnePlus/ColorOS 的 current_now 只有 µA 级噪声（-26 ~ -93 µA），
+    voltage*|current| 会把整段工况算成 0.000 W，导致 4 工况功率完全相同。
+    这里按相邻采样点的电荷计差分估算平均功率：
+        P = Δcharge_counter(µAh) × V(mV) × 3.6 / (Δt(s) × 1e6)
+    仅在 |current| 中位数 < 2 mA（视为不可用）时启用，并把原始口径保留为 power_w_current。
+    """
+    notes: list[str] = []
+
+    def derive(frame: pd.DataFrame) -> pd.DataFrame:
+        if frame is None or frame.empty:
+            return frame
+        need = {"charge_counter_uah", "battery_voltage_mv", "timestamp_iso"}
+        if not need.issubset(frame.columns):
+            return frame
+        work = frame.sort_values("timestamp_iso").copy()
+        charge = pd.to_numeric(work["charge_counter_uah"], errors="coerce")
+        volt = pd.to_numeric(work["battery_voltage_mv"], errors="coerce")
+        ts = pd.to_datetime(work["timestamp_iso"], errors="coerce", utc=True)
+        dt_s = ts.diff().dt.total_seconds()
+        delta_uah = -charge.diff()
+        power = delta_uah * volt * 3.6 / (dt_s * 1e6)
+        valid = (dt_s >= 60) & (dt_s <= 3600) & (delta_uah > 0) & power.between(0.01, 30.0)
+        work["power_w_charge"] = power.where(valid)
+        work["power_w_current"] = pd.to_numeric(work.get("power_w"), errors="coerce")
+        return work
+
+    def should_fallback(frame: pd.DataFrame) -> bool:
+        if "current_now_ua" not in frame.columns:
+            return True
+        current = pd.to_numeric(frame["current_now_ua"], errors="coerce").abs()
+        med = float(current.median()) if current.notna().any() else 0.0
+        power = pd.to_numeric(frame.get("power_w"), errors="coerce")
+        finite = power.dropna()
+        near_zero = bool((finite.abs() < 0.01).mean() > 0.8) if len(finite) else True
+        return med < 2000.0 or near_zero
+
+    for key in ["sessions", "campaign"]:
+        holder = data.get(key)
+        if holder is None:
+            continue
+        frames = holder.values() if isinstance(holder, dict) else [holder]
+        for frame in frames:
+            if not isinstance(frame, pd.DataFrame) or not should_fallback(frame):
+                continue
+            derived = derive(frame)
+            if "power_w_charge" not in derived.columns or derived["power_w_charge"].notna().sum() == 0:
+                continue
+            original_index = derived.index
+            for column in derived.columns:
+                if column not in frame.columns:
+                    frame[column] = pd.NA
+            frame.loc[original_index, "power_w"] = derived["power_w_charge"].to_numpy()
+            frame.loc[original_index, "power_w_current"] = derived["power_w_current"].to_numpy()
+            condition = str(frame.get("condition_id", pd.Series(["campaign"])).iloc[0])
+            notes.append(f"{condition}: power_w 由 charge_counter 差分回退（current_now 中位 |I| < 2 mA，原口径保留为 power_w_current）")
+    return notes
+
+
 def is_synthetic(data: dict) -> bool:
     if data["manifest"].get("synthetic") is True:
         return True
@@ -161,7 +222,7 @@ def validate_samples(data: dict) -> tuple[pd.DataFrame, list[str], int]:
         voltage = frame["battery_voltage_mv"].to_numpy(dtype=float)
         current = np.abs(frame["current_now_ua"].to_numpy(dtype=float))
         recomputed = voltage * current / 1e9
-        mask = np.isfinite(power) & np.isfinite(recomputed) & (np.abs(power) > 1e-9)
+        mask = np.isfinite(power) & np.isfinite(recomputed) & (np.abs(power) > 1e-9) & (current >= 2000.0)
         power_error = (float(np.max(np.abs(recomputed[mask] - power[mask]) / np.abs(power[mask])))
                        if mask.any() else float("nan"))
         negative_current = int((frame["current_now_ua"].fillna(0) < 0).sum())
@@ -846,7 +907,9 @@ def partial_check(data_dir: Path) -> int:
 def run(data_dir: Path, out_dir: Path) -> dict:
     data = load_power_dir(data_dir)
     synthetic = is_synthetic(data)
+    fallback_notes = apply_charge_power_fallback(data)
     quality, issues, campaign_rows = validate_samples(data)
+    issues = fallback_notes + issues
     metrics, cross = condition_metrics(data)
     attribution, fit_frame, fit_summary = build_attribution(data["campaign"])
     thermal = build_thermal_analysis(data)

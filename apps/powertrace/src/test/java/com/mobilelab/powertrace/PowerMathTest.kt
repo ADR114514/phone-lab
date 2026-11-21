@@ -2,7 +2,9 @@ package com.mobilelab.powertrace
 
 import com.mobilelab.powertrace.data.PowerMath
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /** 功率 / 能量 / 字节速率的核心计算（spec 验收项之一）。 */
@@ -66,5 +68,25 @@ class PowerMathTest {
         assertEquals(1800, PowerMath.avgInt(listOf(1600, 2000, null)))
         assertEquals(2400, PowerMath.maxInt(listOf(1600, 2400, null)))
         assertNull(PowerMath.avg(emptyList()))
+    }
+    @Test
+    fun powerWFromCharge_usesMicroAmpHourDelta() {
+        // 10 mAh @ 3.85 V over 300 s = 0.462 W
+        assertEquals(0.462, PowerMath.powerWFromCharge(10_000L, 3850, 300_000L)!!, 1e-6)
+        // 1 mAh over 300 s = 0.0462 W（电荷计 1 mAh 量化下的最小分辨率）
+        assertEquals(0.0462, PowerMath.powerWFromCharge(1_000L, 3850, 300_000L)!!, 1e-6)
+        assertNull(PowerMath.powerWFromCharge(0L, 3850, 300_000L))
+        assertNull(PowerMath.powerWFromCharge(-1_000L, 3850, 300_000L))
+        assertNull(PowerMath.powerWFromCharge(1_000L, 0, 300_000L))
+        assertNull(PowerMath.powerWFromCharge(1_000L, 3850, 0L))
+    }
+
+    @Test
+    fun isCurrentPlausible_rejectsMicroAmpNoise() {
+        assertFalse(PowerMath.isCurrentPlausible(-26))
+        assertFalse(PowerMath.isCurrentPlausible(1_999))
+        assertTrue(PowerMath.isCurrentPlausible(2_000))
+        assertTrue(PowerMath.isCurrentPlausible(-450_000))
+        assertFalse(PowerMath.isCurrentPlausible(null))
     }
 }

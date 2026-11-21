@@ -131,9 +131,18 @@ data class SessionSample(
     val fps: Double? = null,
     val foregroundPkg: String? = null,
     val note: String = "",
+    /** 由电荷计差分或可信电流算出的功率（W）；为空表示本点无法得到可信功率。 */
+    val computedPowerW: Double? = null,
+    /** charge_counter / current_now / null（不可用）。 */
+    val powerSource: String? = null,
 ) {
-    /** `power_w = voltage_mv × |current_ua| / 1e9`（spec 采样实现）。 */
-    val powerW: Double? get() = PowerMath.powerW(batteryVoltageMv, currentNowUa)
+    /**
+     * 功率优先用 [computedPowerW]（电荷计差分）。
+     * 仅当电流量级可信（≥2 mA）时才回退到 voltage × |current|；
+     * 否则返回 null（CSV 留空），避免把 -26 µA 算成 0.000 W 的假数据。
+     */
+    val powerW: Double? get() = computedPowerW
+        ?: if (PowerMath.isCurrentPlausible(currentNowUa)) PowerMath.powerW(batteryVoltageMv, currentNowUa) else null
 }
 
 /** 原始 5 s 序列的一行（数据字典 1.4）。 */

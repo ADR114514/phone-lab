@@ -355,11 +355,34 @@ object PowerTraceController {
             null
         }
 
+        // 功率口径：优先电荷计差分（部分机型 CURRENT_NOW 只有 µA 级噪声，例如 OnePlus 12）。
+        val previousCharge = repo.lastChargeSnapshot()
+        var computedPowerW: Double? = null
+        var powerSource: String? = null
+        if (raw.chargeCounterUah != null && raw.batteryVoltageMv != null && previousCharge != null) {
+            val dtMs = nowMs - previousCharge.timeMs
+            if (dtMs in 60_000L..3_600_000L) {
+                val deltaUah = previousCharge.chargeUah - raw.chargeCounterUah.toLong()
+                val fromCharge = PowerMath.powerWFromCharge(deltaUah, raw.batteryVoltageMv, dtMs)
+                if (fromCharge != null && fromCharge in 0.0..30.0) {
+                    computedPowerW = fromCharge
+                    powerSource = "charge_counter"
+                }
+            }
+        }
+        if (computedPowerW == null && PowerMath.isCurrentPlausible(raw.currentNowUa)) {
+            computedPowerW = PowerMath.powerW(raw.batteryVoltageMv, raw.currentNowUa)
+            powerSource = "current_now"
+        }
+        raw.chargeCounterUah?.let { repo.saveChargeSnapshot(it.toLong(), nowMs, raw.batteryVoltageMv ?: 0) }
+
         val late = action.lateMs > SamplingConfig.LATE_TOLERANCE_MS
         val flags = buildList {
             if (late) add("late_sample(+${action.lateMs / 1000}s)")
             if (raw.charging) add("charging_during_sample")
             if (condition == ConditionId.IDLE && raw.screenOn) add("screen_on_expected_off")
+            if (computedPowerW == null) add("power_unavailable(charge_delta_pending_or_current_implausible)")
+            else if (powerSource != null) add("power_source=" + powerSource)
             if (raw.unavailable.isNotEmpty()) add("unavailable:" + raw.unavailable.joinToString("/"))
         }
         val note = (flags + listOf(state.notes)).filter { it.isNotBlank() }.joinToString("; ")
@@ -392,6 +415,8 @@ object PowerTraceController {
             fps = raw.fps,
             foregroundPkg = raw.foregroundPkg,
             note = note,
+            computedPowerW = computedPowerW,
+            powerSource = powerSource,
         )
 
         repo.appendSessionSample(state, condition, sample)

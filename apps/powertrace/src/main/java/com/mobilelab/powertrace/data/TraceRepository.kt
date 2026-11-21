@@ -59,6 +59,25 @@ class TraceRepository(context: Context) {
 
     fun isOemSleepConfirmed(): Boolean = settingPrefs.getBoolean(KEY_OEM_SLEEP, false)
 
+    /** 上一次成功采样的电荷计读数，用于跨进程/跨采样点做差分。 */
+    data class ChargeSnapshot(val chargeUah: Long, val timeMs: Long, val voltageMv: Int)
+
+    fun lastChargeSnapshot(): ChargeSnapshot? {
+        val uah = settingPrefs.getLong(KEY_LAST_CHARGE_UAH, Long.MIN_VALUE)
+        val ms = settingPrefs.getLong(KEY_LAST_CHARGE_MS, Long.MIN_VALUE)
+        val mv = settingPrefs.getInt(KEY_LAST_CHARGE_MV, 0)
+        if (uah == Long.MIN_VALUE || ms == Long.MIN_VALUE) return null
+        return ChargeSnapshot(uah, ms, mv)
+    }
+
+    fun saveChargeSnapshot(chargeUah: Long, timeMs: Long, voltageMv: Int) {
+        settingPrefs.edit {
+            putLong(KEY_LAST_CHARGE_UAH, chargeUah)
+            putLong(KEY_LAST_CHARGE_MS, timeMs)
+            putInt(KEY_LAST_CHARGE_MV, voltageMv)
+        }
+    }
+
     fun setOemSleepConfirmed(value: Boolean) {
         settingPrefs.edit { putBoolean(KEY_OEM_SLEEP, value) }
     }
@@ -193,7 +212,7 @@ class TraceRepository(context: Context) {
                 .put("finishedAt", state.finishedMs)
                 .put("rerunOf", state.rerunOf)
                 .put("dataDictionary", "docs/DATA_DICTIONARY.md (section 1, PowerTrace)")
-                .put("powerConvention", "power_w = voltage_mv * abs(current_now_ua) / 1e9")
+                .put("powerConvention", "power_w = d(charge_counter_uah) * voltage_mv * 3.6 / (dt_ms * 1000) when charge counter needs >=60s window; fallback voltage_mv * abs(current_now_ua)/1e9 only when |current| >= 2 mA")
                 .put("energyMethod", "rectangular integration over 6 x 300 s buckets per condition")
                 .put("currentSignConvention", "raw current_now_ua keeps device sign; power_w uses abs()")
                 .put("foregroundPkgNote", "empty unless PACKAGE_USAGE_STATS appop is granted")
@@ -215,5 +234,8 @@ class TraceRepository(context: Context) {
         const val KEY_STANDBY_GUARD = "standby_guard_enabled"
         const val KEY_OEM_BACKGROUND = "oem_background_confirmed"
         const val KEY_OEM_SLEEP = "oem_sleep_confirmed"
+        const val KEY_LAST_CHARGE_UAH = "last_charge_uah"
+        const val KEY_LAST_CHARGE_MS = "last_charge_ms"
+        const val KEY_LAST_CHARGE_MV = "last_charge_mv"
     }
 }

@@ -20,6 +20,37 @@ object PowerMath {
     }
 
     /**
+     * 由电荷计差分估算平均功率（W）。
+     *
+     * 很多机型（如 OnePlus/ColorOS）的 BATTERY_PROPERTY_CURRENT_NOW 只有 µA 级噪声/不可用，
+     * 此时用 charge_counter_uah 差分更可靠：1 mAh @ 3.85 V ≈ 3.85 mWh，
+     * 5 min 窗口分辨率约 0.046 W，足以区分待机/视频/导航/游戏四档。
+     *
+     * 公式推导：ΔQ(C) = ΔµAh × 3.6e-3；P = ΔQ × V / dt = ΔµAh × V_mV × 3.6e-3 × 1e-3 / (dt_ms × 1e-3)。
+     * 化简为：P = ΔµAh × V_mV × 3.6 / (dt_ms × 1000)。
+     *
+     * @param deltaUah 放电期间的电荷差（前一次读数 − 本次读数，>0）
+     * @param voltageMv 电池电压（mV）
+     * @param dtMs 两次读数的时间差（ms）
+     */
+    fun powerWFromCharge(deltaUah: Long, voltageMv: Int, dtMs: Long): Double? {
+        if (deltaUah <= 0L || dtMs <= 0L) return null
+        if (voltageMv <= 0) return null
+        val watts = deltaUah.toDouble() * voltageMv * 3.6 / (dtMs.toDouble() * 1000.0)
+        return if (watts.isFinite() && watts >= 0.0) watts else null
+    }
+
+    /**
+     * current_now_ua 是否足以作为功率主口径。
+     * 实测 OnePlus 12 待机仅 -26 µA、真实会话 -93~+521 µA，量级明显异常；
+     * 低于 2 mA 时视为不可用，改用电荷计差分。
+     */
+    fun isCurrentPlausible(currentNowUa: Int?): Boolean =
+        currentNowUa != null && abs(currentNowUa.toLong()) >= MIN_PLAUSIBLE_CURRENT_UA
+
+    const val MIN_PLAUSIBLE_CURRENT_UA = 2_000L
+
+    /**
      * 能量积分（Wh）。
      *
      * 矩形积分：第 i 个采样点的功率代表其后 [intervalSec] 秒的区间，

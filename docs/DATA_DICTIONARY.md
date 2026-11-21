@@ -61,7 +61,7 @@
 | current_now_ua | int | µA | `BATTERY_PROPERTY_CURRENT_NOW`；符号随厂商，分析脚本按绝对值处理并记录符号约定 |
 | charge_counter_uah | int | µAh | 剩余电荷计数，用于交叉校验电量差 |
 | energy_counter_nwh | int | nWh | 部分机型支持，空表示不支持 |
-| power_w | double | W | `voltage_mv × |current_ua| / 1e9` |
+| power_w | double | W | 优先 `Δcharge_counter_uah × voltage_mv × 3.6 / (Δt_s × 1e6)`（电荷计差分，跨采样点 ≥60 s 有效）；仅当 `|current_now_ua| ≥ 2 mA` 才回退 `voltage_mv × |current_ua| / 1e9`。首点无差分时留空，原因写入 note（`power_unavailable` / `power_source=charge_counter`）。原始电流口径保留在分析产物的 `power_w_current` 列 |
 | thermal_status | int | | `PowerManager.getCurrentThermalStatus()` 0..6 |
 | cpu_temp_c | double | °C | 多个 thermal zone 取最大值，无法读取时为空 |
 | cpu_freq_mhz_avg | int | MHz | 各核心 `scaling_cur_freq` 平均值，无法读取为空 |
