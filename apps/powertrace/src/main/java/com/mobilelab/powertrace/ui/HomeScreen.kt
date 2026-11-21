@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -56,6 +57,27 @@ fun HomeScreen(
         status = statusLine,
     ) {
         ScreenScroll {
+            NextStepCard(
+                campaign = campaign,
+                access = access,
+                onNavigate = onNavigate,
+                onStart = {
+                    scope.launch {
+                        PowerTraceController.startCampaign()
+                        SamplingControl.start(context)
+                        onNavigate(Route.SAMPLING)
+                    }
+                },
+                onResume = {
+                    scope.launch {
+                        PowerTraceController.resumeCampaign()
+                        SamplingControl.resume(context)
+                        onNavigate(Route.SAMPLING)
+                    }
+                },
+            )
+            ProgressCard(campaign)
+
             SectionCard(title = "项目说明") {
                 HintText(
                     "在 Android 12+ 真机上对「待机 / 短视频 / 导航拍摄 / 高帧率游戏」四种工况各连续测量 30 min，" +
@@ -187,6 +209,114 @@ fun HomeScreen(
                     HintText("降温：${condition.coolingTip}")
                     HintText("准备：${condition.prepTip}")
                     if (index != ConditionId.defaultOrder.lastIndex) Spacer(Modifier.height(12.dp))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun NextStepCard(
+    campaign: CampaignState?,
+    access: SystemAccess.Snapshot,
+    onNavigate: (Route) -> Unit,
+    onStart: () -> Unit,
+    onResume: () -> Unit,
+) {
+    val total = campaign?.totalSamplesDone ?: 0
+    val target = ConditionId.defaultOrder.size * SamplingConfig.SAMPLES_PER_CONDITION
+    SectionCard(title = "下一步", accent = LabColors.Primary) {
+        when {
+            campaign == null -> {
+                StatusPill("步骤 1 / 3 · 新建批次", PillTone.Info)
+                Spacer(Modifier.height(8.dp))
+                Text("新建批次开始实验", style = MaterialTheme.typography.titleMedium, color = LabColors.TextPrimary)
+                HintText("4 工况 × 30 min，共 24 个采样点；开始前会强制检查权限。务必拔掉充电线、关闭自动亮度。")
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("新建批次", { onNavigate(Route.WIZARD) }, Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton("先去设置检查权限", { onNavigate(Route.SETTINGS) }, Modifier.fillMaxWidth())
+            }
+            campaign.status == CampaignStatus.DRAFT -> {
+                StatusPill("步骤 2 / 3 · 开始采集", PillTone.Info)
+                Spacer(Modifier.height(8.dp))
+                Text("批次已就绪", style = MaterialTheme.typography.titleMedium, color = LabColors.TextPrimary)
+                HintText("当前未充电=" + (access.charging != true) + "，自动亮度=" + (access.autoBrightness == true) + "；开始后按工况提示操作，工况间静置 10 分钟降温。")
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("开始采集", onStart, Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton("检查采集参数", { onNavigate(Route.WIZARD) }, Modifier.fillMaxWidth())
+            }
+            campaign.status == CampaignStatus.RUNNING -> {
+                StatusPill("步骤 2 / 3 · 采集中", PillTone.Success)
+                Spacer(Modifier.height(8.dp))
+                val current = campaign.current
+                Text(
+                    text = if (current != null) "当前 " + current.condition.label + " · 第 " + (current.samplesDone + 1).coerceAtMost(SamplingConfig.SAMPLES_PER_CONDITION) + "/" + SamplingConfig.SAMPLES_PER_CONDITION + " 点" else "采集进行中",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = LabColors.TextPrimary,
+                )
+                HintText("已写入 " + total + "/" + target + " 行；待机工况请锁屏静置，其余工况保持屏幕常亮，实验期间不要充电。")
+                if (access.charging == true) {
+                    Spacer(Modifier.height(4.dp))
+                    StatusPill("正在充电：本次数据会作废，请立即拔线", PillTone.Error)
+                }
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("进入采集页", { onNavigate(Route.SAMPLING) }, Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton("查看已采数据", { onNavigate(Route.RESULTS) }, Modifier.fillMaxWidth())
+            }
+            campaign.status == CampaignStatus.PAUSED -> {
+                StatusPill("已暂停", PillTone.Warning)
+                Spacer(Modifier.height(8.dp))
+                Text("批次已暂停，继续后会从下一个采样点开始", style = MaterialTheme.typography.titleMedium, color = LabColors.TextPrimary)
+                HintText("已写入 " + total + "/" + target + " 行；继续前确认未充电、亮度已固定。")
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("继续批次", onResume, Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton("查看已采数据", { onNavigate(Route.RESULTS) }, Modifier.fillMaxWidth())
+            }
+            else -> {
+                StatusPill("步骤 3 / 3 · 导出分析", PillTone.Info)
+                Spacer(Modifier.height(8.dp))
+                Text(if (campaign.status == CampaignStatus.FINISHED) "采集已完成" else "批次已放弃（已采数据保留）", style = MaterialTheme.typography.titleMedium, color = LabColors.TextPrimary)
+                HintText("接下来：在结果页核对 24 行数据并导出 ZIP，用 analysis/power 跑分析、填报告（报告模板与自检脚本在仓库）。")
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("查看数据与导出", { onNavigate(Route.RESULTS) }, Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton("新建批次（补测）", { onNavigate(Route.WIZARD) }, Modifier.fillMaxWidth())
+            }
+        }
+    }
+}
+
+@Composable
+private fun ProgressCard(campaign: CampaignState?) {
+    val target = ConditionId.defaultOrder.size * SamplingConfig.SAMPLES_PER_CONDITION
+    val total = campaign?.totalSamplesDone ?: 0
+    SectionCard(title = "采集进度") {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("总进度", style = MaterialTheme.typography.bodyMedium, color = LabColors.TextPrimary, modifier = Modifier.weight(1f))
+            Text(total.toString() + " / " + target, style = MaterialTheme.typography.labelMedium, color = LabColors.TextSecondary)
+        }
+        Spacer(Modifier.height(5.dp))
+        LinearProgressIndicator(
+            progress = { (total.toFloat() / target).coerceIn(0f, 1f) },
+            modifier = Modifier.fillMaxWidth().height(8.dp),
+            color = if (total >= target) LabColors.Success else LabColors.Primary,
+            trackColor = LabColors.SurfaceHigh,
+        )
+        Spacer(Modifier.height(10.dp))
+        val conditions = campaign?.conditions.orEmpty()
+        if (conditions.isEmpty()) {
+            HintText("新建批次后，这里会显示 4 个工况的逐点进度。")
+        } else {
+            conditions.forEach { c ->
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+                    Text(c.block + " " + c.condition.label, style = MaterialTheme.typography.bodyMedium, color = LabColors.TextPrimary, modifier = Modifier.weight(1f))
+                    if (c.completed) StatusPill("已完成", PillTone.Success) else if (c.samplesDone > 0) StatusPill("进行中", PillTone.Info) else StatusPill("待采集", PillTone.Muted)
+                    Spacer(Modifier.width(8.dp))
+                    Text(c.samplesDone.toString() + "/" + SamplingConfig.SAMPLES_PER_CONDITION, style = MaterialTheme.typography.labelMedium, color = LabColors.TextSecondary)
                 }
             }
         }

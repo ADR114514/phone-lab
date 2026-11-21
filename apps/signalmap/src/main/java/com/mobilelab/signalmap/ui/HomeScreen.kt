@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +29,7 @@ import com.mobilelab.core.ui.SecondaryButton
 import com.mobilelab.core.ui.SectionCard
 import com.mobilelab.core.ui.StatusPill
 import com.mobilelab.core.ui.theme.LabColors
+import com.mobilelab.signalmap.data.DataContract
 import com.mobilelab.signalmap.service.EnvironmentStatus
 import com.mobilelab.signalmap.vm.SurveyViewModel
 
@@ -60,6 +62,18 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             MessageBanner(vm.message) { vm.postMessage(null) }
+
+            NextStepCard(
+                vm = vm,
+                environment = environment,
+                onMeasure = onMeasure,
+                onOpenResult = onOpenResult,
+                onOpenWifiSettings = onOpenWifiSettings,
+                onOpenLocationSettings = onOpenLocationSettings,
+                onRequestPermissions = onRequestPermissions,
+                onOpenAppSettings = onOpenAppSettings,
+            )
+            SurveyProgressCard(vm)
 
             SectionCard(title = "项目说明") {
                 Text(
@@ -234,6 +248,108 @@ fun HomeScreen(
                         modifier = Modifier.weight(1f),
                     )
                 }
+            }
+        }
+    }
+}
+@Composable
+private fun NextStepCard(
+    vm: SurveyViewModel,
+    environment: EnvironmentStatus,
+    onMeasure: (String) -> Unit,
+    onOpenResult: () -> Unit,
+    onOpenWifiSettings: () -> Unit,
+    onOpenLocationSettings: () -> Unit,
+    onRequestPermissions: () -> Unit,
+    onOpenAppSettings: () -> Unit,
+) {
+    val completed = vm.progress.totalCompleted()
+    val allDone = vm.isAllDone()
+    val envReady = environment.radioReadable && environment.wifiConnected && environment.locationEnabled &&
+        environment.locationPermission && (!environment.nearbyWifiRequired || environment.nearbyWifiGranted)
+    val target = vm.nextTarget()
+    val targetPoint = target?.point
+    SectionCard(title = "下一步", accent = LabColors.Primary) {
+        when {
+            !envReady -> {
+                StatusPill("步骤 1 / 3 · 环境检查", PillTone.Warning)
+                Spacer(Modifier.height(8.dp))
+                Text("先修复环境，再开始测量", style = MaterialTheme.typography.titleMedium, color = LabColors.TextPrimary)
+                HintText("需要同时满足：Wi-Fi 已连接、系统定位开关打开、定位权限已授予（Android 12+ 读 RSSI 的前提）。")
+                Spacer(Modifier.height(10.dp))
+                val fix = when {
+                    !environment.wifiConnected -> onOpenWifiSettings
+                    !environment.locationEnabled -> onOpenLocationSettings
+                    !environment.locationPermission -> onRequestPermissions
+                    environment.nearbyWifiRequired && !environment.nearbyWifiGranted -> onRequestPermissions
+                    else -> onOpenAppSettings
+                }
+                PrimaryButton("去修复环境", fix, Modifier.fillMaxWidth())
+            }
+            allDone -> {
+                StatusPill("步骤 3 / 3 · 导出结果", PillTone.Success)
+                Spacer(Modifier.height(8.dp))
+                Text("24 次测量已完成", style = MaterialTheme.typography.titleMedium, color = LabColors.TextPrimary)
+                HintText("到结果页检查 24 行数据与点位照片，生成并保存 ZIP 提交；照片也可在结果页直接点开查看。")
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("查看结果并导出 ZIP", onOpenResult, Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton("查看点位照片", onOpenResult, Modifier.fillMaxWidth())
+            }
+            target != null -> {
+                StatusPill("步骤 2 / 3 · 逐点测量", PillTone.Info)
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = "继续测量：" + (targetPoint?.id ?: "") + " " + (targetPoint?.name ?: "") + " 第 " + target.repeatIndex + "/" + DataContract.REPEATS_PER_POINT + " 次",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = LabColors.TextPrimary,
+                )
+                HintText("已写入 " + vm.rows.size + "/" + DataContract.TOTAL_ROWS + " 行；同一时段测完 8 个点位，点位站位与朝向保持固定。")
+                if (targetPoint != null && targetPoint.photoFile.isEmpty()) {
+                    Spacer(Modifier.height(4.dp))
+                    StatusPill("本点位还没有拍照（建议先拍墙体/AP 方向）", PillTone.Warning)
+                }
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("开始本次测量", { onMeasure(target.point.id) }, Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton("查看已测结果", onOpenResult, Modifier.fillMaxWidth())
+            }
+            else -> {
+                StatusPill("步骤 2 / 3 · 逐点测量", PillTone.Info)
+                Spacer(Modifier.height(8.dp))
+                Text("继续完成剩余点位", style = MaterialTheme.typography.titleMedium, color = LabColors.TextPrimary)
+                HintText("已写入 " + vm.rows.size + "/" + DataContract.TOTAL_ROWS + " 行；点「开始本次测量」后会按进度自动选点。")
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("打开点位列表", { }, Modifier.fillMaxWidth(), enabled = false)
+            }
+        }
+    }
+}
+
+@Composable
+private fun SurveyProgressCard(vm: SurveyViewModel) {
+    val completed = vm.progress.totalCompleted()
+    SectionCard(title = "测绘进度") {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("总进度", style = MaterialTheme.typography.bodyMedium, color = LabColors.TextPrimary, modifier = Modifier.weight(1f))
+            Text(completed.toString() + " / " + DataContract.TOTAL_ROWS, style = MaterialTheme.typography.labelMedium, color = LabColors.TextSecondary)
+        }
+        Spacer(Modifier.height(5.dp))
+        LinearProgressIndicator(
+            progress = { (completed.toFloat() / DataContract.TOTAL_ROWS).coerceIn(0f, 1f) },
+            modifier = Modifier.fillMaxWidth().height(8.dp),
+            color = if (completed >= DataContract.TOTAL_ROWS) LabColors.Success else LabColors.Primary,
+            trackColor = LabColors.SurfaceHigh,
+        )
+        Spacer(Modifier.height(10.dp))
+        vm.points.forEach { point ->
+            val repeats = vm.progress.repeats(point.id)
+            val hasPhoto = point.photoFile.isNotEmpty()
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp)) {
+                Text(point.id + " " + point.name, style = MaterialTheme.typography.bodySmall, color = LabColors.TextPrimary, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                if (hasPhoto) StatusPill("照片", PillTone.Success) else StatusPill("未拍照", PillTone.Muted)
+                Spacer(Modifier.width(6.dp))
+                Text(repeats.toString() + "/" + DataContract.REPEATS_PER_POINT, style = MaterialTheme.typography.labelSmall, color = if (repeats >= DataContract.REPEATS_PER_POINT) LabColors.Success else LabColors.TextSecondary)
             }
         }
     }
