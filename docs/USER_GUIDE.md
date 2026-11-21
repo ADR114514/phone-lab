@@ -93,3 +93,11 @@ python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/
 ```
 
 分析输出：`analysis/out/<x>/figures/*.png`、`tables/*.csv`、`*_report.md`；把图表插入 `docs/report/` 下的报告模板即可。
+
+
+### VibroDiag 首页/采集页改版
+
+- 首页新增**“下一步”卡片**：自动判断当前该采集、盲测、评估还是导出，并给出一键入口；
+- **实验流程**四步与完成状态、5 工况进度条（含下一组提示）一屏可见；
+- 盲测按钮在数据不足 25 组时置灰并说明原因；
+- 采集页顶部显示总进度（已完成 x/75）与本工况进度，保存后明确“采集下一组/本工况已完成”的下一步。

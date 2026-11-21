@@ -150,12 +150,13 @@ fun RecordScreen(state: AppState, permission: PermissionRequester) {
     LabScaffold(
         title = "开始采集",
         subtitle = "每组 " + state.settings.durationS + " 秒 · 5 工况 × 15 组",
-        status = if (state.activeRecording != null) "录音中" else "第 " + (groupIndex.coerceAtLeast(1)) + " 组",
+        status = if (state.activeRecording != null) "录音中" else "已完成 " + state.countsByCondition().values.sum() + " / " + (Conditions.all.size * Conditions.TARGET_GROUPS) + " 组",
         onBack = {
             if (recording || phase == RecordPhase.Counting) showInterruptDialog = true else state.screen = Screen.Home
         },
     ) {
         ScrollColumn {
+            RecordProgressCard(state = state, conditionId = conditionId)
             ConditionCard(
                 conditionId = conditionId,
                 groupIndex = groupIndex,
@@ -171,6 +172,7 @@ fun RecordScreen(state: AppState, permission: PermissionRequester) {
                 SavedResultCard(
                     state = state,
                     saveState = saved,
+                    nextGroup = state.nextGroup(conditionId),
                     onRedo = {
                         val sample = saved.sample
                         state.deleteSample(sample)
@@ -296,6 +298,42 @@ fun RecordScreen(state: AppState, permission: PermissionRequester) {
 }
 
 @Composable
+private fun RecordProgressCard(state: AppState, conditionId: String) {
+    val counts = state.countsByCondition()
+    val total = counts.values.sum()
+    val target = Conditions.all.size * Conditions.TARGET_GROUPS
+    val current = counts[conditionId] ?: 0
+    SectionCard(title = "采集进度") {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("总进度", style = MaterialTheme.typography.bodyMedium, color = LabColors.TextPrimary, modifier = Modifier.weight(1f))
+            Text(total.toString() + " / " + target, style = MaterialTheme.typography.labelMedium, color = LabColors.TextSecondary)
+        }
+        Spacer(Modifier.height(5.dp))
+        LinearProgressIndicator(
+            progress = { (total.toFloat() / target).coerceIn(0f, 1f) },
+            modifier = Modifier.fillMaxWidth().height(8.dp),
+            color = if (total >= target) LabColors.Success else LabColors.Primary,
+            trackColor = LabColors.SurfaceHigh,
+        )
+        Spacer(Modifier.height(10.dp))
+        val label = Conditions.labelOf(conditionId)
+        val next = state.nextGroup(conditionId)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            StatusPill(label, PillTone.Info)
+            Spacer(Modifier.width(8.dp))
+            StatusPill(current.toString() + "/" + Conditions.TARGET_GROUPS, PillTone.Muted)
+            Spacer(Modifier.weight(1f))
+            StatusPill(
+                if (next == null) "本工况已完成" else "下一组 g" + String.format(Locale.US, "%02d", next),
+                if (next == null) PillTone.Success else PillTone.Warning,
+            )
+        }
+        Spacer(Modifier.height(6.dp))
+        HintText("建议完成一个工况再换下一个；组间保持手机位置不变，异常组请重录。")
+    }
+}
+
+@Composable
 private fun ConditionCard(
     conditionId: String,
     groupIndex: Int,
@@ -417,6 +455,7 @@ private fun RecordingCard(
 private fun SavedResultCard(
     state: AppState,
     saveState: RecordingSaveState.Saved,
+    nextGroup: Int?,
     onRedo: () -> Unit,
     onNext: () -> Unit,
 ) {
@@ -450,11 +489,26 @@ private fun SavedResultCard(
         Spacer(Modifier.height(8.dp))
         HintText("音频采样率 44.1 kHz · " + sample.features.size + " 维特征已写入 " + sample.paths.features.name)
         Spacer(Modifier.height(12.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            SecondaryButton("重录本组", onRedo, Modifier.weight(1f))
-            PrimaryButton("下一组", onNext, Modifier.weight(1f))
+        if (nextGroup == null) {
+            StatusPill("本工况 15 组已完成", PillTone.Success)
+            Spacer(Modifier.height(8.dp))
+            HintText("请回首页切换到其他工况，或到数据集页检查/删除后重录。")
+            Spacer(Modifier.height(10.dp))
+            PrimaryButton("返回首页选择下一工况", { state.screen = Screen.Home }, Modifier.fillMaxWidth())
+            Spacer(Modifier.height(8.dp))
+            SecondaryButton("重录本组", onRedo, Modifier.fillMaxWidth())
+        } else {
+            HintText("下一组：" + Conditions.labelOf(sample.conditionId) + " 第 " + nextGroup + " 组")
+            Spacer(Modifier.height(10.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                SecondaryButton("重录本组", onRedo, Modifier.weight(1f))
+                PrimaryButton("采集下一组", onNext, Modifier.weight(1f))
+            }
         }
         Spacer(Modifier.height(8.dp))
-        SecondaryButton("返回首页", { state.screen = Screen.Home }, Modifier.fillMaxWidth())
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            SecondaryButton("查看数据集", { state.screen = Screen.Dataset }, Modifier.weight(1f))
+            SecondaryButton("返回首页", { state.screen = Screen.Home }, Modifier.weight(1f))
+        }
     }
 }

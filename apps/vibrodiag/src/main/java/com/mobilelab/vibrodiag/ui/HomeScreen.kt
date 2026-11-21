@@ -31,7 +31,6 @@ import com.mobilelab.core.ui.HintText
 import com.mobilelab.core.ui.KeyValueRow
 import com.mobilelab.core.ui.LabScaffold
 import com.mobilelab.core.ui.LinkButton
-import com.mobilelab.core.ui.MetricTile
 import com.mobilelab.core.ui.PillTone
 import com.mobilelab.core.ui.PrimaryButton
 import com.mobilelab.core.ui.SecondaryButton
@@ -42,12 +41,24 @@ import com.mobilelab.vibrodiag.AppState
 import com.mobilelab.vibrodiag.Screen
 import com.mobilelab.vibrodiag.model.Conditions
 
+/**
+ * 首页按“实验流程”组织：先看下一步该干什么 → 数据集进度 → 快捷入口 → 设备/说明。
+ * 所有门禁（盲测需要数据、评估需要采集完成）都直接在界面上说明原因，避免用户点不动却不知道原因。
+ */
 @Composable
 fun HomeScreen(state: AppState, permission: PermissionRequester) {
     val exporter = rememberFileExporter()
     val counts = state.countsByCondition()
     val total = counts.values.sum()
-    val targetTotal = Conditions.all.size * Conditions.TARGET_GROUPS
+    val target = Conditions.all.size * Conditions.TARGET_GROUPS
+    val blindTotal = state.blindSession?.total ?: (Conditions.all.size * 3)
+    val blindDone = state.blindResults.size
+    val hasLoocv = state.loocv != null
+    val hasNoise = state.noiseResult != null
+    val hasEvaluation = state.evaluationFile != null
+    val nextConditionId = Conditions.ids.firstOrNull { (counts[it] ?: 0) < Conditions.TARGET_GROUPS } ?: state.initialCondition()
+    val nextCondition = Conditions.byId(nextConditionId)
+    val nextGroup = state.nextGroup(nextConditionId) ?: 0
     var showExport by remember { mutableStateOf(false) }
 
     LaunchedEffect(state.exportFile) {
@@ -57,16 +68,39 @@ fun HomeScreen(state: AppState, permission: PermissionRequester) {
     LabScaffold(
         title = "声振诊断仪",
         subtitle = "项目三 · 旋转机械异常声振诊断",
-        status = if (total >= targetTotal) "数据集已完成 " + total + "/" + targetTotal else "本会话进度 " + total + "/" + targetTotal,
+        status = if (total >= target) "数据集已完成 " + total + "/" + target else "本会话进度 " + total + "/" + target,
     ) {
         ScrollColumn {
-            SessionCard(state, total)
             if (!permission.allGranted) {
                 PermissionCard(permission)
             }
-            ProgressCard(state, counts)
+            NextStepCard(
+                state = state,
+                total = total,
+                target = target,
+                blindDone = blindDone,
+                blindTotal = blindTotal,
+                hasLoocv = hasLoocv,
+                hasNoise = hasNoise,
+                hasEvaluation = hasEvaluation,
+                nextConditionLabel = nextCondition?.label ?: nextConditionId,
+                nextGroup = nextGroup,
+                nextCount = counts[nextConditionId] ?: 0,
+            )
+            WorkflowCard(
+                total = total,
+                target = target,
+                blindDone = blindDone,
+                blindTotal = blindTotal,
+                hasLoocv = hasLoocv,
+                hasNoise = hasNoise,
+                hasEvaluation = hasEvaluation,
+            )
+            ProgressCard(counts = counts, total = total, target = target, nextConditionId = nextConditionId)
+            CaptureTipsCard(state)
+            QuickActionsCard(state = state, total = total)
+            SessionCard(state = state, total = total, target = target)
             CapabilityCard(state)
-            ActionsCard(state)
             AboutCard(state)
         }
     }
@@ -84,20 +118,174 @@ fun HomeScreen(state: AppState, permission: PermissionRequester) {
 }
 
 @Composable
-private fun SessionCard(state: AppState, total: Int) {
-    SectionCard(title = "实验会话") {
-        KeyValueRow("会话 ID", state.repository.sessionId)
-        KeyValueRow("样本总数", total.toString() + " / " + (Conditions.all.size * Conditions.TARGET_GROUPS))
-        KeyValueRow("录音时长", state.settings.durationS.toString() + " s")
-        KeyValueRow("音频源", state.audioCapability.sourceLabel)
-        KeyValueRow("加速度模式", state.settings.accelMode.label)
-        Spacer(Modifier.height(6.dp))
-        Text(
-            text = state.repository.root.absolutePath,
-            style = MaterialTheme.typography.labelSmall,
-            color = LabColors.TextSecondary,
-            fontFamily = FontFamily.Monospace,
+private fun NextStepCard(
+    state: AppState,
+    total: Int,
+    target: Int,
+    blindDone: Int,
+    blindTotal: Int,
+    hasLoocv: Boolean,
+    hasNoise: Boolean,
+    hasEvaluation: Boolean,
+    nextConditionLabel: String,
+    nextGroup: Int,
+    nextCount: Int,
+) {
+    SectionCard(title = "下一步", accent = LabColors.Primary) {
+        when {
+            total < target -> {
+                StatusPill("步骤 1 / 4 · 采集数据集", PillTone.Info)
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = "继续采集：" + nextConditionLabel + " 第 " + nextGroup.coerceAtLeast(1) + " 组",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = LabColors.TextPrimary,
+                )
+                HintText(
+                    "总进度 " + total + "/" + target + "，当前工况 " + nextCount + "/" + Conditions.TARGET_GROUPS +
+                        "。每组 " + state.settings.durationS + " 秒，采集时手机固定在 30 cm 处不要移动。",
+                )
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton(
+                    text = "开始录制本组",
+                    onClick = { state.screen = Screen.Record },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton("查看数据集", { state.screen = Screen.Dataset }, Modifier.fillMaxWidth())
+            }
+            blindDone < blindTotal -> {
+                StatusPill("步骤 2 / 4 · 盲测", PillTone.Warning)
+                Spacer(Modifier.height(8.dp))
+                Text("数据集已齐：" + total + "/" + target + " 组", style = MaterialTheme.typography.titleMedium, color = LabColors.TextPrimary)
+                HintText("接着做盲测：共 " + blindTotal + " 组，界面不显示真实标签，每组先预测再揭示；建议同时录屏 2–4 分钟作为交付视频。")
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("进入盲测（" + blindDone + "/" + blindTotal + "）", { state.screen = Screen.BlindTest }, Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton("先看数据集", { state.screen = Screen.Dataset }, Modifier.fillMaxWidth())
+            }
+            !hasLoocv || !hasNoise || !hasEvaluation -> {
+                StatusPill("步骤 3 / 4 · 评估与报告", PillTone.Warning)
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = when {
+                        !hasLoocv -> "运行留一交叉验证（LOOCV）"
+                        !hasNoise -> "运行白/粉红噪声抗噪评估"
+                        else -> "生成评估报告（JSON + 图表）"
+                    },
+                    style = MaterialTheme.typography.titleMedium,
+                    color = LabColors.TextPrimary,
+                )
+                HintText(
+                    "评估前确认 5 工况各 15 组已完成；评估页会给出准确率、混淆矩阵与抗噪曲线，" +
+                        "结果写入 evaluation JSON，导出 ZIP 时会一并带上。",
+                )
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("进入评估与报告", { state.screen = Screen.Evaluation }, Modifier.fillMaxWidth())
+            }
+            else -> {
+                StatusPill("步骤 4 / 4 · 导出交付", PillTone.Success)
+                Spacer(Modifier.height(8.dp))
+                Text("数据、盲测与评估都已完成", style = MaterialTheme.typography.titleMedium, color = LabColors.TextPrimary)
+                HintText("导出 ZIP 包含 WAV/加速度/特征/盲测/抗噪/评估 JSON；报告里的准确率截图请从评估页获取。")
+                Spacer(Modifier.height(10.dp))
+                PrimaryButton("导出完整数据集 ZIP", { state.createSessionZipAsync() }, Modifier.fillMaxWidth())
+                Spacer(Modifier.height(8.dp))
+                SecondaryButton("重新查看评估", { state.screen = Screen.Evaluation }, Modifier.fillMaxWidth())
+            }
+        }
+    }
+}
+
+@Composable
+private fun WorkflowCard(
+    total: Int,
+    target: Int,
+    blindDone: Int,
+    blindTotal: Int,
+    hasLoocv: Boolean,
+    hasNoise: Boolean,
+    hasEvaluation: Boolean,
+) {
+    SectionCard(title = "实验流程") {
+        StepRow(1, "采集数据集", "5 工况 × 15 组 = 75 组；每组 15 s", total >= target, total >= target, total.toString() + "/" + target)
+        StepRow(2, "盲测", "15 组，不显示真实标签，预测后揭示", blindDone >= blindTotal, total >= target && blindDone < blindTotal, blindDone.toString() + "/" + blindTotal)
+        StepRow(
+            3,
+            "评估与报告",
+            "LOOCV 准确率 + 混淆矩阵 + 白/粉红噪声抗噪曲线",
+            hasLoocv && hasNoise && hasEvaluation,
+            total >= target && blindDone >= blindTotal && !(hasLoocv && hasNoise && hasEvaluation),
+            if (hasEvaluation) "已完成" else if (hasLoocv) "已算 LOOCV" else "未开始",
         )
+        StepRow(4, "导出交付", "ZIP = 数据 + 盲测 + 评估 JSON", hasEvaluation, total >= target && blindDone >= blindTotal && hasEvaluation, if (hasEvaluation) "可导出" else "待评估")
+    }
+}
+
+@Composable
+private fun StepRow(step: Int, title: String, detail: String, done: Boolean, current: Boolean, progress: String) {
+    Row(modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+        StatusPill(step.toString(), if (done) PillTone.Success else if (current) PillTone.Info else PillTone.Muted)
+        Spacer(Modifier.width(10.dp))
+        Column(Modifier.weight(1f)) {
+            Text(title, style = MaterialTheme.typography.bodyMedium, color = LabColors.TextPrimary)
+            HintText(detail)
+        }
+        Spacer(Modifier.width(8.dp))
+        StatusPill(progress, if (done) PillTone.Success else if (current) PillTone.Warning else PillTone.Muted)
+    }
+}
+
+@Composable
+private fun ProgressCard(counts: Map<String, Int>, total: Int, target: Int, nextConditionId: String) {
+    SectionCard(title = "5 工况数据集进度") {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("总进度", style = MaterialTheme.typography.bodyMedium, color = LabColors.TextPrimary, modifier = Modifier.weight(1f))
+            Text(total.toString() + " / " + target, style = MaterialTheme.typography.labelMedium, color = LabColors.TextSecondary)
+        }
+        Spacer(Modifier.height(5.dp))
+        LinearProgressIndicator(
+            progress = { (total.toFloat() / target).coerceIn(0f, 1f) },
+            modifier = Modifier.fillMaxWidth().height(8.dp),
+            color = if (total >= target) LabColors.Success else LabColors.Primary,
+            trackColor = LabColors.SurfaceHigh,
+        )
+        Spacer(Modifier.height(12.dp))
+        for (condition in Conditions.all) {
+            val count = (counts[condition.id] ?: 0).coerceAtMost(Conditions.TARGET_GROUPS)
+            val isNext = condition.id == nextConditionId && count < Conditions.TARGET_GROUPS
+            Column(modifier = Modifier.padding(vertical = 5.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = condition.label,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = LabColors.TextPrimary,
+                        modifier = Modifier.weight(1f),
+                    )
+                    if (isNext) {
+                        StatusPill("下一组", PillTone.Info)
+                        Spacer(Modifier.width(6.dp))
+                    }
+                    if (count >= Conditions.TARGET_GROUPS) {
+                        StatusPill("已完成", PillTone.Success)
+                        Spacer(Modifier.width(6.dp))
+                    }
+                    Text(
+                        text = count.toString() + "/" + Conditions.TARGET_GROUPS,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = LabColors.TextSecondary,
+                    )
+                }
+                Spacer(Modifier.height(4.dp))
+                LinearProgressIndicator(
+                    progress = { count.toFloat() / Conditions.TARGET_GROUPS },
+                    modifier = Modifier.fillMaxWidth().height(6.dp),
+                    color = if (count >= Conditions.TARGET_GROUPS) LabColors.Success else LabColors.Primary,
+                    trackColor = LabColors.SurfaceHigh,
+                )
+                HintText(condition.setup)
+            }
+        }
     }
 }
 
@@ -119,37 +307,51 @@ private fun PermissionCard(permission: PermissionRequester) {
 }
 
 @Composable
-private fun ProgressCard(state: AppState, counts: Map<String, Int>) {
-    SectionCard(title = "5 工况数据集进度") {
-        for (condition in Conditions.all) {
-            val count = (counts[condition.id] ?: 0).coerceAtMost(Conditions.TARGET_GROUPS)
-            Column(modifier = Modifier.padding(vertical = 5.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = condition.label,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = LabColors.TextPrimary,
-                        modifier = Modifier.weight(1f),
-                    )
-                    if (count >= Conditions.TARGET_GROUPS) {
-                        StatusPill("已完成", PillTone.Success)
-                        Spacer(Modifier.width(6.dp))
-                    }
-                    Text(
-                        text = count.toString() + "/" + Conditions.TARGET_GROUPS,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = LabColors.TextSecondary,
-                    )
-                }
-                Spacer(Modifier.height(5.dp))
-                LinearProgressIndicator(
-                    progress = { count.toFloat() / Conditions.TARGET_GROUPS },
-                    modifier = Modifier.fillMaxWidth().height(6.dp),
-                    color = if (count >= Conditions.TARGET_GROUPS) LabColors.Success else LabColors.Primary,
-                    trackColor = LabColors.SurfaceHigh,
-                )
-            }
+private fun CaptureTipsCard(state: AppState) {
+    SectionCard(title = "操作要点") {
+        HintText("1. 手机固定在设备正前方约 30 cm，麦克风朝向声源；组间不要移动手机。")
+        HintText("2. 环境安静（<40 dBA），录音时不要说话；每组 " + state.settings.durationS + " 秒内保持不动。")
+        HintText("3. 异常组（削波、中断、明显噪声）直接重录，不要凑数。")
+        HintText("4. 盲测时建议录屏 2–4 分钟；抗噪评估在分析端做，不需要在嘈杂环境重录。")
+    }
+}
+
+@Composable
+private fun SessionCard(state: AppState, total: Int, target: Int) {
+    SectionCard(title = "实验会话") {
+        KeyValueRow("会话 ID", state.repository.sessionId)
+        KeyValueRow("样本总数", total.toString() + " / " + target)
+        KeyValueRow("录音时长", state.settings.durationS.toString() + " s")
+        KeyValueRow("音频源", state.audioCapability.sourceLabel)
+        KeyValueRow("加速度模式", state.settings.accelMode.label)
+        Spacer(Modifier.height(6.dp))
+        Text(
+            text = state.repository.root.absolutePath,
+            style = MaterialTheme.typography.labelSmall,
+            color = LabColors.TextSecondary,
+            fontFamily = FontFamily.Monospace,
+        )
+    }
+}
+
+@Composable
+private fun QuickActionsCard(state: AppState, total: Int) {
+    val blindUnlocked = total >= Conditions.all.size * 5
+    SectionCard(title = "快捷入口") {
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            SecondaryButton("盲测", { state.screen = Screen.BlindTest }, Modifier.weight(1f), enabled = blindUnlocked)
+            SecondaryButton("评估与报告", { state.screen = Screen.Evaluation }, Modifier.weight(1f))
         }
+        if (!blindUnlocked) {
+            HintText("盲测需先完成至少 25 组（每工况 5 组）数据，当前 " + total + " 组。")
+        }
+        Spacer(Modifier.height(10.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            SecondaryButton("数据集", { state.screen = Screen.Dataset }, Modifier.weight(1f))
+            SecondaryButton("导出 ZIP", { state.createSessionZipAsync() }, Modifier.weight(1f))
+        }
+        Spacer(Modifier.height(10.dp))
+        SecondaryButton("设置", { state.screen = Screen.Settings }, Modifier.fillMaxWidth())
     }
 }
 
@@ -175,26 +377,6 @@ private fun CapabilityCard(state: AppState) {
         KeyValueRow("本次请求周期", accel.resolvedPeriodUs.toString() + " us")
         HintText(accel.note)
         HintText(audio.note)
-    }
-}
-
-@Composable
-private fun ActionsCard(state: AppState) {
-    SectionCard(title = "快捷操作") {
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            PrimaryButton("开始采集", { state.screen = Screen.Record }, Modifier.weight(1f))
-            PrimaryButton("盲测", { state.screen = Screen.BlindTest }, Modifier.weight(1f))
-        }
-        Spacer(Modifier.height(10.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            SecondaryButton("评估与报告", { state.screen = Screen.Evaluation }, Modifier.weight(1f))
-            SecondaryButton("数据集", { state.screen = Screen.Dataset }, Modifier.weight(1f))
-        }
-        Spacer(Modifier.height(10.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            SecondaryButton("导出 ZIP", { state.createSessionZipAsync() }, Modifier.weight(1f))
-            SecondaryButton("设置", { state.screen = Screen.Settings }, Modifier.weight(1f))
-        }
     }
 }
 
