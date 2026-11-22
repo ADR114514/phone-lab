@@ -42,7 +42,7 @@
 <div class="wrap">
 <header>
   <h1>PhoneLab · 手机实测工具下载站</h1>
-  <div class="sub">三款 Android 实测 App：功耗热测 / 校园 WiFi 盲区测绘 / 声振诊断仪</div>
+  <div class="sub">四款 Android 实测 App：功耗热测 / 校园 WiFi 盲区测绘 / 声振诊断仪 / 充电宝效率核验</div>
   <div class="pill">Android 12 及以上 · 仅 arm64（ARMv8）设备 · debug 测试版</div>
 </header>
 
@@ -56,6 +56,7 @@
     <li><b>v1.4.0 新增：</b>PowerTrace 设置页加「功率诊断」（电荷计/电流/电压），并处理电荷计读数不变的情况（保留窗口、不写 0）；装新版后第 2 个采样点起显示瓦数。</li>
     <li><b>v1.3.0：</b>SignalMap HTTP 探测默认改用国内可达地址，主地址失败自动回退并在 note 标注；网关不可达时 tcp_connect_ms 留空、不写 0。</li>
     <li><b>v1.2.0：</b>三款 App 都支持删除错误数据后重新测量（功耗/测绘在「结果页 → 删除数据」，声振在「数据集 → 批量删除」）。</li>
+    <li><b>v2.0.0 新增：</b>ChargeAudit（课题07 充电宝容量/转换效率核验 App）——每 10 min 提醒记录检测仪电压/电流，自动读手机电量/温度/电荷计，自动算三段效率并导出 CSV/ZIP。</li>
     <li>下载后建议核对 SHA-256；完整操作请下载 <a href="docs/manual.pdf" style="color:var(--acc)">《同学操作手册（PDF）》</a>。</li>
   </ol>
 </div>
@@ -98,6 +99,17 @@
   </div>
 </div>
 
+<div class="card app">
+  <div class="meta">
+    <h3>ChargeAudit · 充电宝效率核验</h3>
+    <span class="tag">课题07</span><span class="tag">10 min / 点 · 完整放电</span>
+    <div class="size">v1.0.0 · 26.0 MB · com.mobilelab.chargeaudit</div>
+    <div class="hash">SHA-256: 04594eccf181722a8e55f600580b455df6c081c38c26c558a23bdb36fbad32f9</div>
+  </div>
+  <div>
+    <a class="btn" href="apk/ChargeAudit-1.0.0-arm64-v8a-debug.apk" download>下载 APK</a>
+  </div>
+</div>
 <h2>② 操作手册</h2>
 <div class="card">
   <p>从安装、权限、三次实验到数据提交，完整步骤见手册：</p>

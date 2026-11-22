@@ -137,3 +137,15 @@ python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/
 4. 必须拔掉充电线（充电时电荷计上升，无法算功率）；
 5. 部分机型电荷计只在 1%/数 mAh 变化时更新：App 会保留旧读数、等下一次变化用更长窗口计算，并标 `power_window=...s`；
 6. 若诊断里电荷计显示“不可用”，该机型只能用外接功率计/电流表，App 会留空而不是写 0。
+
+
+### ChargeAudit（课题07 充电宝效率核验 App）
+
+1. 首页先核对铭牌（默认 Huawei CP11QC：34.49Wh / 6200mAh@5V）；
+2. 充电宝充满、手机约 20% 电量，USB 检测仪串在充电宝与手机之间；
+3. 点「开始新会话」，每 10 min App 会提醒（需通知/精确闹钟权限），录入检测仪电压/电流；
+4. 手机电量、温度、电荷计由 App 自动读取；保存后自动安排下一次提醒；
+5. 手机到 100% 继续记录，直到充电宝自动关机；
+6. 「结束会话」后查看效率（E_out/E_phone/η_output/η_charge/η_total）并导出 ZIP（CSV+manifest+summary）。
+
+> 详细实验流程/公式见 docs/TOPIC07_CHARGE_EFFICIENCY.md。
