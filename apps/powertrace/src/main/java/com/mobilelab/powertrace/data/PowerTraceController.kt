@@ -375,10 +375,15 @@ object PowerTraceController {
             null
         }
 
-        // 功率口径：优先电荷计差分（部分机型 CURRENT_NOW 只有 µA 级噪声，例如 OnePlus 12）。
-        // 注意：部分机型电荷计只在 1% / 数 mAh 变化时更新，5 min 窗口可能 delta=0；
-        // 此时保留旧快照，等到下一次变化再用更长窗口算平均功率，而不是写 0 或空白丢点。
+        // 功率口径（按可靠性从高到低）：
+        //  1) charge_counter 差分（部分机型不暴露）；
+        //  2) energy_counter 差分（部分机型不暴露）；
+        //  3) 电量百分比 × 电池容量 的长窗口平均（最粗，但 OnePlus 这类机型唯一可用口径）；
+        //  4) CURRENT_NOW 仅在 |I| ≥ 2 mA 时采用（OnePlus 的 CURRENT_NOW 常只有 µA 级噪声）。
+        // 所有差分都保留旧快照，等读数真正变化后再用更长窗口计算，避免写 0 或丢点。
         val previousCharge = repo.lastChargeSnapshot()
+        val previousEnergy = repo.lastEnergySnapshot()
+        val previousLevel = repo.lastLevelSnapshot()
         var computedPowerW: Double? = null
         var powerSource: String? = null
         var powerNote: String? = null
@@ -398,6 +403,35 @@ object PowerTraceController {
                 }
             }
         }
+        if (computedPowerW == null && raw.energyCounterNwh != null && raw.batteryVoltageMv != null && previousEnergy != null) {
+            val dtMs = nowMs - previousEnergy.timeMs
+            if (dtMs in 60_000L..28_800_000L) {
+                val deltaNwh = previousEnergy.energyNwh - raw.energyCounterNwh
+                if (deltaNwh > 0L) {
+                    // W = ΔnWh × 3600 / (Δt_s × 1e9)
+                    val fromEnergy = deltaNwh.toDouble() * 3600.0 / (dtMs / 1000.0) / 1e9
+                    if (fromEnergy in 0.0..30.0) {
+                        computedPowerW = fromEnergy
+                        powerSource = "energy_counter"
+                        powerNote = "power_window=" + (dtMs / 1000L) + "s"
+                    }
+                }
+            }
+        }
+        if (computedPowerW == null && raw.batteryLevelPct != null && raw.batteryVoltageMv != null && previousLevel != null) {
+            val dtMs = nowMs - previousLevel.timeMs
+            val deltaPct = previousLevel.levelPct - raw.batteryLevelPct
+            if (dtMs in 60_000L..28_800_000L && deltaPct > 0) {
+                val capacityMah = repo.batteryCapacityMah()
+                val energyWh = deltaPct / 100.0 * (capacityMah / 1000.0) * (raw.batteryVoltageMv / 1000.0)
+                val fromLevel = energyWh / (dtMs / 3_600_000.0)
+                if (fromLevel in 0.0..30.0) {
+                    computedPowerW = fromLevel
+                    powerSource = "battery_level_window"
+                    powerNote = "power_window=" + (dtMs / 1000L) + "s,battery_level_fallback"
+                }
+            }
+        }
         if (computedPowerW == null && PowerMath.isCurrentPlausible(raw.currentNowUa)) {
             computedPowerW = PowerMath.powerW(raw.batteryVoltageMv, raw.currentNowUa)
             powerSource = "current_now"
@@ -405,6 +439,14 @@ object PowerTraceController {
         val currentCharge = raw.chargeCounterUah?.toLong()
         if (currentCharge != null && (previousCharge == null || previousCharge.chargeUah != currentCharge)) {
             repo.saveChargeSnapshot(currentCharge, nowMs, raw.batteryVoltageMv ?: 0)
+        }
+        val currentEnergy = raw.energyCounterNwh
+        if (currentEnergy != null && (previousEnergy == null || previousEnergy.energyNwh != currentEnergy)) {
+            repo.saveEnergySnapshot(currentEnergy, nowMs)
+        }
+        val currentLevel = raw.batteryLevelPct
+        if (currentLevel != null && (previousLevel == null || previousLevel.levelPct != currentLevel)) {
+            repo.saveLevelSnapshot(currentLevel, nowMs)
         }
 
         val late = action.lateMs > SamplingConfig.LATE_TOLERANCE_MS
@@ -564,6 +606,10 @@ object PowerTraceController {
     fun isStandbyGuardEnabled(): Boolean = repo.isStandbyGuardEnabled()
 
     fun setStandbyGuardEnabled(enabled: Boolean) = repo.setStandbyGuardEnabled(enabled)
+
+    fun batteryCapacityMah(): Int = repo.batteryCapacityMah()
+
+    fun setBatteryCapacityMah(capacityMah: Int) = repo.setBatteryCapacityMah(capacityMah)
 
     fun isOemBackgroundConfirmed(): Boolean = if (initialized) repo.isOemBackgroundConfirmed() else false
 

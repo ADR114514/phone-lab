@@ -56,7 +56,8 @@
     <li><b>v1.4.0 新增：</b>PowerTrace 设置页加「功率诊断」（电荷计/电流/电压），并处理电荷计读数不变的情况（保留窗口、不写 0）；装新版后第 2 个采样点起显示瓦数。</li>
     <li><b>v1.3.0：</b>SignalMap HTTP 探测默认改用国内可达地址，主地址失败自动回退并在 note 标注；网关不可达时 tcp_connect_ms 留空、不写 0。</li>
     <li><b>v1.2.0：</b>三款 App 都支持删除错误数据后重新测量（功耗/测绘在「结果页 → 删除数据」，声振在「数据集 → 批量删除」）。</li>
-    <li><b>v2.0.0 新增：</b>ChargeAudit（课题07 充电宝容量/转换效率核验 App）——每 10 min 提醒记录检测仪电压/电流，自动读手机电量/温度/电荷计，自动算三段效率并导出 CSV/ZIP。</li>
+    <li><b>v2.1.0 PowerTrace 1.5.0：</b>一加/ColorOS 不暴露电荷计/能量计时，可用「电量%×电池容量」回退估算工况平均功率（设置→功率回退可改容量），旧批次重新导出即可看到瓦数；逐点功率仍留空、不造假。</li>
+    <li><b>v2.0.0：</b>ChargeAudit（课题07 充电宝容量/转换效率核验 App）——每 10 min 提醒记录检测仪电压/电流，自动读手机电量/温度/电荷计，自动算三段效率并导出 CSV/ZIP。</li>
     <li>下载后建议核对 SHA-256；完整操作请下载 <a href="docs/manual.pdf" style="color:var(--acc)">《同学操作手册（PDF）》</a>。</li>
   </ol>
 </div>
@@ -67,11 +68,11 @@
   <div class="meta">
     <h3>PowerTrace · 功耗热测仪</h3>
     <span class="tag">课题02</span><span class="tag">4 工况 × 30 min × 6 点</span>
-    <div class="size">v1.4.0 · 26.4 MB · com.mobilelab.powertrace</div>
-    <div class="hash">SHA-256: e2af69270aec20d4fbc8889a8cd28b1ad31a5a363e97ae41f25ca7fe4f8e9dd0</div>
+    <div class="size">v1.5.0 · 26.5 MB · com.mobilelab.powertrace</div>
+    <div class="hash">SHA-256: 977283b139c2bf02c422c23fd9867620e132bc6dbbb1cde3f23f1b3443e654ee</div>
   </div>
   <div>
-    <a class="btn" href="apk/PowerTrace-1.4.0-arm64-v8a-debug.apk" download>下载 APK</a>
+    <a class="btn" href="apk/PowerTrace-1.5.0-arm64-v8a-debug.apk" download>下载 APK</a>
   </div>
 </div>
 

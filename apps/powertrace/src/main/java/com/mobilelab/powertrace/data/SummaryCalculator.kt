@@ -68,6 +68,8 @@ object SummaryCalculator {
         samples: List<SessionSample>,
         durationMin: Double,
         extraNotes: String = "",
+        batteryCapacityMah: Double = 5400.0,
+        nominalVoltageV: Double = 3.85,
     ): ConditionSummary {
         val ordered = samples.sortedBy { it.sampleIndex }
         val powers = ordered.map { it.powerW }
@@ -89,7 +91,9 @@ object SummaryCalculator {
             val charging = ordered.count { it.charging }
             if (charging > 0) add("采集期间充电 ${charging} 点（异常）")
             val missingPower = powers.count { it == null }
-            if (missingPower > 0 && missingPower == ordered.size) add("功率字段不可用（机型未提供电流）")
+            if (missingPower > 0 && missingPower == ordered.size) {
+                add("功率字段不可用（机型未提供电流/电荷计），改用 电量%×容量 回退估算")
+            }
         }
         val note = (listOf(extraNotes) + autoNotes).filter { it.isNotBlank() }.joinToString("; ")
 
@@ -97,6 +101,19 @@ object SummaryCalculator {
         val endLevel = levels.lastOrNull()
         // 掉电 = 起点 - 终点（放电为正）；与 diff(end-start) 方向相反，单独计算。
         val levelDrop = if (startLevel != null && endLevel != null) startLevel - endLevel else null
+        // 逐点功率全缺失（OnePlus 等机型不暴露 charge/energy counter）时，
+        // 用工况首末电量差 × 电池容量 / 时长 估算平均功率与能量，至少让汇总可用。
+        val averageVoltageMv = ordered.mapNotNull { it.batteryVoltageMv }.average()
+        val voltageV = (averageVoltageMv / 1000.0).takeIf { it.isFinite() && it > 0.0 } ?: nominalVoltageV
+        val levelFallbackEnergyWh = if (levelDrop != null && levelDrop > 0 && durationMin > 0) {
+            levelDrop / 100.0 * (batteryCapacityMah / 1000.0) * voltageV
+        } else {
+            null
+        }
+        val fallbackPowerW = levelFallbackEnergyWh?.let { it / (durationMin / 60.0) }
+        val avgPowerW = PowerMath.avg(powers) ?: fallbackPowerW
+        val peakPowerW = PowerMath.max(powers) ?: fallbackPowerW
+        val energyWh = PowerMath.energyWh(powers) ?: levelFallbackEnergyWh
 
         return ConditionSummary(
             condition = condition,
@@ -105,9 +122,9 @@ object SummaryCalculator {
             startLevelPct = startLevel,
             endLevelPct = endLevel,
             levelDropPct = levelDrop,
-            avgPowerW = PowerMath.avg(powers),
-            peakPowerW = PowerMath.max(powers),
-            energyWh = PowerMath.energyWh(powers),
+            avgPowerW = avgPowerW,
+            peakPowerW = peakPowerW,
+            energyWh = energyWh,
             avgCurrentMa = PowerMath.avg(currentsMa),
             tempStartC = temps.firstOrNull(),
             tempEndC = temps.lastOrNull(),

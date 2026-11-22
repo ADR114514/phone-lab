@@ -78,6 +78,45 @@ class TraceRepository(context: Context) {
         }
     }
 
+    data class EnergySnapshot(val energyNwh: Long, val timeMs: Long)
+
+    fun lastEnergySnapshot(): EnergySnapshot? {
+        val nwh = settingPrefs.getLong(KEY_LAST_ENERGY_NWH, Long.MIN_VALUE)
+        val ms = settingPrefs.getLong(KEY_LAST_ENERGY_MS, Long.MIN_VALUE)
+        if (nwh == Long.MIN_VALUE || ms == Long.MIN_VALUE) return null
+        return EnergySnapshot(nwh, ms)
+    }
+
+    fun saveEnergySnapshot(energyNwh: Long, timeMs: Long) {
+        settingPrefs.edit {
+            putLong(KEY_LAST_ENERGY_NWH, energyNwh)
+            putLong(KEY_LAST_ENERGY_MS, timeMs)
+        }
+    }
+
+    data class LevelSnapshot(val levelPct: Int, val timeMs: Long)
+
+    fun lastLevelSnapshot(): LevelSnapshot? {
+        val level = settingPrefs.getInt(KEY_LAST_LEVEL_PCT, Int.MIN_VALUE)
+        val ms = settingPrefs.getLong(KEY_LAST_LEVEL_MS, Long.MIN_VALUE)
+        if (level == Int.MIN_VALUE || ms == Long.MIN_VALUE) return null
+        return LevelSnapshot(level, ms)
+    }
+
+    fun saveLevelSnapshot(levelPct: Int, timeMs: Long) {
+        settingPrefs.edit {
+            putInt(KEY_LAST_LEVEL_PCT, levelPct)
+            putLong(KEY_LAST_LEVEL_MS, timeMs)
+        }
+    }
+
+    /** 电量百分比回退估算用的手机电池容量（mAh）。 */
+    fun batteryCapacityMah(): Int = settingPrefs.getInt(KEY_BATTERY_CAPACITY_MAH, DEFAULT_BATTERY_CAPACITY_MAH)
+
+    fun setBatteryCapacityMah(capacityMah: Int) {
+        settingPrefs.edit { putInt(KEY_BATTERY_CAPACITY_MAH, capacityMah.coerceIn(1000, 20000)) }
+    }
+
     fun setOemSleepConfirmed(value: Boolean) {
         settingPrefs.edit { putBoolean(KEY_OEM_SLEEP, value) }
     }
@@ -245,5 +284,11 @@ class TraceRepository(context: Context) {
         const val KEY_LAST_CHARGE_UAH = "last_charge_uah"
         const val KEY_LAST_CHARGE_MS = "last_charge_ms"
         const val KEY_LAST_CHARGE_MV = "last_charge_mv"
+    const val KEY_LAST_ENERGY_NWH = "last_energy_nwh"
+    const val KEY_LAST_ENERGY_MS = "last_energy_ms"
+    const val KEY_LAST_LEVEL_PCT = "last_level_pct"
+    const val KEY_LAST_LEVEL_MS = "last_level_ms"
+    const val KEY_BATTERY_CAPACITY_MAH = "battery_capacity_mah"
+    const val DEFAULT_BATTERY_CAPACITY_MAH = 5400
     }
 }

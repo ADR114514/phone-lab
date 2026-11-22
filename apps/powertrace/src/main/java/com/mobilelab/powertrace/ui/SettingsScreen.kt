@@ -3,10 +3,12 @@ package com.mobilelab.powertrace.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,10 +23,12 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.mobilelab.core.ui.HintText
 import com.mobilelab.core.ui.KeyValueRow
 import com.mobilelab.core.ui.LabScaffold
+import com.mobilelab.core.ui.PrimaryButton
 import com.mobilelab.core.ui.SectionCard
 import com.mobilelab.core.ui.theme.LabColors
 import com.mobilelab.powertrace.BuildConfig
@@ -160,13 +164,33 @@ fun SettingsScreen(
             }
 
 
+            SectionCard(title = "功率回退") {
+                var capacityText by remember { mutableStateOf(PowerTraceController.batteryCapacityMah().toString()) }
+                OutlinedTextField(
+                    value = capacityText,
+                    onValueChange = { capacityText = it },
+                    label = { Text("手机电池容量 mAh（电量%回退估算用）") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                )
+                Spacer(Modifier.height(8.dp))
+                PrimaryButton("保存容量", {
+                    capacityText.toIntOrNull()?.let { PowerTraceController.setBatteryCapacityMah(it) }
+                }, Modifier.fillMaxWidth())
+                HintText("部分机型（如一加/ColorOS）不向 App 暴露电荷计与能量计，只能用工况首末电量差 × 容量估算平均功率；" +
+                    "精度约 ±10–20%，报告里需注明口径。")
+            }
+
             SectionCard(title = "功率诊断") {
                 val diag = remember { readBatteryDiag(context) }
                 KeyValueRow("电荷计", diag.chargeUah?.let { it.toString() + " µAh" } ?: "不可用")
+                KeyValueRow("能量计", diag.energyNwh?.let { it.toString() + " nWh" } ?: "不可用")
                 KeyValueRow("CURRENT_NOW", diag.currentUa?.let { it.toString() + " µA" } ?: "不可用")
                 KeyValueRow("电池电压", diag.voltageMv?.let { it.toString() + " mV" } ?: "不可用")
-                HintText("功率需要两次采样（间隔 ≥60 s）的电荷计差分：第 1 点留空正常，第 2 点起显示；" +
-                    "若电荷计读数不变会显示待测并等待下一次变化，充电时无法计算。")
+                KeyValueRow("当前电量", diag.levelPct?.let { it.toString() + " %" } ?: "不可用")
+                HintText("功率优先用 charge/energy counter 差分；两者都不可用时改用电量%×容量估算（见上一张卡片）。" +
+                    "第 1 点留空正常，充电时无法计算。")
             }
 
             SectionCard(title = "关于") {
@@ -187,7 +211,7 @@ fun SettingsScreen(
     }
 }
 
-private data class BatteryDiag(val chargeUah: Long?, val currentUa: Long?, val voltageMv: Int?)
+private data class BatteryDiag(val chargeUah: Long?, val energyNwh: Long?, val currentUa: Long?, val voltageMv: Int?, val levelPct: Int?)
 
 /** 读一次系统电池属性，用于 Settings 里自检“为什么功率为空”。 */
 private fun readBatteryDiag(context: Context): BatteryDiag {
@@ -196,9 +220,13 @@ private fun readBatteryDiag(context: Context): BatteryDiag {
         .getOrNull()?.takeIf { it != Long.MIN_VALUE }
     val battery = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     val voltage = battery?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1)?.takeIf { it > 0 }
+    val level = battery?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)?.takeIf { it >= 0 }
+    val scale = battery?.getIntExtra(BatteryManager.EXTRA_SCALE, -1)?.takeIf { it > 0 }
     return BatteryDiag(
         chargeUah = prop(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER),
+        energyNwh = prop(BatteryManager.BATTERY_PROPERTY_ENERGY_COUNTER),
         currentUa = prop(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW),
         voltageMv = voltage,
+        levelPct = if (level != null && scale != null) level * 100 / scale else null,
     )
 }

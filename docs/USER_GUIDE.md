@@ -149,3 +149,11 @@ python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/
 6. 「结束会话」后查看效率（E_out/E_phone/η_output/η_charge/η_total）并导出 ZIP（CSV+manifest+summary）。
 
 > 详细实验流程/公式见 docs/TOPIC07_CHARGE_EFFICIENCY.md。
+
+
+### PowerTrace 1.5.0：一加/ColorOS 功率回退
+
+- 若「设置→功率诊断」显示电荷计、能量计都“不可用”（一加/ColorOS 常见），App 会用工况首末电量差 × 电池容量（设置→功率回退，默认 5400 mAh）估算该工况平均功率/能量；
+- 结果页/导出会标注回退口径，精度约 ±10–20%；逐点 power_w 仍留空，不会写 0 造假；
+- 旧批次升级后重新打开结果页/重新导出，即按新口径重算汇总；
+- 需要逐点精确功率时，只能换支持电荷计的设备或外接测量方案。

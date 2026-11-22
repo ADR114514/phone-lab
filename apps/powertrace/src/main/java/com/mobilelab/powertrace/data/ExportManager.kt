@@ -37,6 +37,7 @@ class ExportManager(context: Context) {
                 samples = conditionSamples,
                 durationMin = durationMinutes(progress, nowMs),
                 extraNotes = summaryNote(state, progress),
+                batteryCapacityMah = PowerTraceController.batteryCapacityMah().toDouble(),
             )
         }
         return ResultsBundle(
