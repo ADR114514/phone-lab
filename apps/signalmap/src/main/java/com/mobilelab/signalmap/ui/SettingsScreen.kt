@@ -57,6 +57,7 @@ fun SettingsScreen(vm: SurveyViewModel, onBack: () -> Unit) {
             MessageBanner(vm.message) { vm.postMessage(null) }
 
             SectionCard(title = "网络探测") {
+                HintText("HTTP 默认用国内可访问地址（baidu robots）；主地址全部失败会自动回退 miui 204，并在该行 note 标注，避免 http_ttfb 整列缺失。")
                 LabTextField(
                     value = httpUrl,
                     onValueChange = { httpUrl = it },

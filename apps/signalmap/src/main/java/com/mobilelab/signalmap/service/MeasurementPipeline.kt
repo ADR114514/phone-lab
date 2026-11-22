@@ -2,6 +2,7 @@ package com.mobilelab.signalmap.service
 
 import android.content.Context
 import com.mobilelab.core.log.LabLog
+import com.mobilelab.signalmap.data.AppSettings
 import com.mobilelab.signalmap.data.RttMath
 import com.mobilelab.signalmap.data.SurveyRow
 import com.mobilelab.signalmap.data.WifiMath
@@ -141,7 +142,7 @@ class MeasurementPipeline(
 
         // 5) HTTP TTFB / total -------------------------------------------------
         callback.onStep(MeasurementStep.HTTP)
-        val httpRun = probe.httpProbe(settings.httpTestUrl, settings.httpAttempts) { sample ->
+        var httpRun = probe.httpProbe(settings.httpTestUrl, settings.httpAttempts) { sample ->
             callback.onLive(
                 LiveSample(
                     rssiDbm = rssi,
@@ -157,8 +158,27 @@ class MeasurementPipeline(
                 )
             )
         }
+        if (httpRun.successes == 0 && settings.httpTestUrl != AppSettings.HTTP_FALLBACK_URL) {
+            // gstatic 在国内常被阻断：自动回退到国内 204 检测地址，避免整行 HTTP 列缺失。
+            val fallbackRun = probe.httpProbe(AppSettings.HTTP_FALLBACK_URL, settings.httpAttempts) { sample ->
+                callback.onLive(
+                    LiveSample(
+                        rssiDbm = rssi,
+                        avgLatencyMs = rtt.avgMs,
+                        successCount = rttSamples.size,
+                        targetCount = settings.rttAttempts,
+                        httpTtfbMs = sample.ttfbMs,
+                        message = if (sample.error != null) "HTTP 回退失败：" + sample.error else "HTTP(回退) " + sample.code + " TTFB=" + format(sample.ttfbMs) + " ms",
+                    )
+                )
+            }
+            if (fallbackRun.successes > 0) {
+                notes += "HTTP 主地址不可达，已回退 " + AppSettings.HTTP_FALLBACK_URL
+                httpRun = fallbackRun
+            }
+        }
         if (httpRun.successes == 0) {
-            notes += "HTTP 探测全部失败" + (httpRun.dominantError?.let { "（$it）" } ?: "")
+            notes += "HTTP 探测全部失败" + (httpRun.dominantError?.let { "（" + it + "）" } ?: "")
         } else if (httpRun.failures > 0) {
             notes += "HTTP 失败 ${httpRun.failures}/${httpRun.attempts}"
         }

@@ -12,7 +12,7 @@ class AppSettingsTest {
     @Test
     fun defaultsMatchDictionaryProtocol() {
         val settings = AppSettings()
-        assertEquals("https://connectivitycheck.gstatic.com/generate_204", settings.httpTestUrl)
+        assertEquals(AppSettings.DEFAULT_HTTP_URL, settings.httpTestUrl)
         assertEquals("223.5.5.5:443", settings.tcpTarget)
         assertEquals("223.5.5.5", settings.tcpHost)
         assertEquals(443, settings.tcpPort)

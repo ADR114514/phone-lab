@@ -36,7 +36,9 @@ data class AppSettings(
     )
 
     companion object {
-        const val DEFAULT_HTTP_URL = "https://connectivitycheck.gstatic.com/generate_204"
+        const val DEFAULT_HTTP_URL = "https://www.baidu.com/robots.txt"
+    /** 备用地址：gstatic 在国内经常不可达（HTTP 探测全部失败），全部失败时自动回退到这里并在 note 记录。 */
+    const val HTTP_FALLBACK_URL = "http://connect.rom.miui.com/generate_204"
         const val DEFAULT_TCP_TARGET = "223.5.5.5:443"
         const val DEFAULT_TCP_HOST = "223.5.5.5"
         const val DEFAULT_TCP_PORT = 443

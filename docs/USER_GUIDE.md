@@ -119,3 +119,11 @@ python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/
 - **SignalMap**：结果页「删除数据（不可恢复）」→ 删除本会话（survey/scan/photos/进度），可重新测；建议先导出 ZIP 备份。
 - **VibroDiag**：数据集页「批量删除」→ 删除某工况全部组或全部数据（同步重建 dataset_index 并清空盲测/评估结果）。
 - 删除不可撤销；重要数据先导出 ZIP。
+
+
+### SignalMap 网络探测说明（v1.3.0）
+
+- 默认 HTTP 地址改为国内可访问的 `https://www.baidu.com/robots.txt`；若主地址全部失败，会自动回退 `http://connect.rom.miui.com/generate_204` 并在该行 note 标注；
+- “网关不可达”是校园 AP 禁止客户端 TCP 连网关的常见限制：`tcp_connect_ms` 留空、不写 0，RSSI/RTT/丢包仍然有效；
+- HTTP 探测失败只会让 `http_ttfb_ms` 等列留空，该行仍有效；报告里注明“HTTP 探测受网络限制”即可；
+- 时延主指标建议用互联网 TCP RTT（p95/loss），不要用空的 `tcp_connect_ms` 做比较。
