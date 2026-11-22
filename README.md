@@ -2,6 +2,8 @@
 > **同学下载站**：http://189.105.67.241/ （三款 APK + 《同学操作手册》PDF/Word/在线版，宝塔面板 + Nginx 部署）
 > **GitHub 仓库**：https://github.com/ADR114514/phone-lab
 
+> **课题07 充电宝效率核验工具包**：[docs/TOPIC07_CHARGE_EFFICIENCY.md](docs/TOPIC07_CHARGE_EFFICIENCY.md) · 模板 `data/templates/topic07/` · 分析 `analysis/charge/analyze.py`
+
 > **实验方案可行性评审（防“数值一样/零分”）**：[docs/FEASIBILITY_REVIEW.md](docs/FEASIBILITY_REVIEW.md) · 自检脚本 `analysis/check_plausibility.py`
 > **实验报告初稿（3 份 DOCX）**：[reports/](reports/)
 

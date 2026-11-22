@@ -1,0 +1,20 @@
+{
+  "topic": "07-charge-bank-efficiency",
+  "powerBankModel": "Huawei CP11QC",
+  "ratedEnergyWh": 34.49,
+  "cellCapacityTypicalMah": 10000,
+  "cellCapacityRatedMah": 9500,
+  "ratedOutputCapacityMah": 6200,
+  "ratedOutputVoltageV": 5,
+  "ratedOutputCurrentA": 2,
+  "maxOutput": "5V/9V=2A (Max)",
+  "cellNominalVoltageV": 3.85,
+  "phoneModel": "OnePlus 12 (PJD110)",
+  "phoneBatteryCapacityMah": 5400,
+  "phoneBatteryNominalV": 3.85,
+  "testerModel": "",
+  "startBatteryPct": 20,
+  "endCondition": "power bank auto shutdown (phone stops charging)",
+  "ambientTempC": 24,
+  "notes": "铭牌：电池容量 10000mAh 典型/9500mAh 额定；额定容量 6200mAh(5V2A)；锂离子电池额定能量 34.49Wh"
+}
