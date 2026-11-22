@@ -16,6 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.BatteryManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.mobilelab.core.ui.HintText
@@ -155,6 +159,16 @@ fun SettingsScreen(
                 HintText("CSV 为 UTF-8 + BOM + CRLF，Excel 与 pandas 可直接打开。导出/分享在结果页操作。")
             }
 
+
+            SectionCard(title = "功率诊断") {
+                val diag = remember { readBatteryDiag(context) }
+                KeyValueRow("电荷计", diag.chargeUah?.let { it.toString() + " µAh" } ?: "不可用")
+                KeyValueRow("CURRENT_NOW", diag.currentUa?.let { it.toString() + " µA" } ?: "不可用")
+                KeyValueRow("电池电压", diag.voltageMv?.let { it.toString() + " mV" } ?: "不可用")
+                HintText("功率需要两次采样（间隔 ≥60 s）的电荷计差分：第 1 点留空正常，第 2 点起显示；" +
+                    "若电荷计读数不变会显示待测并等待下一次变化，充电时无法计算。")
+            }
+
             SectionCard(title = "关于") {
                 KeyValueRow("App", "功耗热测仪 / PowerTrace")
                 KeyValueRow("版本", "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})")
@@ -171,4 +185,20 @@ fun SettingsScreen(
             }
         }
     }
+}
+
+private data class BatteryDiag(val chargeUah: Long?, val currentUa: Long?, val voltageMv: Int?)
+
+/** 读一次系统电池属性，用于 Settings 里自检“为什么功率为空”。 */
+private fun readBatteryDiag(context: Context): BatteryDiag {
+    val manager = context.getSystemService(BatteryManager::class.java)
+    fun prop(id: Int): Long? = runCatching { manager.getLongProperty(id) }
+        .getOrNull()?.takeIf { it != Long.MIN_VALUE }
+    val battery = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+    val voltage = battery?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1)?.takeIf { it > 0 }
+    return BatteryDiag(
+        chargeUah = prop(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER),
+        currentUa = prop(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW),
+        voltageMv = voltage,
+    )
 }

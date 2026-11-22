@@ -376,17 +376,25 @@ object PowerTraceController {
         }
 
         // 功率口径：优先电荷计差分（部分机型 CURRENT_NOW 只有 µA 级噪声，例如 OnePlus 12）。
+        // 注意：部分机型电荷计只在 1% / 数 mAh 变化时更新，5 min 窗口可能 delta=0；
+        // 此时保留旧快照，等到下一次变化再用更长窗口算平均功率，而不是写 0 或空白丢点。
         val previousCharge = repo.lastChargeSnapshot()
         var computedPowerW: Double? = null
         var powerSource: String? = null
+        var powerNote: String? = null
         if (raw.chargeCounterUah != null && raw.batteryVoltageMv != null && previousCharge != null) {
             val dtMs = nowMs - previousCharge.timeMs
-            if (dtMs in 60_000L..3_600_000L) {
+            if (dtMs in 60_000L..28_800_000L) {
                 val deltaUah = previousCharge.chargeUah - raw.chargeCounterUah.toLong()
-                val fromCharge = PowerMath.powerWFromCharge(deltaUah, raw.batteryVoltageMv, dtMs)
-                if (fromCharge != null && fromCharge in 0.0..30.0) {
-                    computedPowerW = fromCharge
-                    powerSource = "charge_counter"
+                if (deltaUah > 0L) {
+                    val fromCharge = PowerMath.powerWFromCharge(deltaUah, raw.batteryVoltageMv, dtMs)
+                    if (fromCharge != null && fromCharge in 0.0..30.0) {
+                        computedPowerW = fromCharge
+                        powerSource = "charge_counter"
+                        if (dtMs > 900_000L) powerNote = "power_window=" + (dtMs / 1000L) + "s"
+                    }
+                } else if (deltaUah == 0L) {
+                    powerNote = "power_pending(charge_delta_zero)"
                 }
             }
         }
@@ -394,14 +402,17 @@ object PowerTraceController {
             computedPowerW = PowerMath.powerW(raw.batteryVoltageMv, raw.currentNowUa)
             powerSource = "current_now"
         }
-        raw.chargeCounterUah?.let { repo.saveChargeSnapshot(it.toLong(), nowMs, raw.batteryVoltageMv ?: 0) }
+        val currentCharge = raw.chargeCounterUah?.toLong()
+        if (currentCharge != null && (previousCharge == null || previousCharge.chargeUah != currentCharge)) {
+            repo.saveChargeSnapshot(currentCharge, nowMs, raw.batteryVoltageMv ?: 0)
+        }
 
         val late = action.lateMs > SamplingConfig.LATE_TOLERANCE_MS
         val flags = buildList {
             if (late) add("late_sample(+${action.lateMs / 1000}s)")
             if (raw.charging) add("charging_during_sample")
             if (condition == ConditionId.IDLE && raw.screenOn) add("screen_on_expected_off")
-            if (computedPowerW == null) add("power_unavailable(charge_delta_pending_or_current_implausible)")
+            if (computedPowerW == null) add("power_unavailable(" + (powerNote ?: "charge_delta_pending_or_current_implausible") + ")")
             else if (powerSource != null) add("power_source=" + powerSource)
             if (raw.unavailable.isNotEmpty()) add("unavailable:" + raw.unavailable.joinToString("/"))
         }

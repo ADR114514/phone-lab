@@ -127,3 +127,13 @@ python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/
 - “网关不可达”是校园 AP 禁止客户端 TCP 连网关的常见限制：`tcp_connect_ms` 留空、不写 0，RSSI/RTT/丢包仍然有效；
 - HTTP 探测失败只会让 `http_ttfb_ms` 等列留空，该行仍有效；报告里注明“HTTP 探测受网络限制”即可；
 - 时延主指标建议用互联网 TCP RTT（p95/loss），不要用空的 `tcp_connect_ms` 做比较。
+
+
+### PowerTrace 功率为空怎么排查（v1.4.0）
+
+1. 版本必须 ≥1.4.0（设置→关于）；
+2. 设置→「功率诊断」查看：电荷计 / CURRENT_NOW / 电压；
+3. 第 1 个采样点没有差分，功率留空正常；第 2 点（+5 min）起显示；
+4. 必须拔掉充电线（充电时电荷计上升，无法算功率）；
+5. 部分机型电荷计只在 1%/数 mAh 变化时更新：App 会保留旧读数、等下一次变化用更长窗口计算，并标 `power_window=...s`；
+6. 若诊断里电荷计显示“不可用”，该机型只能用外接功率计/电流表，App 会留空而不是写 0。

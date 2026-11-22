@@ -53,7 +53,8 @@
     <li>安装时系统会提示“未知来源应用”，允许浏览器/文件管理器安装即可。</li>
     <li>首次打开请按 App 内提示授予权限；<span class="warn">功耗实验必须拔掉充电线</span>。</li>
     <li><b>PowerTrace 开始采集前会强制检查系统权限</b>：通知、电池优化豁免、精确闹钟、后台活动/睡眠待机优化，缺一项不能开始（避免采集中断、数据作废）。</li>
-    <li><b>v1.3.0 新增：</b>SignalMap HTTP 探测默认改用国内可达地址，主地址失败自动回退并在 note 标注；网关不可达时 tcp_connect_ms 留空、不写 0。</li>
+    <li><b>v1.4.0 新增：</b>PowerTrace 设置页加「功率诊断」（电荷计/电流/电压），并处理电荷计读数不变的情况（保留窗口、不写 0）；装新版后第 2 个采样点起显示瓦数。</li>
+    <li><b>v1.3.0：</b>SignalMap HTTP 探测默认改用国内可达地址，主地址失败自动回退并在 note 标注；网关不可达时 tcp_connect_ms 留空、不写 0。</li>
     <li><b>v1.2.0：</b>三款 App 都支持删除错误数据后重新测量（功耗/测绘在「结果页 → 删除数据」，声振在「数据集 → 批量删除」）。</li>
     <li>下载后建议核对 SHA-256；完整操作请下载 <a href="docs/manual.pdf" style="color:var(--acc)">《同学操作手册（PDF）》</a>。</li>
   </ol>
@@ -65,11 +66,11 @@
   <div class="meta">
     <h3>PowerTrace · 功耗热测仪</h3>
     <span class="tag">课题02</span><span class="tag">4 工况 × 30 min × 6 点</span>
-    <div class="size">v1.3.0 · 26.4 MB · com.mobilelab.powertrace</div>
-    <div class="hash">SHA-256: ddf7516a9d3fd01c1402691191e181a98de840afad758e3b6ea3ce82d747210d</div>
+    <div class="size">v1.4.0 · 26.4 MB · com.mobilelab.powertrace</div>
+    <div class="hash">SHA-256: e2af69270aec20d4fbc8889a8cd28b1ad31a5a363e97ae41f25ca7fe4f8e9dd0</div>
   </div>
   <div>
-    <a class="btn" href="apk/PowerTrace-1.3.0-arm64-v8a-debug.apk" download>下载 APK</a>
+    <a class="btn" href="apk/PowerTrace-1.4.0-arm64-v8a-debug.apk" download>下载 APK</a>
   </div>
 </div>
 
@@ -77,11 +78,11 @@
   <div class="meta">
     <h3>SignalMap · 校园信号测绘</h3>
     <span class="tag">课题03</span><span class="tag">8 点位 × 3 次</span>
-    <div class="size">v1.3.0 · 31.3 MB · com.mobilelab.signalmap</div>
-    <div class="hash">SHA-256: d369fadf475d63aa8834dd510bd6d558480cb56c5c4d0432f8792476fc336c87</div>
+    <div class="size">v1.4.0 · 31.3 MB · com.mobilelab.signalmap</div>
+    <div class="hash">SHA-256: b80b47fdd91e19ffd3ab6c28603717eb2ed17e2bf73cb68e95415e5b4c95e005</div>
   </div>
   <div>
-    <a class="btn" href="apk/SignalMap-1.3.0-arm64-v8a-debug.apk" download>下载 APK</a>
+    <a class="btn" href="apk/SignalMap-1.4.0-arm64-v8a-debug.apk" download>下载 APK</a>
   </div>
 </div>
 
@@ -89,11 +90,11 @@
   <div class="meta">
     <h3>VibroDiag · 声振诊断仪</h3>
     <span class="tag">项目三</span><span class="tag">5 工况 × 15 组</span>
-    <div class="size">v1.3.0 · 26.5 MB · com.mobilelab.vibrodiag</div>
-    <div class="hash">SHA-256: 188fe3cf7a4785d8c8ec851021321adf0d58168acf7151006eedcaa95a01446d</div>
+    <div class="size">v1.4.0 · 26.5 MB · com.mobilelab.vibrodiag</div>
+    <div class="hash">SHA-256: 0c561a3d1d8bdfaf3fd032e1662660ac98dd0fe2c1af771466bc0e5625f937cd</div>
   </div>
   <div>
-    <a class="btn" href="apk/VibroDiag-1.3.0-arm64-v8a-debug.apk" download>下载 APK</a>
+    <a class="btn" href="apk/VibroDiag-1.4.0-arm64-v8a-debug.apk" download>下载 APK</a>
   </div>
 </div>
 
