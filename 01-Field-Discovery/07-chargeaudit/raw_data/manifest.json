@@ -1,0 +1,24 @@
+{
+  "schema": "phonelab.charge\/1",
+  "project": "07-charge-bank-efficiency",
+  "sessionId": "CA-20261123_144032",
+  "createdAt": "2026-11-23T14:40:32.082+08:00",
+  "nameplate": {
+    "model": "华为 CP11QC",
+    "ratedEnergyWh": 34.49,
+    "ratedOutputMah": 6200,
+    "ratedOutputV": 5,
+    "cellTypicalMah": 10000,
+    "cellRatedMah": 9500,
+    "phoneCapacityMah": 9000,
+    "phoneNominalV": 8.9,
+    "testerModel": "V20",
+    "ratedOutputCurrentA": 2,
+    "ratedInput": "5 V \/ 9 V ⎓ 2 A（最大）",
+    "ratedOutput": "5 V \/ 9 V ⎓ 2 A（最大）"
+  },
+  "points": 19,
+  "endReason": null,
+  "fullStartConfirmed": true,
+  "fullDischargeConfirmed": false
+}

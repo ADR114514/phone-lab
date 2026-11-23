@@ -1,0 +1,4 @@
+# Keep the exported data and delivered CSV bytes unchanged.
+raw_data/** -text
+results/*.csv -text
+*.csv whitespace=cr-at-eol

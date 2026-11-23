@@ -1,0 +1,23 @@
+{
+  "points": 19,
+  "end_reason": null,
+  "full_discharge_confirmed": false,
+  "duration_h": 3.274651388888889,
+  "avg_power_w": 15.474918498779981,
+  "peak_power_w": 93.08999999999999,
+  "e_out_wh": 50.67496335497221,
+  "output_energy_method": "trapezoid",
+  "output_covered_h": 3.274651388888888,
+  "output_complete": true,
+  "tester_counter_decreased": false,
+  "e_phone_wh": 26.61380842105263,
+  "phone_energy_method": "charge_counter",
+  "eta_output": null,
+  "eta_charge": 0.5251865351066167,
+  "eta_total": null,
+  "equiv_output_mah": 10134.992670994443,
+  "rated_output_to_label_ratio": 0.8988112496375761,
+  "label_minus_output_wh": null,
+  "output_minus_phone_wh": 24.061154933919582,
+  "label_minus_phone_wh": null
+}

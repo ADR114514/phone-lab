@@ -1,0 +1,20 @@
+{
+  "session_id": "CA-20261123_144032",
+  "samples": 19,
+  "intervals_used": 16,
+  "recorded_minutes": 196.47908333333334,
+  "interval_minutes_min": 10.242033333333334,
+  "interval_minutes_max": 12.70105,
+  "minutes_used": 174.96745,
+  "minutes_excluded": 21.511633333333307,
+  "app_raw_wh_not_usable": 50.67496335497222,
+  "estimated_wh_for_retained_intervals": 33.134853893722216,
+  "average_w_for_retained_intervals": 11.362634785060495,
+  "rated_cell_wh": 34.49,
+  "rated_output_wh_at_5v_2a": 31.0,
+  "last_sample_still_charging": true,
+  "full_discharge_confirmed": false,
+  "full_run_output_wh": null,
+  "output_to_nameplate_ratio": null,
+  "usb_round_trip_efficiency": null
+}
