@@ -6,11 +6,18 @@
 
 | [官网项目三评分项](https://icec.openkub.com/assessment.html) | 本目录材料 |
 |---|---|
-| 原始 WAV/CSV 及实验照 | [训练和盲测原始数据](raw_data/)；五类各 15 组训练，共 75 组，另有 15 组独立盲测。每组含 WAV、加速度 CSV、特征及元数据。[原始文件校验清单](SHA256SUMS-raw.txt)；**现场实验照尚未收到**。 |
+| 原始 WAV/CSV 及实验照 | [训练和盲测原始数据](raw_data/)；五类各 15 组训练，共 75 组，另有 15 组独立盲测。每组含 WAV、加速度 CSV、特征及元数据。[原始文件校验清单](SHA256SUMS-raw.txt)；[风扇实验实拍照（2 张）](photos/)。 |
 | 时域/频域特征提取代码 | [RMS、频域和其他特征实现](features.py)、[特征表生成](prepare_features.py)、[MATLAB CUDA 训练](train_vibro_cuda.m)、[固定参数推理](predict_vibro_cuda.m)。[模型权重](results/vibro_cuda_model.mat)、[运行配置](results/run_metadata.json)、[Android 推理实现和一致性参考](android-reference/) 可供复核。 |
 | 盲测准确率视频与抗噪报告 | [独立盲测复核报告](盲测复核/盲测复核报告.md)、[逐组预测](盲测复核/predictions_verified.csv)、[抗噪报告](抗噪报告.md)。**盲测视频未提供，报告和结果表不能代替视频。** |
 
 ![训练与盲测录音分布、独立盲测混淆矩阵](盲测复核/blind_signal_and_confusion.png)
+
+## 风扇实验实拍
+
+- [现场全景](photos/fan-test-overview.jpg)：展示操作人员、手机、桌面和小风扇。
+- [风扇与挡板近景](photos/fan-blocking-setup.jpg)：展示风道遮挡实验的装置布置。
+
+两张照片由实验者补充，仅作为现场与装置证据，不用于给原始采样逐组对时，也不能替代盲测视频。公开副本去除 EXIF 等元数据，原图未改。
 
 ## 如何理解结果
 
