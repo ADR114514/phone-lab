@@ -1,0 +1,6 @@
+﻿session_id,condition_id,condition_label,groups_collected,target_groups,complete
+VD-20261122-002,C1_NORMAL_LOW,风扇低档正常,15,15,1
+VD-20261122-002,C2_NORMAL_HIGH,风扇高档正常,15,15,1
+VD-20261122-002,C3_IMBALANCE,扇叶轻微失衡,15,15,1
+VD-20261122-002,C4_BLOCKED,风道遮挡,15,15,1
+VD-20261122-002,C5_HAIRDRYER,吹风机,15,15,1

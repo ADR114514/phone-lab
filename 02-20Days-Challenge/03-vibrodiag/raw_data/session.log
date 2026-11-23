@@ -1,0 +1,830 @@
+2026-11-22 20:13:28.789 I/Session: created VD-20261122-002 at /storage/emulated/0/Android/data/com.mobilelab.vibrodiag/files/experiments/vibrodiag/20261122_201328_VD-20261122-002
+2026-11-22 20:13:39.924 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:13:55.128 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 20:13:55.863 I/SessionRepository: saved g01_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:13:55.877 I/AppState: dataset loaded: 1 samples
+2026-11-22 20:13:55.877 I/AppState: recording persisted g01_C1_NORMAL_LOW
+2026-11-22 20:14:13.286 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:14:28.425 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:14:28.790 I/SessionRepository: saved g02_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:14:28.802 I/AppState: dataset loaded: 2 samples
+2026-11-22 20:14:28.803 I/AppState: recording persisted g02_C1_NORMAL_LOW
+2026-11-22 20:14:37.985 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:14:53.118 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 20:14:53.444 I/SessionRepository: saved g03_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:14:53.462 I/AppState: dataset loaded: 3 samples
+2026-11-22 20:14:53.462 I/AppState: recording persisted g03_C1_NORMAL_LOW
+2026-11-22 20:15:19.869 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:15:35.052 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 20:15:35.304 I/SessionRepository: saved g04_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:15:35.326 I/AppState: dataset loaded: 4 samples
+2026-11-22 20:15:35.327 I/AppState: recording persisted g04_C1_NORMAL_LOW
+2026-11-22 20:15:50.319 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:16:05.500 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:16:05.800 I/SessionRepository: saved g05_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:16:05.813 I/AppState: dataset loaded: 5 samples
+2026-11-22 20:16:05.814 I/AppState: recording persisted g05_C1_NORMAL_LOW
+2026-11-22 20:16:24.221 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:16:39.401 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 20:16:39.741 I/SessionRepository: saved g06_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:16:39.758 I/AppState: dataset loaded: 6 samples
+2026-11-22 20:16:39.759 I/AppState: recording persisted g06_C1_NORMAL_LOW
+2026-11-22 20:16:45.531 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:17:00.689 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:17:00.981 I/SessionRepository: saved g07_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:17:00.999 I/AppState: dataset loaded: 7 samples
+2026-11-22 20:17:00.999 I/AppState: recording persisted g07_C1_NORMAL_LOW
+2026-11-22 20:17:06.085 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:17:21.254 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:17:21.585 I/SessionRepository: saved g08_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:17:21.601 I/AppState: dataset loaded: 8 samples
+2026-11-22 20:17:21.601 I/AppState: recording persisted g08_C1_NORMAL_LOW
+2026-11-22 20:17:37.268 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:17:52.399 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:17:52.632 I/SessionRepository: saved g09_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:17:52.649 I/AppState: dataset loaded: 9 samples
+2026-11-22 20:17:52.649 I/AppState: recording persisted g09_C1_NORMAL_LOW
+2026-11-22 20:17:57.659 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:18:12.793 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:18:13.120 I/SessionRepository: saved g10_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:18:13.137 I/AppState: dataset loaded: 10 samples
+2026-11-22 20:18:13.138 I/AppState: recording persisted g10_C1_NORMAL_LOW
+2026-11-22 20:18:30.293 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:18:45.505 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 20:18:45.726 I/SessionRepository: saved g11_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:18:45.750 I/AppState: dataset loaded: 11 samples
+2026-11-22 20:18:45.750 I/AppState: recording persisted g11_C1_NORMAL_LOW
+2026-11-22 20:18:51.711 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:19:06.854 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 20:19:07.040 I/SessionRepository: saved g12_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:19:07.061 I/AppState: dataset loaded: 12 samples
+2026-11-22 20:19:07.062 I/AppState: recording persisted g12_C1_NORMAL_LOW
+2026-11-22 20:19:29.550 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:19:44.764 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:19:44.977 I/SessionRepository: saved g13_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:19:45.010 I/AppState: dataset loaded: 13 samples
+2026-11-22 20:19:45.011 I/AppState: recording persisted g13_C1_NORMAL_LOW
+2026-11-22 20:19:51.326 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:20:06.535 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:20:06.779 I/SessionRepository: saved g14_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:20:06.800 I/AppState: dataset loaded: 14 samples
+2026-11-22 20:20:06.800 I/AppState: recording persisted g14_C1_NORMAL_LOW
+2026-11-22 20:20:24.268 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:20:39.487 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:20:39.756 I/SessionRepository: saved g15_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 20:20:39.776 I/AppState: dataset loaded: 15 samples
+2026-11-22 20:20:39.776 I/AppState: recording persisted g15_C1_NORMAL_LOW
+2026-11-22 20:21:10.839 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:21:26.045 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:21:26.301 I/SessionRepository: saved g01_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:21:26.323 I/AppState: dataset loaded: 16 samples
+2026-11-22 20:21:26.324 I/AppState: recording persisted g01_C2_NORMAL_HIGH
+2026-11-22 20:21:32.880 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:21:48.071 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:21:48.272 I/SessionRepository: saved g02_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:21:48.302 I/AppState: dataset loaded: 17 samples
+2026-11-22 20:21:48.302 I/AppState: recording persisted g02_C2_NORMAL_HIGH
+2026-11-22 20:21:53.857 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:22:09.059 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 20:22:09.260 I/SessionRepository: saved g03_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:22:09.279 I/AppState: dataset loaded: 18 samples
+2026-11-22 20:22:09.280 I/AppState: recording persisted g03_C2_NORMAL_HIGH
+2026-11-22 20:22:15.004 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:22:30.210 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:22:30.400 I/SessionRepository: saved g04_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:22:30.416 I/AppState: dataset loaded: 19 samples
+2026-11-22 20:22:30.416 I/AppState: recording persisted g04_C2_NORMAL_HIGH
+2026-11-22 20:22:35.850 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:22:50.993 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:22:51.182 I/SessionRepository: saved g05_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:22:51.221 I/AppState: dataset loaded: 20 samples
+2026-11-22 20:22:51.222 I/AppState: recording persisted g05_C2_NORMAL_HIGH
+2026-11-22 20:22:57.098 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:23:12.312 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 20:23:12.500 I/SessionRepository: saved g06_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:23:12.512 I/AppState: dataset loaded: 21 samples
+2026-11-22 20:23:12.513 I/AppState: recording persisted g06_C2_NORMAL_HIGH
+2026-11-22 20:23:21.111 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:23:36.325 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 20:23:36.522 I/SessionRepository: saved g07_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:23:36.552 I/AppState: dataset loaded: 22 samples
+2026-11-22 20:23:36.553 I/AppState: recording persisted g07_C2_NORMAL_HIGH
+2026-11-22 20:23:43.238 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:23:58.418 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:23:58.626 I/SessionRepository: saved g08_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:23:58.641 I/AppState: dataset loaded: 23 samples
+2026-11-22 20:23:58.641 I/AppState: recording persisted g08_C2_NORMAL_HIGH
+2026-11-22 20:24:04.951 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:24:20.146 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:24:20.356 I/SessionRepository: saved g09_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:24:20.376 I/AppState: dataset loaded: 24 samples
+2026-11-22 20:24:20.376 I/AppState: recording persisted g09_C2_NORMAL_HIGH
+2026-11-22 20:24:26.258 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:24:41.436 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:24:41.648 I/SessionRepository: saved g10_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:24:41.675 I/AppState: dataset loaded: 25 samples
+2026-11-22 20:24:41.676 I/AppState: recording persisted g10_C2_NORMAL_HIGH
+2026-11-22 20:24:47.751 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:25:02.937 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:25:03.127 I/SessionRepository: saved g11_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 20:25:03.164 I/AppState: dataset loaded: 26 samples
+2026-11-22 20:25:03.165 I/AppState: recording persisted g11_C2_NORMAL_HIGH
+2026-11-22 20:25:23.299 I/SessionRepository: deleted sample g11_C2_NORMAL_HIGH
+2026-11-22 20:25:23.310 I/AppState: dataset loaded: 25 samples
+2026-11-22 20:25:42.909 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:25:58.126 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 20:25:58.330 I/SessionRepository: saved g01_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:25:58.347 I/AppState: dataset loaded: 26 samples
+2026-11-22 20:25:58.347 I/AppState: recording persisted g01_C3_IMBALANCE
+2026-11-22 20:26:03.787 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:26:18.990 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:26:19.190 I/SessionRepository: saved g02_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:26:19.222 I/AppState: dataset loaded: 27 samples
+2026-11-22 20:26:19.223 I/AppState: recording persisted g02_C3_IMBALANCE
+2026-11-22 20:26:24.000 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:26:39.143 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:26:39.329 I/SessionRepository: saved g03_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:26:39.364 I/AppState: dataset loaded: 28 samples
+2026-11-22 20:26:39.365 I/AppState: recording persisted g03_C3_IMBALANCE
+2026-11-22 20:26:44.647 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:26:59.845 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:27:00.057 I/SessionRepository: saved g04_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:27:00.076 I/AppState: dataset loaded: 29 samples
+2026-11-22 20:27:00.076 I/AppState: recording persisted g04_C3_IMBALANCE
+2026-11-22 20:27:08.683 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:27:23.875 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:27:24.085 I/SessionRepository: saved g05_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:27:24.138 I/AppState: dataset loaded: 30 samples
+2026-11-22 20:27:24.138 I/AppState: recording persisted g05_C3_IMBALANCE
+2026-11-22 20:27:35.947 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:27:51.116 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 20:27:51.332 I/SessionRepository: saved g06_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:27:51.363 I/AppState: dataset loaded: 31 samples
+2026-11-22 20:27:51.364 I/AppState: recording persisted g06_C3_IMBALANCE
+2026-11-22 20:45:29.253 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:45:44.418 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:45:44.660 I/SessionRepository: saved g07_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:45:44.681 I/AppState: dataset loaded: 32 samples
+2026-11-22 20:45:44.681 I/AppState: recording persisted g07_C3_IMBALANCE
+2026-11-22 20:46:06.497 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:46:21.696 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:46:21.916 I/SessionRepository: saved g08_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:46:21.963 I/AppState: dataset loaded: 33 samples
+2026-11-22 20:46:21.963 I/AppState: recording persisted g08_C3_IMBALANCE
+2026-11-22 20:46:26.545 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:46:41.720 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 20:46:41.928 I/SessionRepository: saved g09_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:46:41.952 I/AppState: dataset loaded: 34 samples
+2026-11-22 20:46:41.952 I/AppState: recording persisted g09_C3_IMBALANCE
+2026-11-22 20:46:46.396 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:47:01.575 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:47:01.781 I/SessionRepository: saved g10_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:47:01.825 I/AppState: dataset loaded: 35 samples
+2026-11-22 20:47:01.825 I/AppState: recording persisted g10_C3_IMBALANCE
+2026-11-22 20:47:07.151 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:47:22.319 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:47:22.509 I/SessionRepository: saved g11_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:47:22.548 I/AppState: dataset loaded: 36 samples
+2026-11-22 20:47:22.548 I/AppState: recording persisted g11_C3_IMBALANCE
+2026-11-22 20:47:27.079 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:47:42.241 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:47:42.448 I/SessionRepository: saved g12_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:47:42.465 I/AppState: dataset loaded: 37 samples
+2026-11-22 20:47:42.465 I/AppState: recording persisted g12_C3_IMBALANCE
+2026-11-22 20:47:47.298 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:48:02.468 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 20:48:02.689 I/SessionRepository: saved g13_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:48:02.710 I/AppState: dataset loaded: 38 samples
+2026-11-22 20:48:02.710 I/AppState: recording persisted g13_C3_IMBALANCE
+2026-11-22 20:48:08.098 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:48:23.282 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 20:48:23.477 I/SessionRepository: saved g14_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:48:23.507 I/AppState: dataset loaded: 39 samples
+2026-11-22 20:48:23.508 I/AppState: recording persisted g14_C3_IMBALANCE
+2026-11-22 20:48:28.940 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 20:48:44.123 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 20:48:44.338 I/SessionRepository: saved g15_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 20:48:44.363 I/AppState: dataset loaded: 40 samples
+2026-11-22 20:48:44.363 I/AppState: recording persisted g15_C3_IMBALANCE
+2026-11-22 21:03:15.394 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:03:30.606 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:03:30.820 I/SessionRepository: saved g01_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:03:30.858 I/AppState: dataset loaded: 41 samples
+2026-11-22 21:03:30.858 I/AppState: recording persisted g01_C4_BLOCKED
+2026-11-22 21:04:49.381 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:05:04.518 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:05:04.706 I/SessionRepository: saved g01_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:05:04.736 I/AppState: dataset loaded: 41 samples
+2026-11-22 21:05:04.736 I/AppState: recording persisted g01_C4_BLOCKED
+2026-11-22 21:05:17.374 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:05:29.092 I/RecordingEngine: recording finished duration=11.60s interrupted=true accelSamples=2310 error=null
+2026-11-22 21:05:29.240 I/SessionRepository: saved g01_C4_BLOCKED interrupted=true audio=11.6s
+2026-11-22 21:05:29.265 I/AppState: dataset loaded: 42 samples
+2026-11-22 21:05:29.265 I/AppState: recording persisted g01_C4_BLOCKED
+2026-11-22 21:05:34.591 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:05:49.755 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:05:49.970 I/SessionRepository: saved g01_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:05:50.008 I/AppState: dataset loaded: 42 samples
+2026-11-22 21:05:50.009 I/AppState: recording persisted g01_C4_BLOCKED
+2026-11-22 21:05:59.622 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:06:14.797 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:06:14.996 I/SessionRepository: saved g02_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:06:15.020 I/AppState: dataset loaded: 43 samples
+2026-11-22 21:06:15.020 I/AppState: recording persisted g02_C4_BLOCKED
+2026-11-22 21:06:20.848 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:06:35.984 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:06:36.179 I/SessionRepository: saved g03_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:06:36.200 I/AppState: dataset loaded: 44 samples
+2026-11-22 21:06:36.201 I/AppState: recording persisted g03_C4_BLOCKED
+2026-11-22 21:06:42.505 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:06:57.685 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:06:57.880 I/SessionRepository: saved g04_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:06:57.925 I/AppState: dataset loaded: 45 samples
+2026-11-22 21:06:57.925 I/AppState: recording persisted g04_C4_BLOCKED
+2026-11-22 21:07:03.222 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:07:18.381 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:07:18.595 I/SessionRepository: saved g05_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:07:18.631 I/AppState: dataset loaded: 46 samples
+2026-11-22 21:07:18.631 I/AppState: recording persisted g05_C4_BLOCKED
+2026-11-22 21:07:24.671 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:07:39.844 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:07:40.052 I/SessionRepository: saved g06_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:07:40.093 I/AppState: dataset loaded: 47 samples
+2026-11-22 21:07:40.094 I/AppState: recording persisted g06_C4_BLOCKED
+2026-11-22 21:07:45.466 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:08:00.646 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:08:00.841 I/SessionRepository: saved g07_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:08:00.886 I/AppState: dataset loaded: 48 samples
+2026-11-22 21:08:00.887 I/AppState: recording persisted g07_C4_BLOCKED
+2026-11-22 21:08:13.973 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:08:29.166 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:08:29.424 I/SessionRepository: saved g08_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:08:29.455 I/AppState: dataset loaded: 49 samples
+2026-11-22 21:08:29.455 I/AppState: recording persisted g08_C4_BLOCKED
+2026-11-22 21:08:38.067 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:08:53.231 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:08:53.662 I/SessionRepository: saved g09_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 21:08:53.689 I/AppState: dataset loaded: 50 samples
+2026-11-22 21:08:53.689 I/AppState: recording persisted g09_C4_BLOCKED
+2026-11-22 21:09:24.578 I/SessionRepository: deleted sample g01_C4_BLOCKED
+2026-11-22 21:09:24.597 I/AppState: dataset loaded: 49 samples
+2026-11-22 21:09:36.689 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:09:51.835 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 21:09:52.292 I/SessionRepository: saved g01_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 21:09:52.329 I/AppState: dataset loaded: 50 samples
+2026-11-22 21:09:52.329 I/AppState: recording persisted g01_C5_HAIRDRYER
+2026-11-22 21:09:58.561 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:10:13.707 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:10:14.172 I/SessionRepository: saved g02_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 21:10:14.207 I/AppState: dataset loaded: 51 samples
+2026-11-22 21:10:14.208 I/AppState: recording persisted g02_C5_HAIRDRYER
+2026-11-22 21:10:19.184 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:10:34.365 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:10:34.831 I/SessionRepository: saved g03_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 21:10:34.871 I/AppState: dataset loaded: 52 samples
+2026-11-22 21:10:34.872 I/AppState: recording persisted g03_C5_HAIRDRYER
+2026-11-22 21:10:40.317 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:10:55.500 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:10:55.970 I/SessionRepository: saved g04_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 21:10:56.008 I/AppState: dataset loaded: 53 samples
+2026-11-22 21:10:56.008 I/AppState: recording persisted g04_C5_HAIRDRYER
+2026-11-22 21:11:01.392 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:11:11.024 I/RecordingEngine: recording finished duration=9.50s interrupted=true accelSamples=1892 error=null
+2026-11-22 21:11:11.324 I/SessionRepository: saved g05_C5_HAIRDRYER interrupted=true audio=9.5s
+2026-11-22 21:11:11.361 I/AppState: dataset loaded: 54 samples
+2026-11-22 21:11:11.362 I/AppState: recording persisted g05_C5_HAIRDRYER
+2026-11-22 21:11:22.356 I/SessionRepository: deleted sample g01_C5_HAIRDRYER
+2026-11-22 21:11:22.376 I/AppState: dataset loaded: 53 samples
+2026-11-22 21:11:24.922 I/SessionRepository: deleted sample g05_C5_HAIRDRYER
+2026-11-22 21:11:24.943 I/AppState: dataset loaded: 52 samples
+2026-11-22 21:11:26.011 I/SessionRepository: deleted sample g04_C5_HAIRDRYER
+2026-11-22 21:11:26.029 I/AppState: dataset loaded: 51 samples
+2026-11-22 21:11:27.096 I/SessionRepository: deleted sample g03_C5_HAIRDRYER
+2026-11-22 21:11:27.116 I/AppState: dataset loaded: 50 samples
+2026-11-22 21:11:28.759 I/SessionRepository: deleted sample g02_C5_HAIRDRYER
+2026-11-22 21:11:28.780 I/AppState: dataset loaded: 49 samples
+2026-11-22 21:16:10.898 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:16:26.073 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:16:26.529 I/SessionRepository: saved g01_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:16:26.541 I/AppState: dataset loaded: 1 samples
+2026-11-22 21:16:26.542 I/AppState: recording persisted g01_C1_NORMAL_LOW
+2026-11-22 21:16:32.913 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:16:48.073 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:16:48.480 I/SessionRepository: saved g02_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:16:48.492 I/AppState: dataset loaded: 2 samples
+2026-11-22 21:16:48.493 I/AppState: recording persisted g02_C1_NORMAL_LOW
+2026-11-22 21:16:53.898 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:17:09.045 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:17:09.469 I/SessionRepository: saved g03_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:17:09.483 I/AppState: dataset loaded: 3 samples
+2026-11-22 21:17:09.484 I/AppState: recording persisted g03_C1_NORMAL_LOW
+2026-11-22 21:17:22.690 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:17:37.841 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:17:38.254 I/SessionRepository: saved g04_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:17:38.269 I/AppState: dataset loaded: 4 samples
+2026-11-22 21:17:38.270 I/AppState: recording persisted g04_C1_NORMAL_LOW
+2026-11-22 21:17:49.197 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:18:04.360 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:18:04.765 I/SessionRepository: saved g05_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:18:04.781 I/AppState: dataset loaded: 5 samples
+2026-11-22 21:18:04.781 I/AppState: recording persisted g05_C1_NORMAL_LOW
+2026-11-22 21:18:43.592 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:18:58.744 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:18:59.157 I/SessionRepository: saved g01_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:18:59.168 I/AppState: dataset loaded: 1 samples
+2026-11-22 21:18:59.168 I/AppState: recording persisted g01_C1_NORMAL_LOW
+2026-11-22 21:19:04.794 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:19:19.941 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:19:20.343 I/SessionRepository: saved g02_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:19:20.358 I/AppState: dataset loaded: 2 samples
+2026-11-22 21:19:20.359 I/AppState: recording persisted g02_C1_NORMAL_LOW
+2026-11-22 21:19:29.496 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:19:44.636 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:19:45.039 I/SessionRepository: saved g03_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:19:45.054 I/AppState: dataset loaded: 3 samples
+2026-11-22 21:19:45.054 I/AppState: recording persisted g03_C1_NORMAL_LOW
+2026-11-22 21:20:07.976 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:20:23.131 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:20:23.557 I/SessionRepository: saved g04_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:20:23.571 I/AppState: dataset loaded: 4 samples
+2026-11-22 21:20:23.572 I/AppState: recording persisted g04_C1_NORMAL_LOW
+2026-11-22 21:20:29.518 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:20:44.682 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:20:45.093 I/SessionRepository: saved g05_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:20:45.108 I/AppState: dataset loaded: 5 samples
+2026-11-22 21:20:45.108 I/AppState: recording persisted g05_C1_NORMAL_LOW
+2026-11-22 21:20:50.773 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:21:05.925 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:21:06.337 I/SessionRepository: saved g06_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:21:06.354 I/AppState: dataset loaded: 6 samples
+2026-11-22 21:21:06.354 I/AppState: recording persisted g06_C1_NORMAL_LOW
+2026-11-22 21:21:12.036 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:21:27.194 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:21:27.620 I/SessionRepository: saved g07_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:21:27.648 I/AppState: dataset loaded: 7 samples
+2026-11-22 21:21:27.649 I/AppState: recording persisted g07_C1_NORMAL_LOW
+2026-11-22 21:21:33.878 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:21:49.018 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:21:49.433 I/SessionRepository: saved g08_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:21:49.451 I/AppState: dataset loaded: 8 samples
+2026-11-22 21:21:49.452 I/AppState: recording persisted g08_C1_NORMAL_LOW
+2026-11-22 21:21:55.115 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:22:10.263 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:22:10.692 I/SessionRepository: saved g09_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:22:10.710 I/AppState: dataset loaded: 9 samples
+2026-11-22 21:22:10.710 I/AppState: recording persisted g09_C1_NORMAL_LOW
+2026-11-22 21:22:18.382 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:22:33.608 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:22:34.032 I/SessionRepository: saved g10_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:22:34.051 I/AppState: dataset loaded: 10 samples
+2026-11-22 21:22:34.052 I/AppState: recording persisted g10_C1_NORMAL_LOW
+2026-11-22 21:22:39.927 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:22:55.068 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:22:55.488 I/SessionRepository: saved g11_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:22:55.509 I/AppState: dataset loaded: 11 samples
+2026-11-22 21:22:55.509 I/AppState: recording persisted g11_C1_NORMAL_LOW
+2026-11-22 21:23:02.434 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:23:17.575 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:23:17.987 I/SessionRepository: saved g12_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:23:18.006 I/AppState: dataset loaded: 12 samples
+2026-11-22 21:23:18.006 I/AppState: recording persisted g12_C1_NORMAL_LOW
+2026-11-22 21:23:30.726 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:23:45.875 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:23:46.301 I/SessionRepository: saved g13_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:23:46.323 I/AppState: dataset loaded: 13 samples
+2026-11-22 21:23:46.324 I/AppState: recording persisted g13_C1_NORMAL_LOW
+2026-11-22 21:23:51.800 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:24:06.931 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:24:07.347 I/SessionRepository: saved g14_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:24:07.369 I/AppState: dataset loaded: 14 samples
+2026-11-22 21:24:07.370 I/AppState: recording persisted g14_C1_NORMAL_LOW
+2026-11-22 21:24:13.286 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:24:28.438 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:24:28.872 I/SessionRepository: saved g15_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-22 21:24:28.895 I/AppState: dataset loaded: 15 samples
+2026-11-22 21:24:28.896 I/AppState: recording persisted g15_C1_NORMAL_LOW
+2026-11-22 21:24:54.390 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:25:09.536 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:25:09.972 I/SessionRepository: saved g01_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:25:09.995 I/AppState: dataset loaded: 16 samples
+2026-11-22 21:25:09.995 I/AppState: recording persisted g01_C2_NORMAL_HIGH
+2026-11-22 21:25:15.877 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:25:31.031 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 21:25:31.459 I/SessionRepository: saved g02_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:25:31.483 I/AppState: dataset loaded: 17 samples
+2026-11-22 21:25:31.483 I/AppState: recording persisted g02_C2_NORMAL_HIGH
+2026-11-22 21:25:40.889 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:25:56.030 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:25:56.439 I/SessionRepository: saved g03_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:25:56.465 I/AppState: dataset loaded: 18 samples
+2026-11-22 21:25:56.465 I/AppState: recording persisted g03_C2_NORMAL_HIGH
+2026-11-22 21:38:07.226 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:38:22.384 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2991 error=null
+2026-11-22 21:38:22.826 I/SessionRepository: saved g04_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:38:22.848 I/AppState: dataset loaded: 19 samples
+2026-11-22 21:38:22.848 I/AppState: recording persisted g04_C2_NORMAL_HIGH
+2026-11-22 21:55:41.884 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:55:57.112 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:55:57.562 I/SessionRepository: saved g05_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:55:57.591 I/AppState: dataset loaded: 20 samples
+2026-11-22 21:55:57.591 I/AppState: recording persisted g05_C2_NORMAL_HIGH
+2026-11-22 21:56:04.292 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:56:19.436 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 21:56:19.867 I/SessionRepository: saved g06_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:56:19.894 I/AppState: dataset loaded: 21 samples
+2026-11-22 21:56:19.894 I/AppState: recording persisted g06_C2_NORMAL_HIGH
+2026-11-22 21:56:28.362 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:56:43.599 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:56:44.029 I/SessionRepository: saved g07_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:56:44.060 I/AppState: dataset loaded: 22 samples
+2026-11-22 21:56:44.061 I/AppState: recording persisted g07_C2_NORMAL_HIGH
+2026-11-22 21:57:59.183 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:58:14.401 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 21:58:14.814 I/SessionRepository: saved g08_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:58:14.852 I/AppState: dataset loaded: 23 samples
+2026-11-22 21:58:14.853 I/AppState: recording persisted g08_C2_NORMAL_HIGH
+2026-11-22 21:58:21.356 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:58:36.532 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:58:36.954 I/SessionRepository: saved g09_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:58:36.983 I/AppState: dataset loaded: 24 samples
+2026-11-22 21:58:36.984 I/AppState: recording persisted g09_C2_NORMAL_HIGH
+2026-11-22 21:58:46.892 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:59:02.066 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:59:02.513 I/SessionRepository: saved g10_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:59:02.544 I/AppState: dataset loaded: 25 samples
+2026-11-22 21:59:02.544 I/AppState: recording persisted g10_C2_NORMAL_HIGH
+2026-11-22 21:59:08.288 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:59:23.436 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 21:59:23.865 I/SessionRepository: saved g11_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:59:23.895 I/AppState: dataset loaded: 26 samples
+2026-11-22 21:59:23.896 I/AppState: recording persisted g11_C2_NORMAL_HIGH
+2026-11-22 21:59:31.367 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 21:59:46.517 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 21:59:46.955 I/SessionRepository: saved g12_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 21:59:46.984 I/AppState: dataset loaded: 27 samples
+2026-11-22 21:59:46.984 I/AppState: recording persisted g12_C2_NORMAL_HIGH
+2026-11-22 21:59:51.844 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:00:06.984 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2991 error=null
+2026-11-22 22:00:07.396 I/SessionRepository: saved g13_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 22:00:07.431 I/AppState: dataset loaded: 28 samples
+2026-11-22 22:00:07.431 I/AppState: recording persisted g13_C2_NORMAL_HIGH
+2026-11-22 22:00:14.688 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:00:29.887 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:00:30.319 I/SessionRepository: saved g14_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 22:00:30.351 I/AppState: dataset loaded: 29 samples
+2026-11-22 22:00:30.352 I/AppState: recording persisted g14_C2_NORMAL_HIGH
+2026-11-22 22:00:35.254 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:00:50.389 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:00:50.828 I/SessionRepository: saved g15_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-22 22:00:50.857 I/AppState: dataset loaded: 30 samples
+2026-11-22 22:00:50.857 I/AppState: recording persisted g15_C2_NORMAL_HIGH
+2026-11-22 22:03:28.366 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:03:43.509 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2991 error=null
+2026-11-22 22:03:43.983 I/SessionRepository: saved g01_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:03:44.022 I/AppState: dataset loaded: 31 samples
+2026-11-22 22:03:44.022 I/AppState: recording persisted g01_C3_IMBALANCE
+2026-11-22 22:03:49.604 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:04:04.753 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:04:05.188 I/SessionRepository: saved g02_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:04:05.223 I/AppState: dataset loaded: 32 samples
+2026-11-22 22:04:05.223 I/AppState: recording persisted g02_C3_IMBALANCE
+2026-11-22 22:04:10.162 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:04:25.356 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:04:25.803 I/SessionRepository: saved g03_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:04:25.829 I/AppState: dataset loaded: 33 samples
+2026-11-22 22:04:25.829 I/AppState: recording persisted g03_C3_IMBALANCE
+2026-11-22 22:04:30.985 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:04:46.160 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:04:46.559 I/SessionRepository: saved g04_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:04:46.592 I/AppState: dataset loaded: 34 samples
+2026-11-22 22:04:46.592 I/AppState: recording persisted g04_C3_IMBALANCE
+2026-11-22 22:04:51.804 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:05:06.968 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:05:07.406 I/SessionRepository: saved g05_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:05:07.436 I/AppState: dataset loaded: 35 samples
+2026-11-22 22:05:07.436 I/AppState: recording persisted g05_C3_IMBALANCE
+2026-11-22 22:05:15.722 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:05:30.873 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:05:31.329 I/SessionRepository: saved g06_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:05:31.362 I/AppState: dataset loaded: 36 samples
+2026-11-22 22:05:31.362 I/AppState: recording persisted g06_C3_IMBALANCE
+2026-11-22 22:05:36.656 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:05:51.831 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:05:52.287 I/SessionRepository: saved g07_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:05:52.323 I/AppState: dataset loaded: 37 samples
+2026-11-22 22:05:52.324 I/AppState: recording persisted g07_C3_IMBALANCE
+2026-11-22 22:05:58.335 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:06:13.497 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:06:13.943 I/SessionRepository: saved g08_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:06:13.978 I/AppState: dataset loaded: 38 samples
+2026-11-22 22:06:13.979 I/AppState: recording persisted g08_C3_IMBALANCE
+2026-11-22 22:06:23.832 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:06:38.985 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:06:39.431 I/SessionRepository: saved g08_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:06:39.467 I/AppState: dataset loaded: 38 samples
+2026-11-22 22:06:39.467 I/AppState: recording persisted g08_C3_IMBALANCE
+2026-11-22 22:06:45.608 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:07:00.747 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:07:01.208 I/SessionRepository: saved g09_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:07:01.242 I/AppState: dataset loaded: 39 samples
+2026-11-22 22:07:01.243 I/AppState: recording persisted g09_C3_IMBALANCE
+2026-11-22 22:07:06.501 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:07:21.675 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 22:07:22.091 I/SessionRepository: saved g10_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:07:22.113 I/AppState: dataset loaded: 40 samples
+2026-11-22 22:07:22.113 I/AppState: recording persisted g10_C3_IMBALANCE
+2026-11-22 22:07:27.534 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:07:42.678 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:07:43.118 I/SessionRepository: saved g11_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:07:43.150 I/AppState: dataset loaded: 41 samples
+2026-11-22 22:07:43.150 I/AppState: recording persisted g11_C3_IMBALANCE
+2026-11-22 22:07:48.870 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:08:04.051 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:08:04.503 I/SessionRepository: saved g12_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:08:04.544 I/AppState: dataset loaded: 42 samples
+2026-11-22 22:08:04.545 I/AppState: recording persisted g12_C3_IMBALANCE
+2026-11-22 22:08:39.169 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:08:54.330 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:08:54.788 I/SessionRepository: saved g12_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:08:54.826 I/AppState: dataset loaded: 42 samples
+2026-11-22 22:08:54.827 I/AppState: recording persisted g12_C3_IMBALANCE
+2026-11-22 22:09:08.225 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:09:23.391 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:09:23.844 I/SessionRepository: saved g13_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:09:23.878 I/AppState: dataset loaded: 43 samples
+2026-11-22 22:09:23.879 I/AppState: recording persisted g13_C3_IMBALANCE
+2026-11-22 22:09:31.671 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:09:46.834 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:09:47.260 I/SessionRepository: saved g14_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:09:47.294 I/AppState: dataset loaded: 44 samples
+2026-11-22 22:09:47.295 I/AppState: recording persisted g14_C3_IMBALANCE
+2026-11-22 22:09:55.541 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:10:10.702 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:10:11.154 I/SessionRepository: saved g15_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-22 22:10:11.191 I/AppState: dataset loaded: 45 samples
+2026-11-22 22:10:11.191 I/AppState: recording persisted g15_C3_IMBALANCE
+2026-11-22 22:15:05.194 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:15:20.341 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:15:20.851 I/SessionRepository: saved g01_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:15:20.891 I/AppState: dataset loaded: 46 samples
+2026-11-22 22:15:20.892 I/AppState: recording persisted g01_C4_BLOCKED
+2026-11-22 22:15:31.605 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:15:46.747 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:15:47.207 I/SessionRepository: saved g02_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:15:47.252 I/AppState: dataset loaded: 47 samples
+2026-11-22 22:15:47.252 I/AppState: recording persisted g02_C4_BLOCKED
+2026-11-22 22:15:53.776 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:16:08.950 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2991 error=null
+2026-11-22 22:16:09.405 I/SessionRepository: saved g03_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:16:09.437 I/AppState: dataset loaded: 48 samples
+2026-11-22 22:16:09.437 I/AppState: recording persisted g03_C4_BLOCKED
+2026-11-22 22:16:15.167 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:16:30.347 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:16:30.768 I/SessionRepository: saved g04_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:16:30.807 I/AppState: dataset loaded: 49 samples
+2026-11-22 22:16:30.807 I/AppState: recording persisted g04_C4_BLOCKED
+2026-11-22 22:16:35.803 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:16:50.967 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:16:51.410 I/SessionRepository: saved g05_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:16:51.447 I/AppState: dataset loaded: 50 samples
+2026-11-22 22:16:51.447 I/AppState: recording persisted g05_C4_BLOCKED
+2026-11-22 22:16:57.652 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:17:12.795 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:17:13.251 I/SessionRepository: saved g06_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:17:13.288 I/AppState: dataset loaded: 51 samples
+2026-11-22 22:17:13.289 I/AppState: recording persisted g06_C4_BLOCKED
+2026-11-22 22:17:18.498 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:17:33.649 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:17:34.113 I/SessionRepository: saved g07_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:17:34.152 I/AppState: dataset loaded: 52 samples
+2026-11-22 22:17:34.153 I/AppState: recording persisted g07_C4_BLOCKED
+2026-11-22 22:17:39.523 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:17:54.678 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:17:55.135 I/SessionRepository: saved g08_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:17:55.189 I/AppState: dataset loaded: 53 samples
+2026-11-22 22:17:55.190 I/AppState: recording persisted g08_C4_BLOCKED
+2026-11-22 22:18:01.658 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:18:16.817 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:18:17.286 I/SessionRepository: saved g09_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:18:17.329 I/AppState: dataset loaded: 54 samples
+2026-11-22 22:18:17.329 I/AppState: recording persisted g09_C4_BLOCKED
+2026-11-22 22:18:22.636 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:18:37.791 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:18:38.262 I/SessionRepository: saved g10_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:18:38.313 I/AppState: dataset loaded: 55 samples
+2026-11-22 22:18:38.313 I/AppState: recording persisted g10_C4_BLOCKED
+2026-11-22 22:18:53.612 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:19:08.812 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:19:09.275 I/SessionRepository: saved g10_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:19:09.314 I/AppState: dataset loaded: 55 samples
+2026-11-22 22:19:09.315 I/AppState: recording persisted g10_C4_BLOCKED
+2026-11-22 22:19:15.229 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:19:30.433 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:19:30.915 I/SessionRepository: saved g11_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:19:30.982 I/AppState: dataset loaded: 56 samples
+2026-11-22 22:19:30.983 I/AppState: recording persisted g11_C4_BLOCKED
+2026-11-22 22:19:36.599 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:19:51.754 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:19:52.195 I/SessionRepository: saved g12_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:19:52.250 I/AppState: dataset loaded: 57 samples
+2026-11-22 22:19:52.250 I/AppState: recording persisted g12_C4_BLOCKED
+2026-11-22 22:20:03.488 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:20:18.660 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:20:19.134 I/SessionRepository: saved g13_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:20:19.163 I/AppState: dataset loaded: 58 samples
+2026-11-22 22:20:19.164 I/AppState: recording persisted g13_C4_BLOCKED
+2026-11-22 22:20:24.719 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:20:39.860 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:20:40.327 I/SessionRepository: saved g14_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:20:40.393 I/AppState: dataset loaded: 59 samples
+2026-11-22 22:20:40.394 I/AppState: recording persisted g14_C4_BLOCKED
+2026-11-22 22:20:50.238 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:21:05.399 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:21:05.854 I/SessionRepository: saved g15_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-22 22:21:05.907 I/AppState: dataset loaded: 60 samples
+2026-11-22 22:21:05.907 I/AppState: recording persisted g15_C4_BLOCKED
+2026-11-22 22:31:56.819 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:32:12.012 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:32:12.412 I/SessionRepository: saved g01_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:32:12.469 I/AppState: dataset loaded: 61 samples
+2026-11-22 22:32:12.470 I/AppState: recording persisted g01_C5_HAIRDRYER
+2026-11-22 22:32:17.652 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:32:32.785 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:32:33.031 I/SessionRepository: saved g02_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:32:33.089 I/AppState: dataset loaded: 62 samples
+2026-11-22 22:32:33.090 I/AppState: recording persisted g02_C5_HAIRDRYER
+2026-11-22 22:32:41.877 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:32:57.087 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:32:57.385 I/SessionRepository: saved g03_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:32:57.438 I/AppState: dataset loaded: 63 samples
+2026-11-22 22:32:57.438 I/AppState: recording persisted g03_C5_HAIRDRYER
+2026-11-22 22:33:03.018 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:33:18.185 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:33:18.526 I/SessionRepository: saved g04_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:33:18.577 I/AppState: dataset loaded: 64 samples
+2026-11-22 22:33:18.578 I/AppState: recording persisted g04_C5_HAIRDRYER
+2026-11-22 22:33:23.943 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:33:39.155 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:33:39.576 I/SessionRepository: saved g05_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:33:39.640 I/AppState: dataset loaded: 65 samples
+2026-11-22 22:33:39.641 I/AppState: recording persisted g05_C5_HAIRDRYER
+2026-11-22 22:33:44.689 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:33:59.836 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 22:34:00.264 I/SessionRepository: saved g06_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:34:00.333 I/AppState: dataset loaded: 66 samples
+2026-11-22 22:34:00.333 I/AppState: recording persisted g06_C5_HAIRDRYER
+2026-11-22 22:34:05.273 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:34:20.431 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:34:20.872 I/SessionRepository: saved g07_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:34:20.938 I/AppState: dataset loaded: 67 samples
+2026-11-22 22:34:20.939 I/AppState: recording persisted g07_C5_HAIRDRYER
+2026-11-22 22:34:25.976 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:34:41.136 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:34:41.554 I/SessionRepository: saved g08_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:34:41.621 I/AppState: dataset loaded: 68 samples
+2026-11-22 22:34:41.622 I/AppState: recording persisted g08_C5_HAIRDRYER
+2026-11-22 22:34:46.528 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:35:01.692 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:35:02.156 I/SessionRepository: saved g09_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:35:02.217 I/AppState: dataset loaded: 69 samples
+2026-11-22 22:35:02.217 I/AppState: recording persisted g09_C5_HAIRDRYER
+2026-11-22 22:54:25.705 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:54:40.840 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 22:54:41.245 I/SessionRepository: saved g10_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:54:41.307 I/AppState: dataset loaded: 70 samples
+2026-11-22 22:54:41.308 I/AppState: recording persisted g10_C5_HAIRDRYER
+2026-11-22 22:55:34.804 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:55:49.961 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:55:50.313 I/SessionRepository: saved g11_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:55:50.352 I/AppState: dataset loaded: 71 samples
+2026-11-22 22:55:50.352 I/AppState: recording persisted g11_C5_HAIRDRYER
+2026-11-22 22:55:58.237 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:56:13.390 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-22 22:56:13.805 I/SessionRepository: saved g12_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:56:13.875 I/AppState: dataset loaded: 72 samples
+2026-11-22 22:56:13.876 I/AppState: recording persisted g12_C5_HAIRDRYER
+2026-11-22 22:56:20.483 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:56:35.668 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 22:56:36.054 I/SessionRepository: saved g13_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:56:36.130 I/AppState: dataset loaded: 73 samples
+2026-11-22 22:56:36.130 I/AppState: recording persisted g13_C5_HAIRDRYER
+2026-11-22 22:56:42.992 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:56:58.138 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2988 error=null
+2026-11-22 22:56:58.528 I/SessionRepository: saved g14_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:56:58.601 I/AppState: dataset loaded: 74 samples
+2026-11-22 22:56:58.602 I/AppState: recording persisted g14_C5_HAIRDRYER
+2026-11-22 22:57:03.914 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-22 22:57:19.065 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-22 22:57:19.506 I/SessionRepository: saved g15_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-22 22:57:19.583 I/AppState: dataset loaded: 75 samples
+2026-11-22 22:57:19.583 I/AppState: recording persisted g15_C5_HAIRDRYER
+2026-11-22 23:30:59.910 I/Session: opened VD-20261122-002 at /storage/emulated/0/Android/data/com.mobilelab.vibrodiag/files/experiments/vibrodiag/20261122_201328_VD-20261122-002
+2026-11-22 23:30:59.979 I/AppState: session VD-20261122-002 at /storage/emulated/0/Android/data/com.mobilelab.vibrodiag/files/experiments/vibrodiag/20261122_201328_VD-20261122-002
+2026-11-22 23:31:00.114 I/AppState: dataset loaded: 75 samples
+2026-11-22 23:31:00.118 I/AppState: restored 0 blind trials from CSV
+2026-11-23 00:11:07.994 I/Session: opened VD-20261122-002 at /storage/emulated/0/Android/data/com.mobilelab.vibrodiag/files/experiments/vibrodiag/20261122_201328_VD-20261122-002
+2026-11-23 00:11:08.070 I/AppState: session VD-20261122-002 at /storage/emulated/0/Android/data/com.mobilelab.vibrodiag/files/experiments/vibrodiag/20261122_201328_VD-20261122-002
+2026-11-23 00:11:08.191 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:11:08.196 I/AppState: restored 0 blind trials from CSV
+2026-11-23 00:40:09.450 I/Session: opened VD-20261122-002 at /storage/emulated/0/Android/data/com.mobilelab.vibrodiag/files/experiments/vibrodiag/20261122_201328_VD-20261122-002
+2026-11-23 00:40:09.538 I/AppState: session VD-20261122-002 at /storage/emulated/0/Android/data/com.mobilelab.vibrodiag/files/experiments/vibrodiag/20261122_201328_VD-20261122-002
+2026-11-23 00:40:09.661 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:40:09.666 I/AppState: restored 0 blind trials from CSV
+2026-11-23 00:41:09.420 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:41:24.658 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:41:25.121 I/SessionRepository: saved b01_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-23 00:41:25.193 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:41:25.194 I/AppState: recording persisted b01_C1_NORMAL_LOW
+2026-11-23 00:41:33.554 I/AppState: blind trial 0 true=C1_NORMAL_LOW predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=3.2354046708990336E-5
+2026-11-23 00:41:42.304 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:41:57.440 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2991 error=null
+2026-11-23 00:41:57.777 I/SessionRepository: saved b01_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-23 00:41:57.841 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:41:57.842 I/AppState: recording persisted b01_C2_NORMAL_HIGH
+2026-11-23 00:42:02.049 I/AppState: blind trial 1 true=C2_NORMAL_HIGH predicted=C1_NORMAL_LOW correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.0
+2026-11-23 00:42:44.638 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:42:59.777 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:42:59.966 I/SessionRepository: saved b02_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-23 00:43:00.008 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:43:00.008 I/AppState: recording persisted b02_C1_NORMAL_LOW
+2026-11-23 00:43:04.435 I/AppState: blind trial 2 true=C1_NORMAL_LOW predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.5162538754114238
+2026-11-23 00:43:12.717 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:43:27.871 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-23 00:43:28.074 I/SessionRepository: saved b01_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-23 00:43:28.106 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:43:28.106 I/AppState: recording persisted b01_C4_BLOCKED
+2026-11-23 00:43:32.652 I/AppState: blind trial 3 true=C4_BLOCKED predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.8785347633965921
+2026-11-23 00:43:46.094 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:44:01.294 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:44:01.488 I/SessionRepository: saved b02_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-23 00:44:01.536 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:44:01.537 I/AppState: recording persisted b02_C2_NORMAL_HIGH
+2026-11-23 00:44:04.193 I/AppState: blind trial 4 true=C2_NORMAL_HIGH predicted=C2_NORMAL_HIGH correct=true model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.717761429797835
+2026-11-23 00:49:05.491 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:49:20.690 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:49:20.887 I/SessionRepository: saved b01_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-23 00:49:20.926 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:49:20.927 I/AppState: recording persisted b01_C5_HAIRDRYER
+2026-11-23 00:49:29.682 I/AppState: blind trial 5 true=C5_HAIRDRYER predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.54939060885105
+2026-11-23 00:49:37.667 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:49:52.871 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:49:53.050 I/SessionRepository: saved b02_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-23 00:49:53.085 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:49:53.086 I/AppState: recording persisted b02_C5_HAIRDRYER
+2026-11-23 00:49:56.116 I/AppState: blind trial 6 true=C5_HAIRDRYER predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.5505290231050546
+2026-11-23 00:50:12.997 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:50:28.156 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:50:28.339 I/SessionRepository: saved b03_C5_HAIRDRYER interrupted=false audio=15.0s
+2026-11-23 00:50:28.373 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:50:28.373 I/AppState: recording persisted b03_C5_HAIRDRYER
+2026-11-23 00:50:29.630 I/AppState: blind trial 7 true=C5_HAIRDRYER predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.8585466086024015
+2026-11-23 00:50:34.180 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:50:49.368 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:50:49.545 I/SessionRepository: saved b02_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-23 00:50:49.581 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:50:49.581 I/AppState: recording persisted b02_C4_BLOCKED
+2026-11-23 00:50:51.660 I/AppState: blind trial 8 true=C4_BLOCKED predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.6463409417224846
+2026-11-23 00:50:57.606 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:51:12.790 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:51:12.969 I/SessionRepository: saved b03_C1_NORMAL_LOW interrupted=false audio=15.0s
+2026-11-23 00:51:13.008 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:51:13.009 I/AppState: recording persisted b03_C1_NORMAL_LOW
+2026-11-23 00:51:15.111 I/AppState: blind trial 9 true=C1_NORMAL_LOW predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.7808786785056651
+2026-11-23 00:51:20.146 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:51:35.304 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:51:35.482 I/SessionRepository: saved b01_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-23 00:51:35.544 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:51:35.544 I/AppState: recording persisted b01_C3_IMBALANCE
+2026-11-23 00:51:36.995 I/AppState: blind trial 10 true=C3_IMBALANCE predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.643096674328236
+2026-11-23 00:51:42.897 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:51:58.036 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-23 00:51:58.216 I/SessionRepository: saved b03_C2_NORMAL_HIGH interrupted=false audio=15.0s
+2026-11-23 00:51:58.253 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:51:58.253 I/AppState: recording persisted b03_C2_NORMAL_HIGH
+2026-11-23 00:52:00.334 I/AppState: blind trial 11 true=C2_NORMAL_HIGH predicted=C2_NORMAL_HIGH correct=true model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.719502725933025
+2026-11-23 00:52:08.512 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:52:23.660 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:52:23.835 I/SessionRepository: saved b02_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-23 00:52:23.871 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:52:23.872 I/AppState: recording persisted b02_C3_IMBALANCE
+2026-11-23 00:52:28.612 I/AppState: blind trial 12 true=C3_IMBALANCE predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.9240415312240766
+2026-11-23 00:52:33.101 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:52:48.286 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2990 error=null
+2026-11-23 00:52:48.480 I/SessionRepository: saved b03_C4_BLOCKED interrupted=false audio=15.0s
+2026-11-23 00:52:48.511 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:52:48.511 I/AppState: recording persisted b03_C4_BLOCKED
+2026-11-23 00:52:49.899 I/AppState: blind trial 13 true=C4_BLOCKED predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=1.0367269186330619
+2026-11-23 00:53:38.054 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:53:38.356 I/RecordingEngine: recording finished duration=0.20s interrupted=true accelSamples=0 error=null
+2026-11-23 00:53:38.363 I/SessionRepository: saved b03_C3_IMBALANCE interrupted=true audio=0.2s
+2026-11-23 00:53:38.455 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:53:38.456 I/AppState: recording persisted b03_C3_IMBALANCE
+2026-11-23 00:54:06.420 I/RecordingEngine: recording started source=UNPROCESSED rate=44100 duration=15s accel=icm456xx Accelerometer Non-wakeup periodUs=5000
+2026-11-23 00:54:21.627 I/RecordingEngine: recording finished duration=15.00s interrupted=false accelSamples=2989 error=null
+2026-11-23 00:54:21.804 I/SessionRepository: saved b03_C3_IMBALANCE interrupted=false audio=15.0s
+2026-11-23 00:54:21.845 I/AppState: dataset loaded: 75 samples
+2026-11-23 00:54:21.846 I/AppState: recording persisted b03_C3_IMBALANCE
+2026-11-23 00:54:22.882 I/AppState: blind trial 14 true=C3_IMBALANCE predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.7942291749251382
+2026-11-23 01:01:55.165 I/AppState: LOOCV accuracy=0.9333333333333333 (70/75)
+2026-11-23 01:05:48.907 I/AppState: noise evaluation finished rows=50
+2026-11-23 01:06:42.582 I/AppState: evaluation report written /storage/emulated/0/Android/data/com.mobilelab.vibrodiag/files/experiments/vibrodiag/20261122_201328_VD-20261122-002/evaluation_VD-20261122-002.json

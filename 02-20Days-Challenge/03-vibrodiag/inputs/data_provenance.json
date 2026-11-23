@@ -1,0 +1,2939 @@
+{
+  "session_id": "VD-20261122-002",
+  "group_count": 75,
+  "label_source": "Directory, manifest, dataset_index.csv, feature CSV and metadata agree; this does not independently verify the physical experiment or labels.",
+  "output_order": "C1 through C5; within each condition g01 through g15, not reordered using capture times",
+  "csv_header": [
+    "condition_id",
+    "group_index",
+    "audio_rms_dbfs",
+    "audio_peak_dbfs",
+    "audio_crest_db",
+    "audio_zcr",
+    "audio_kurtosis",
+    "audio_skewness",
+    "audio_centroid_hz",
+    "audio_rolloff85_hz",
+    "audio_flatness",
+    "audio_peak_hz",
+    "audio_peak_mag",
+    "audio_harmonic_ratio",
+    "audio_hnr_db",
+    "band_0_100",
+    "band_100_300",
+    "band_300_1k",
+    "band_1k_2k",
+    "band_2k_5k",
+    "band_5k_10k",
+    "band_10k_20k",
+    "accel_rms",
+    "accel_peak",
+    "accel_crest",
+    "accel_zcr",
+    "accel_peak_hz",
+    "accel_centroid_hz",
+    "accel_flatness",
+    "accel_band_0_5",
+    "accel_band_5_10",
+    "accel_band_10_25",
+    "accel_band_25_50",
+    "accel_band_50_100"
+  ],
+  "python_version": "3.14.7",
+  "numpy_version": "2.5.4",
+  "feature_module_sha256": "e8fa80fd272a9c923647956f7caaad66f52c80e29299efff294c6409dc3c3448",
+  "raw_unique_counts": {
+    "wav_files": 75,
+    "pcm_payloads": 75,
+    "accel_xyz_sequences": 75
+  },
+  "source_pcm16_rail_samples": 0,
+  "source_groups_touching_pcm16_rails": 0,
+  "chronology": {
+    "first_recorded_start_utc": "2026-11-22T13:18:43.584+00:00",
+    "last_recorded_start_utc": "2026-11-22T14:57:03.903+00:00",
+    "last_recorded_end_utc_from_wav_duration": "2026-11-22T14:57:18.903+00:00",
+    "first_recorded_start_export_local": "2026-11-22T21:18:43.584+08:00",
+    "last_recorded_end_export_local_from_wav_duration": "2026-11-22T22:57:18.903+08:00",
+    "chronological_condition_blocks": [
+      "C1_NORMAL_LOW",
+      "C2_NORMAL_HIGH",
+      "C3_IMBALANCE",
+      "C4_BLOCKED",
+      "C5_HAIRDRYER"
+    ],
+    "chronological_group_stems": [
+      "g01_C1_NORMAL_LOW",
+      "g02_C1_NORMAL_LOW",
+      "g03_C1_NORMAL_LOW",
+      "g04_C1_NORMAL_LOW",
+      "g05_C1_NORMAL_LOW",
+      "g06_C1_NORMAL_LOW",
+      "g07_C1_NORMAL_LOW",
+      "g08_C1_NORMAL_LOW",
+      "g09_C1_NORMAL_LOW",
+      "g10_C1_NORMAL_LOW",
+      "g11_C1_NORMAL_LOW",
+      "g12_C1_NORMAL_LOW",
+      "g13_C1_NORMAL_LOW",
+      "g14_C1_NORMAL_LOW",
+      "g15_C1_NORMAL_LOW",
+      "g01_C2_NORMAL_HIGH",
+      "g02_C2_NORMAL_HIGH",
+      "g03_C2_NORMAL_HIGH",
+      "g04_C2_NORMAL_HIGH",
+      "g05_C2_NORMAL_HIGH",
+      "g06_C2_NORMAL_HIGH",
+      "g07_C2_NORMAL_HIGH",
+      "g08_C2_NORMAL_HIGH",
+      "g09_C2_NORMAL_HIGH",
+      "g10_C2_NORMAL_HIGH",
+      "g11_C2_NORMAL_HIGH",
+      "g12_C2_NORMAL_HIGH",
+      "g13_C2_NORMAL_HIGH",
+      "g14_C2_NORMAL_HIGH",
+      "g15_C2_NORMAL_HIGH",
+      "g01_C3_IMBALANCE",
+      "g02_C3_IMBALANCE",
+      "g03_C3_IMBALANCE",
+      "g04_C3_IMBALANCE",
+      "g05_C3_IMBALANCE",
+      "g06_C3_IMBALANCE",
+      "g07_C3_IMBALANCE",
+      "g08_C3_IMBALANCE",
+      "g09_C3_IMBALANCE",
+      "g10_C3_IMBALANCE",
+      "g11_C3_IMBALANCE",
+      "g12_C3_IMBALANCE",
+      "g13_C3_IMBALANCE",
+      "g14_C3_IMBALANCE",
+      "g15_C3_IMBALANCE",
+      "g01_C4_BLOCKED",
+      "g02_C4_BLOCKED",
+      "g03_C4_BLOCKED",
+      "g04_C4_BLOCKED",
+      "g05_C4_BLOCKED",
+      "g06_C4_BLOCKED",
+      "g07_C4_BLOCKED",
+      "g08_C4_BLOCKED",
+      "g09_C4_BLOCKED",
+      "g10_C4_BLOCKED",
+      "g11_C4_BLOCKED",
+      "g12_C4_BLOCKED",
+      "g13_C4_BLOCKED",
+      "g14_C4_BLOCKED",
+      "g15_C4_BLOCKED",
+      "g01_C5_HAIRDRYER",
+      "g02_C5_HAIRDRYER",
+      "g03_C5_HAIRDRYER",
+      "g04_C5_HAIRDRYER",
+      "g05_C5_HAIRDRYER",
+      "g06_C5_HAIRDRYER",
+      "g07_C5_HAIRDRYER",
+      "g08_C5_HAIRDRYER",
+      "g09_C5_HAIRDRYER",
+      "g10_C5_HAIRDRYER",
+      "g11_C5_HAIRDRYER",
+      "g12_C5_HAIRDRYER",
+      "g13_C5_HAIRDRYER",
+      "g14_C5_HAIRDRYER",
+      "g15_C5_HAIRDRYER"
+    ],
+    "unique_recorded_starts": 75,
+    "metadata_order_matches_csv_order": true,
+    "accel_clock_order_matches_metadata_order": true,
+    "min_max_start_gap_seconds": [
+      20.48,
+      1179.178
+    ],
+    "overlapping_wav_recording_intervals_by_metadata": [],
+    "overlapping_accel_intervals_by_sensor_clock": []
+  },
+  "recording_log": {
+    "local_time_zone": "Asia/Shanghai (+08:00, from export manifest)",
+    "recording_start_entries": 141,
+    "save_entries": 141,
+    "interrupted_save_entries": 2,
+    "explicit_delete_entries": 7,
+    "matched_final_groups": 75,
+    "save_entries_not_matched_to_a_final_group": 66,
+    "matched_saves_in_metadata_order": true,
+    "log_minus_meta_start_ms_min_max": [
+      6,
+      16
+    ],
+    "mismatches": []
+  },
+  "metadata_vs_wav_rms_or_peak_differences_at_2e_6_db": [],
+  "accel_frequency_band_validation": {
+    "rule": "Match feature_spec §4.6 and App: blank if low >= Nyquist or high > Nyquist. The unpatched repository fallback can return a partial-band value that must not be treated as a full-band feature.",
+    "nyquist_invalid_count_by_feature": {
+      "accel_band_50_100": 75
+    },
+    "masked_partial_band_count_by_feature": {},
+    "nyquist_hz_min_max": [
+      99.71625,
+      99.7793
+    ]
+  },
+  "archived_vs_recomputed_diagnostics": {
+    "comparison": "Number of groups with a difference >2e-6 in the original feature units or blank mismatch. Not an input for extraction; source CSV rounds exported XYZ to 4 decimals while the App operated on its original sensor precision.",
+    "counts_by_feature": {}
+  },
+  "noise_method": {
+    "seed": 20261122002,
+    "generator": "NumPy PCG64, SeedSequence([seed, condition ordinal 1..5, group index])",
+    "signal": "Float64 add zero-mean, unit-RMS Gaussian noise scaled to full WAV RMS and target SNR. Three levels in each group share scaled versions of the same realization; different groups have independent deterministic seeds. No cross-group slicing.",
+    "headroom": "When an additive sum exceeds the normalized PCM16 rails, apply one common linear gain to clean audio and noise, preserving SNR. No sample clipping, quantization, or audio output files.",
+    "measurement": "20 log10(RMS(gain * clean) / RMS(mixture - gain * clean)); measured on the actual float64 feature-extractor input",
+    "acceleration": "Extracted once from corresponding raw CSV; same 12 formatted accelerometer values at each SNR. Missing features remain blank."
+  },
+  "noise_summary": {
+    "20": {
+      "actual_snr_db_min_max": [
+        19.999999999999996,
+        20.0
+      ],
+      "groups_with_headroom_gain": 0,
+      "min_linear_gain": 1.0,
+      "pre_gain_out_of_pcm16_range_samples": 0,
+      "post_gain_out_of_pcm16_range_samples": 0
+    },
+    "10": {
+      "actual_snr_db_min_max": [
+        9.999999999999996,
+        10.000000000000002
+      ],
+      "groups_with_headroom_gain": 0,
+      "min_linear_gain": 1.0,
+      "pre_gain_out_of_pcm16_range_samples": 0,
+      "post_gain_out_of_pcm16_range_samples": 0
+    },
+    "0": {
+      "actual_snr_db_min_max": [
+        -1.9286549331065743e-15,
+        1.928654933106574e-15
+      ],
+      "groups_with_headroom_gain": 0,
+      "min_linear_gain": 1.0,
+      "pre_gain_out_of_pcm16_range_samples": 0,
+      "post_gain_out_of_pcm16_range_samples": 0
+    }
+  },
+  "groups": [
+    {
+      "file_stem": "g01_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 1,
+      "recorded_at_ms": 1795353523584,
+      "recorded_start_utc": "2026-11-22T13:18:43.584+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4807,
+      "accel_nyquist_hz": 99.74035,
+      "accel_first_t_ns": 672501958487306,
+      "accel_last_t_ns": 672516942393921,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": -9.643274665532871e-16,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:18:43.592+00:00",
+      "matched_log_save_utc": "2026-11-22T13:18:59.157+00:00"
+    },
+    {
+      "file_stem": "g02_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 2,
+      "recorded_at_ms": 1795353544786,
+      "recorded_start_utc": "2026-11-22T13:19:04.786+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4801,
+      "accel_nyquist_hz": 99.74005,
+      "accel_first_t_ns": 672523163574002,
+      "accel_last_t_ns": 672538142513429,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:19:04.794+00:00",
+      "matched_log_save_utc": "2026-11-22T13:19:20.343+00:00"
+    },
+    {
+      "file_stem": "g03_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 3,
+      "recorded_at_ms": 1795353569485,
+      "recorded_start_utc": "2026-11-22T13:19:29.485+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4813,
+      "accel_nyquist_hz": 99.74065,
+      "accel_first_t_ns": 672547857726502,
+      "accel_last_t_ns": 672562841587752,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:19:29.496+00:00",
+      "matched_log_save_utc": "2026-11-22T13:19:45.039+00:00"
+    },
+    {
+      "file_stem": "g04_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 4,
+      "recorded_at_ms": 1795353607967,
+      "recorded_start_utc": "2026-11-22T13:20:07.967+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.5486,
+      "accel_nyquist_hz": 99.7743,
+      "accel_first_t_ns": 672586342559866,
+      "accel_last_t_ns": 672601321370699,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:20:07.976+00:00",
+      "matched_log_save_utc": "2026-11-22T13:20:23.557+00:00"
+    },
+    {
+      "file_stem": "g05_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 5,
+      "recorded_at_ms": 1795353629507,
+      "recorded_start_utc": "2026-11-22T13:20:29.507+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4811,
+      "accel_nyquist_hz": 99.74055,
+      "accel_first_t_ns": 672607883427782,
+      "accel_last_t_ns": 672622862292209,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:20:29.518+00:00",
+      "matched_log_save_utc": "2026-11-22T13:20:45.093+00:00"
+    },
+    {
+      "file_stem": "g06_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 6,
+      "recorded_at_ms": 1795353650764,
+      "recorded_start_utc": "2026-11-22T13:20:50.764+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4825,
+      "accel_nyquist_hz": 99.74125,
+      "accel_first_t_ns": 672629143572938,
+      "accel_last_t_ns": 672644122330519,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:20:50.773+00:00",
+      "matched_log_save_utc": "2026-11-22T13:21:06.337+00:00"
+    },
+    {
+      "file_stem": "g07_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 7,
+      "recorded_at_ms": 1795353672020,
+      "recorded_start_utc": "2026-11-22T13:21:12.020+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4832,
+      "accel_nyquist_hz": 99.7416,
+      "accel_first_t_ns": 672650398585310,
+      "accel_last_t_ns": 672665377291352,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:21:12.036+00:00",
+      "matched_log_save_utc": "2026-11-22T13:21:27.620+00:00"
+    },
+    {
+      "file_stem": "g08_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 8,
+      "recorded_at_ms": 1795353693869,
+      "recorded_start_utc": "2026-11-22T13:21:33.869+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4837,
+      "accel_nyquist_hz": 99.74185,
+      "accel_first_t_ns": 672672240023956,
+      "accel_last_t_ns": 672687223701821,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:21:33.878+00:00",
+      "matched_log_save_utc": "2026-11-22T13:21:49.433+00:00"
+    },
+    {
+      "file_stem": "g09_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 9,
+      "recorded_at_ms": 1795353715107,
+      "recorded_start_utc": "2026-11-22T13:21:55.107+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.5506,
+      "accel_nyquist_hz": 99.7753,
+      "accel_first_t_ns": 672693484868227,
+      "accel_last_t_ns": 672708463522162,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.000000000000002,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:21:55.115+00:00",
+      "matched_log_save_utc": "2026-11-22T13:22:10.692+00:00"
+    },
+    {
+      "file_stem": "g10_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 10,
+      "recorded_at_ms": 1795353738373,
+      "recorded_start_utc": "2026-11-22T13:22:18.373+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4842,
+      "accel_nyquist_hz": 99.7421,
+      "accel_first_t_ns": 672716749905339,
+      "accel_last_t_ns": 672731728533724,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:22:18.382+00:00",
+      "matched_log_save_utc": "2026-11-22T13:22:34.032+00:00"
+    },
+    {
+      "file_stem": "g11_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 11,
+      "recorded_at_ms": 1795353759917,
+      "recorded_start_utc": "2026-11-22T13:22:39.917+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4844,
+      "accel_nyquist_hz": 99.7422,
+      "accel_first_t_ns": 672738290478308,
+      "accel_last_t_ns": 672753274104401,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.000000000000002,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:22:39.927+00:00",
+      "matched_log_save_utc": "2026-11-22T13:22:55.488+00:00"
+    },
+    {
+      "file_stem": "g12_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 12,
+      "recorded_at_ms": 1795353782428,
+      "recorded_start_utc": "2026-11-22T13:23:02.428+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4836,
+      "accel_nyquist_hz": 99.7418,
+      "accel_first_t_ns": 672760803539067,
+      "accel_last_t_ns": 672775787228650,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": -9.643274665532871e-16,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:23:02.434+00:00",
+      "matched_log_save_utc": "2026-11-22T13:23:17.987+00:00"
+    },
+    {
+      "file_stem": "g13_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 13,
+      "recorded_at_ms": 1795353810719,
+      "recorded_start_utc": "2026-11-22T13:23:30.719+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4841,
+      "accel_nyquist_hz": 99.74205,
+      "accel_first_t_ns": 672789096628182,
+      "accel_last_t_ns": 672804075264848,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:23:30.726+00:00",
+      "matched_log_save_utc": "2026-11-22T13:23:46.301+00:00"
+    },
+    {
+      "file_stem": "g14_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 14,
+      "recorded_at_ms": 1795353831793,
+      "recorded_start_utc": "2026-11-22T13:23:51.793+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4837,
+      "accel_nyquist_hz": 99.74185,
+      "accel_first_t_ns": 672810171005578,
+      "accel_last_t_ns": 672825149671753,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": -9.643274665532871e-16,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:23:51.800+00:00",
+      "matched_log_save_utc": "2026-11-22T13:24:07.347+00:00"
+    },
+    {
+      "file_stem": "g15_C1_NORMAL_LOW",
+      "condition_id": "C1_NORMAL_LOW",
+      "group_index": 15,
+      "recorded_at_ms": 1795353853277,
+      "recorded_start_utc": "2026-11-22T13:24:13.277+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.484,
+      "accel_nyquist_hz": 99.742,
+      "accel_first_t_ns": 672831651494149,
+      "accel_last_t_ns": 672846635154253,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:24:13.286+00:00",
+      "matched_log_save_utc": "2026-11-22T13:24:28.872+00:00"
+    },
+    {
+      "file_stem": "g01_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 1,
+      "recorded_at_ms": 1795353894381,
+      "recorded_start_utc": "2026-11-22T13:24:54.381+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4851,
+      "accel_nyquist_hz": 99.74255,
+      "accel_first_t_ns": 672872757506753,
+      "accel_last_t_ns": 672887736072407,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:24:54.390+00:00",
+      "matched_log_save_utc": "2026-11-22T13:25:09.972+00:00"
+    },
+    {
+      "file_stem": "g02_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 2,
+      "recorded_at_ms": 1795353915867,
+      "recorded_start_utc": "2026-11-22T13:25:15.867+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2988,
+      "accel_sample_rate_hz": 199.4836,
+      "accel_nyquist_hz": 99.7418,
+      "accel_first_t_ns": 672894247859959,
+      "accel_last_t_ns": 672909221524178,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:25:15.877+00:00",
+      "matched_log_save_utc": "2026-11-22T13:25:31.459+00:00"
+    },
+    {
+      "file_stem": "g03_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 3,
+      "recorded_at_ms": 1795353940878,
+      "recorded_start_utc": "2026-11-22T13:25:40.878+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4841,
+      "accel_nyquist_hz": 99.74205,
+      "accel_first_t_ns": 672919257507563,
+      "accel_last_t_ns": 672934236143865,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:25:40.889+00:00",
+      "matched_log_save_utc": "2026-11-22T13:25:56.439+00:00"
+    },
+    {
+      "file_stem": "g04_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 4,
+      "recorded_at_ms": 1795354687216,
+      "recorded_start_utc": "2026-11-22T13:38:07.216+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2991,
+      "accel_sample_rate_hz": 199.5586,
+      "accel_nyquist_hz": 99.7793,
+      "accel_first_t_ns": 673665591536065,
+      "accel_last_t_ns": 673680574604347,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:38:07.226+00:00",
+      "matched_log_save_utc": "2026-11-22T13:38:22.826+00:00"
+    },
+    {
+      "file_stem": "g05_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 5,
+      "recorded_at_ms": 1795355741875,
+      "recorded_start_utc": "2026-11-22T13:55:41.875+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4723,
+      "accel_nyquist_hz": 99.73615,
+      "accel_first_t_ns": 674720244719113,
+      "accel_last_t_ns": 674735229257395,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:55:41.884+00:00",
+      "matched_log_save_utc": "2026-11-22T13:55:57.562+00:00"
+    },
+    {
+      "file_stem": "g06_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 6,
+      "recorded_at_ms": 1795355764282,
+      "recorded_start_utc": "2026-11-22T13:56:04.282+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2988,
+      "accel_sample_rate_hz": 199.473,
+      "accel_nyquist_hz": 99.7365,
+      "accel_first_t_ns": 674742663899166,
+      "accel_last_t_ns": 674757638359611,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:56:04.292+00:00",
+      "matched_log_save_utc": "2026-11-22T13:56:19.867+00:00"
+    },
+    {
+      "file_stem": "g07_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 7,
+      "recorded_at_ms": 1795355788349,
+      "recorded_start_utc": "2026-11-22T13:56:28.349+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4741,
+      "accel_nyquist_hz": 99.73705,
+      "accel_first_t_ns": 674766727313882,
+      "accel_last_t_ns": 674781706699351,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:56:28.362+00:00",
+      "matched_log_save_utc": "2026-11-22T13:56:44.029+00:00"
+    },
+    {
+      "file_stem": "g08_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 8,
+      "recorded_at_ms": 1795355879171,
+      "recorded_start_utc": "2026-11-22T13:57:59.171+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2988,
+      "accel_sample_rate_hz": 199.4701,
+      "accel_nyquist_hz": 99.73505,
+      "accel_first_t_ns": 674857550353288,
+      "accel_last_t_ns": 674872525028003,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:57:59.183+00:00",
+      "matched_log_save_utc": "2026-11-22T13:58:14.814+00:00"
+    },
+    {
+      "file_stem": "g09_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 9,
+      "recorded_at_ms": 1795355901347,
+      "recorded_start_utc": "2026-11-22T13:58:21.347+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4731,
+      "accel_nyquist_hz": 99.73655,
+      "accel_first_t_ns": 674879724068368,
+      "accel_last_t_ns": 674894703533888,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:58:21.356+00:00",
+      "matched_log_save_utc": "2026-11-22T13:58:36.954+00:00"
+    },
+    {
+      "file_stem": "g10_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 10,
+      "recorded_at_ms": 1795355926884,
+      "recorded_start_utc": "2026-11-22T13:58:46.884+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4761,
+      "accel_nyquist_hz": 99.73805,
+      "accel_first_t_ns": 674905256266441,
+      "accel_last_t_ns": 674920240520659,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:58:46.892+00:00",
+      "matched_log_save_utc": "2026-11-22T13:59:02.513+00:00"
+    },
+    {
+      "file_stem": "g11_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 11,
+      "recorded_at_ms": 1795355948278,
+      "recorded_start_utc": "2026-11-22T13:59:08.278+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4774,
+      "accel_nyquist_hz": 99.7387,
+      "accel_first_t_ns": 674926652315376,
+      "accel_last_t_ns": 674941636467668,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 1.928654933106574e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:59:08.288+00:00",
+      "matched_log_save_utc": "2026-11-22T13:59:23.865+00:00"
+    },
+    {
+      "file_stem": "g12_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 12,
+      "recorded_at_ms": 1795355971357,
+      "recorded_start_utc": "2026-11-22T13:59:31.357+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4792,
+      "accel_nyquist_hz": 99.7396,
+      "accel_first_t_ns": 674949732591626,
+      "accel_last_t_ns": 674964711594126,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:59:31.367+00:00",
+      "matched_log_save_utc": "2026-11-22T13:59:46.955+00:00"
+    },
+    {
+      "file_stem": "g13_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 13,
+      "recorded_at_ms": 1795355991837,
+      "recorded_start_utc": "2026-11-22T13:59:51.837+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2991,
+      "accel_sample_rate_hz": 199.5463,
+      "accel_nyquist_hz": 99.77315,
+      "accel_first_t_ns": 674970210915584,
+      "accel_last_t_ns": 674985194907698,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T13:59:51.844+00:00",
+      "matched_log_save_utc": "2026-11-22T14:00:07.396+00:00"
+    },
+    {
+      "file_stem": "g14_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 14,
+      "recorded_at_ms": 1795356014677,
+      "recorded_start_utc": "2026-11-22T14:00:14.677+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4784,
+      "accel_nyquist_hz": 99.7392,
+      "accel_first_t_ns": 674993055379104,
+      "accel_last_t_ns": 675008034444781,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:00:14.688+00:00",
+      "matched_log_save_utc": "2026-11-22T14:00:30.319+00:00"
+    },
+    {
+      "file_stem": "g15_C2_NORMAL_HIGH",
+      "condition_id": "C2_NORMAL_HIGH",
+      "group_index": 15,
+      "recorded_at_ms": 1795356035245,
+      "recorded_start_utc": "2026-11-22T14:00:35.245+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4785,
+      "accel_nyquist_hz": 99.73925,
+      "accel_first_t_ns": 675013619092177,
+      "accel_last_t_ns": 675028603163687,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 1.928654933106574e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:00:35.254+00:00",
+      "matched_log_save_utc": "2026-11-22T14:00:50.828+00:00"
+    },
+    {
+      "file_stem": "g01_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 1,
+      "recorded_at_ms": 1795356208357,
+      "recorded_start_utc": "2026-11-22T14:03:28.357+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2991,
+      "accel_sample_rate_hz": 199.5495,
+      "accel_nyquist_hz": 99.77475,
+      "accel_first_t_ns": 675186731640701,
+      "accel_last_t_ns": 675201715393826,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:03:28.366+00:00",
+      "matched_log_save_utc": "2026-11-22T14:03:43.983+00:00"
+    },
+    {
+      "file_stem": "g02_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 2,
+      "recorded_at_ms": 1795356229595,
+      "recorded_start_utc": "2026-11-22T14:03:49.595+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4831,
+      "accel_nyquist_hz": 99.74155,
+      "accel_first_t_ns": 675207971573566,
+      "accel_last_t_ns": 675222950286170,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:03:49.604+00:00",
+      "matched_log_save_utc": "2026-11-22T14:04:05.188+00:00"
+    },
+    {
+      "file_stem": "g03_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 3,
+      "recorded_at_ms": 1795356250155,
+      "recorded_start_utc": "2026-11-22T14:04:10.155+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4819,
+      "accel_nyquist_hz": 99.74095,
+      "accel_first_t_ns": 675228529705366,
+      "accel_last_t_ns": 675243513518647,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:04:10.162+00:00",
+      "matched_log_save_utc": "2026-11-22T14:04:25.803+00:00"
+    },
+    {
+      "file_stem": "g04_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 4,
+      "recorded_at_ms": 1795356270978,
+      "recorded_start_utc": "2026-11-22T14:04:30.978+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4823,
+      "accel_nyquist_hz": 99.74115,
+      "accel_first_t_ns": 675249348643335,
+      "accel_last_t_ns": 675264332429272,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 1.928654933106574e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:04:30.985+00:00",
+      "matched_log_save_utc": "2026-11-22T14:04:46.559+00:00"
+    },
+    {
+      "file_stem": "g05_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 5,
+      "recorded_at_ms": 1795356291792,
+      "recorded_start_utc": "2026-11-22T14:04:51.792+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.483,
+      "accel_nyquist_hz": 99.7415,
+      "accel_first_t_ns": 675270162522553,
+      "accel_last_t_ns": 675285146257322,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:04:51.804+00:00",
+      "matched_log_save_utc": "2026-11-22T14:05:07.406+00:00"
+    },
+    {
+      "file_stem": "g06_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 6,
+      "recorded_at_ms": 1795356315712,
+      "recorded_start_utc": "2026-11-22T14:05:15.712+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4816,
+      "accel_nyquist_hz": 99.7408,
+      "accel_first_t_ns": 675294084373729,
+      "accel_last_t_ns": 675309068210291,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 1.928654933106574e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:05:15.722+00:00",
+      "matched_log_save_utc": "2026-11-22T14:05:31.329+00:00"
+    },
+    {
+      "file_stem": "g07_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 7,
+      "recorded_at_ms": 1795356336648,
+      "recorded_start_utc": "2026-11-22T14:05:36.648+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.5492,
+      "accel_nyquist_hz": 99.7746,
+      "accel_first_t_ns": 675315023660968,
+      "accel_last_t_ns": 675330002426645,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": -9.643274665532871e-16,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:05:36.656+00:00",
+      "matched_log_save_utc": "2026-11-22T14:05:52.287+00:00"
+    },
+    {
+      "file_stem": "g08_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 8,
+      "recorded_at_ms": 1795356383824,
+      "recorded_start_utc": "2026-11-22T14:06:23.824+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4842,
+      "accel_nyquist_hz": 99.7421,
+      "accel_first_t_ns": 675362200626205,
+      "accel_last_t_ns": 675377179256362,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:06:23.832+00:00",
+      "matched_log_save_utc": "2026-11-22T14:06:39.431+00:00"
+    },
+    {
+      "file_stem": "g09_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 9,
+      "recorded_at_ms": 1795356405598,
+      "recorded_start_utc": "2026-11-22T14:06:45.598+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4831,
+      "accel_nyquist_hz": 99.74155,
+      "accel_first_t_ns": 675383976785112,
+      "accel_last_t_ns": 675398955494070,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:06:45.608+00:00",
+      "matched_log_save_utc": "2026-11-22T14:07:01.208+00:00"
+    },
+    {
+      "file_stem": "g10_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 10,
+      "recorded_at_ms": 1795356426490,
+      "recorded_start_utc": "2026-11-22T14:07:06.490+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2988,
+      "accel_sample_rate_hz": 199.4839,
+      "accel_nyquist_hz": 99.74195,
+      "accel_first_t_ns": 675404870783421,
+      "accel_last_t_ns": 675419844420244,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:07:06.501+00:00",
+      "matched_log_save_utc": "2026-11-22T14:07:22.091+00:00"
+    },
+    {
+      "file_stem": "g11_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 11,
+      "recorded_at_ms": 1795356447525,
+      "recorded_start_utc": "2026-11-22T14:07:27.525+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4844,
+      "accel_nyquist_hz": 99.7422,
+      "accel_first_t_ns": 675425905070348,
+      "accel_last_t_ns": 675440883682223,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:07:27.534+00:00",
+      "matched_log_save_utc": "2026-11-22T14:07:43.118+00:00"
+    },
+    {
+      "file_stem": "g12_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 12,
+      "recorded_at_ms": 1795356519159,
+      "recorded_start_utc": "2026-11-22T14:08:39.159+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4848,
+      "accel_nyquist_hz": 99.7424,
+      "accel_first_t_ns": 675497529670066,
+      "accel_last_t_ns": 675512513265326,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:08:39.169+00:00",
+      "matched_log_save_utc": "2026-11-22T14:08:54.788+00:00"
+    },
+    {
+      "file_stem": "g13_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 13,
+      "recorded_at_ms": 1795356548217,
+      "recorded_start_utc": "2026-11-22T14:09:08.217+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4855,
+      "accel_nyquist_hz": 99.74275,
+      "accel_first_t_ns": 675526594558324,
+      "accel_last_t_ns": 675541573093688,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:09:08.225+00:00",
+      "matched_log_save_utc": "2026-11-22T14:09:23.844+00:00"
+    },
+    {
+      "file_stem": "g14_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 14,
+      "recorded_at_ms": 1795356571663,
+      "recorded_start_utc": "2026-11-22T14:09:31.663+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4853,
+      "accel_nyquist_hz": 99.74265,
+      "accel_first_t_ns": 675550039885147,
+      "accel_last_t_ns": 675565018431345,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:09:31.671+00:00",
+      "matched_log_save_utc": "2026-11-22T14:09:47.260+00:00"
+    },
+    {
+      "file_stem": "g15_C3_IMBALANCE",
+      "condition_id": "C3_IMBALANCE",
+      "group_index": 15,
+      "recorded_at_ms": 1795356595533,
+      "recorded_start_utc": "2026-11-22T14:09:55.533+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4852,
+      "accel_nyquist_hz": 99.7426,
+      "accel_first_t_ns": 675573906304313,
+      "accel_last_t_ns": 675588889868561,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:09:55.541+00:00",
+      "matched_log_save_utc": "2026-11-22T14:10:11.154+00:00"
+    },
+    {
+      "file_stem": "g01_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 1,
+      "recorded_at_ms": 1795356905185,
+      "recorded_start_utc": "2026-11-22T14:15:05.185+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4687,
+      "accel_nyquist_hz": 99.73435,
+      "accel_first_t_ns": 675883560977117,
+      "accel_last_t_ns": 675898540768135,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:15:05.194+00:00",
+      "matched_log_save_utc": "2026-11-22T14:15:20.851+00:00"
+    },
+    {
+      "file_stem": "g02_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 2,
+      "recorded_at_ms": 1795356931599,
+      "recorded_start_utc": "2026-11-22T14:15:31.599+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4742,
+      "accel_nyquist_hz": 99.7371,
+      "accel_first_t_ns": 675909976035166,
+      "accel_last_t_ns": 675924955412822,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:15:31.605+00:00",
+      "matched_log_save_utc": "2026-11-22T14:15:47.207+00:00"
+    },
+    {
+      "file_stem": "g03_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 3,
+      "recorded_at_ms": 1795356953770,
+      "recorded_start_utc": "2026-11-22T14:15:53.770+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2991,
+      "accel_sample_rate_hz": 199.5445,
+      "accel_nyquist_hz": 99.77225,
+      "accel_first_t_ns": 675932144253968,
+      "accel_last_t_ns": 675947128383060,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:15:53.776+00:00",
+      "matched_log_save_utc": "2026-11-22T14:16:09.405+00:00"
+    },
+    {
+      "file_stem": "g04_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 4,
+      "recorded_at_ms": 1795356975158,
+      "recorded_start_utc": "2026-11-22T14:16:15.158+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4791,
+      "accel_nyquist_hz": 99.73955,
+      "accel_first_t_ns": 675953535085924,
+      "accel_last_t_ns": 675968514096029,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.000000000000002,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:16:15.167+00:00",
+      "matched_log_save_utc": "2026-11-22T14:16:30.768+00:00"
+    },
+    {
+      "file_stem": "g05_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 5,
+      "recorded_at_ms": 1795356995793,
+      "recorded_start_utc": "2026-11-22T14:16:35.793+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4804,
+      "accel_nyquist_hz": 99.7402,
+      "accel_first_t_ns": 675974168804674,
+      "accel_last_t_ns": 675989147716862,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:16:35.803+00:00",
+      "matched_log_save_utc": "2026-11-22T14:16:51.410+00:00"
+    },
+    {
+      "file_stem": "g06_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 6,
+      "recorded_at_ms": 1795357017644,
+      "recorded_start_utc": "2026-11-22T14:16:57.644+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4814,
+      "accel_nyquist_hz": 99.7407,
+      "accel_first_t_ns": 675996020573581,
+      "accel_last_t_ns": 676010999416110,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:16:57.652+00:00",
+      "matched_log_save_utc": "2026-11-22T14:17:13.251+00:00"
+    },
+    {
+      "file_stem": "g07_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 7,
+      "recorded_at_ms": 1795357038489,
+      "recorded_start_utc": "2026-11-22T14:17:18.489+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.482,
+      "accel_nyquist_hz": 99.741,
+      "accel_first_t_ns": 676016859629599,
+      "accel_last_t_ns": 676031843436474,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 1.928654933106574e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:17:18.498+00:00",
+      "matched_log_save_utc": "2026-11-22T14:17:34.113+00:00"
+    },
+    {
+      "file_stem": "g08_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 8,
+      "recorded_at_ms": 1795357059514,
+      "recorded_start_utc": "2026-11-22T14:17:39.514+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4821,
+      "accel_nyquist_hz": 99.74105,
+      "accel_first_t_ns": 676037894107828,
+      "accel_last_t_ns": 676052872894807,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:17:39.523+00:00",
+      "matched_log_save_utc": "2026-11-22T14:17:55.135+00:00"
+    },
+    {
+      "file_stem": "g09_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 9,
+      "recorded_at_ms": 1795357081650,
+      "recorded_start_utc": "2026-11-22T14:18:01.650+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.483,
+      "accel_nyquist_hz": 99.7415,
+      "accel_first_t_ns": 676060026416787,
+      "accel_last_t_ns": 676075005139160,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:18:01.658+00:00",
+      "matched_log_save_utc": "2026-11-22T14:18:17.286+00:00"
+    },
+    {
+      "file_stem": "g10_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 10,
+      "recorded_at_ms": 1795357133601,
+      "recorded_start_utc": "2026-11-22T14:18:53.601+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4849,
+      "accel_nyquist_hz": 99.74245,
+      "accel_first_t_ns": 676111980567494,
+      "accel_last_t_ns": 676126959142731,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.000000000000002,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:18:53.612+00:00",
+      "matched_log_save_utc": "2026-11-22T14:19:09.275+00:00"
+    },
+    {
+      "file_stem": "g11_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 11,
+      "recorded_at_ms": 1795357155223,
+      "recorded_start_utc": "2026-11-22T14:19:15.223+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4846,
+      "accel_nyquist_hz": 99.7423,
+      "accel_first_t_ns": 676133601268773,
+      "accel_last_t_ns": 676148579866429,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": -1.9286549331065743e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:19:15.229+00:00",
+      "matched_log_save_utc": "2026-11-22T14:19:30.915+00:00"
+    },
+    {
+      "file_stem": "g12_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 12,
+      "recorded_at_ms": 1795357176592,
+      "recorded_start_utc": "2026-11-22T14:19:36.592+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.485,
+      "accel_nyquist_hz": 99.7425,
+      "accel_first_t_ns": 676154971346325,
+      "accel_last_t_ns": 676169949913669,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 1.928654933106574e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:19:36.599+00:00",
+      "matched_log_save_utc": "2026-11-22T14:19:52.195+00:00"
+    },
+    {
+      "file_stem": "g13_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 13,
+      "recorded_at_ms": 1795357203477,
+      "recorded_start_utc": "2026-11-22T14:20:03.477+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4844,
+      "accel_nyquist_hz": 99.7422,
+      "accel_first_t_ns": 676181855648304,
+      "accel_last_t_ns": 676196834264115,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": -1.9286549331065743e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:20:03.488+00:00",
+      "matched_log_save_utc": "2026-11-22T14:20:19.134+00:00"
+    },
+    {
+      "file_stem": "g14_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 14,
+      "recorded_at_ms": 1795357224711,
+      "recorded_start_utc": "2026-11-22T14:20:24.711+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.5489,
+      "accel_nyquist_hz": 99.77445,
+      "accel_first_t_ns": 676203090417031,
+      "accel_last_t_ns": 676218069198906,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": -1.9286549331065743e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:20:24.719+00:00",
+      "matched_log_save_utc": "2026-11-22T14:20:40.327+00:00"
+    },
+    {
+      "file_stem": "g15_C4_BLOCKED",
+      "condition_id": "C4_BLOCKED",
+      "group_index": 15,
+      "recorded_at_ms": 1795357250228,
+      "recorded_start_utc": "2026-11-22T14:20:50.228+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4848,
+      "accel_nyquist_hz": 99.7424,
+      "accel_first_t_ns": 676228606415469,
+      "accel_last_t_ns": 676243584999115,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:20:50.238+00:00",
+      "matched_log_save_utc": "2026-11-22T14:21:05.854+00:00"
+    },
+    {
+      "file_stem": "g01_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 1,
+      "recorded_at_ms": 1795357916808,
+      "recorded_start_utc": "2026-11-22T14:31:56.808+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4633,
+      "accel_nyquist_hz": 99.73165,
+      "accel_first_t_ns": 676895184445529,
+      "accel_last_t_ns": 676910164641964,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:31:56.819+00:00",
+      "matched_log_save_utc": "2026-11-22T14:32:12.412+00:00"
+    },
+    {
+      "file_stem": "g02_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 2,
+      "recorded_at_ms": 1795357937643,
+      "recorded_start_utc": "2026-11-22T14:32:17.643+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.461,
+      "accel_nyquist_hz": 99.7305,
+      "accel_first_t_ns": 676916020405767,
+      "accel_last_t_ns": 676931000777225,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:32:17.652+00:00",
+      "matched_log_save_utc": "2026-11-22T14:32:33.031+00:00"
+    },
+    {
+      "file_stem": "g03_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 3,
+      "recorded_at_ms": 1795357961868,
+      "recorded_start_utc": "2026-11-22T14:32:41.868+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.456,
+      "accel_nyquist_hz": 99.728,
+      "accel_first_t_ns": 676940245827850,
+      "accel_last_t_ns": 676955226572850,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:32:41.877+00:00",
+      "matched_log_save_utc": "2026-11-22T14:32:57.385+00:00"
+    },
+    {
+      "file_stem": "g04_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 4,
+      "recorded_at_ms": 1795357983009,
+      "recorded_start_utc": "2026-11-22T14:33:03.009+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4517,
+      "accel_nyquist_hz": 99.72585,
+      "accel_first_t_ns": 676961383421548,
+      "accel_last_t_ns": 676976364489494,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:33:03.018+00:00",
+      "matched_log_save_utc": "2026-11-22T14:33:18.526+00:00"
+    },
+    {
+      "file_stem": "g05_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 5,
+      "recorded_at_ms": 1795358003936,
+      "recorded_start_utc": "2026-11-22T14:33:23.936+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4483,
+      "accel_nyquist_hz": 99.72415,
+      "accel_first_t_ns": 676982310846994,
+      "accel_last_t_ns": 676997292173608,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:33:23.943+00:00",
+      "matched_log_save_utc": "2026-11-22T14:33:39.576+00:00"
+    },
+    {
+      "file_stem": "g06_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 6,
+      "recorded_at_ms": 1795358024679,
+      "recorded_start_utc": "2026-11-22T14:33:44.679+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2988,
+      "accel_sample_rate_hz": 199.4437,
+      "accel_nyquist_hz": 99.72185,
+      "accel_first_t_ns": 677003058199858,
+      "accel_last_t_ns": 677018034854546,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:33:44.689+00:00",
+      "matched_log_save_utc": "2026-11-22T14:34:00.264+00:00"
+    },
+    {
+      "file_stem": "g07_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 7,
+      "recorded_at_ms": 1795358045264,
+      "recorded_start_utc": "2026-11-22T14:34:05.264+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.4401,
+      "accel_nyquist_hz": 99.72005,
+      "accel_first_t_ns": 677023635498192,
+      "accel_last_t_ns": 677038622456815,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:34:05.273+00:00",
+      "matched_log_save_utc": "2026-11-22T14:34:20.872+00:00"
+    },
+    {
+      "file_stem": "g08_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 8,
+      "recorded_at_ms": 1795358065968,
+      "recorded_start_utc": "2026-11-22T14:34:25.968+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4356,
+      "accel_nyquist_hz": 99.7178,
+      "accel_first_t_ns": 677044343549783,
+      "accel_last_t_ns": 677059325831815,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:34:25.976+00:00",
+      "matched_log_save_utc": "2026-11-22T14:34:41.554+00:00"
+    },
+    {
+      "file_stem": "g09_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 9,
+      "recorded_at_ms": 1795358086518,
+      "recorded_start_utc": "2026-11-22T14:34:46.518+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4325,
+      "accel_nyquist_hz": 99.71625,
+      "accel_first_t_ns": 677064891582856,
+      "accel_last_t_ns": 677079874093169,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:34:46.528+00:00",
+      "matched_log_save_utc": "2026-11-22T14:35:02.156+00:00"
+    },
+    {
+      "file_stem": "g10_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 10,
+      "recorded_at_ms": 1795359265696,
+      "recorded_start_utc": "2026-11-22T14:54:25.696+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2988,
+      "accel_sample_rate_hz": 199.4454,
+      "accel_nyquist_hz": 99.7227,
+      "accel_first_t_ns": 678244074578648,
+      "accel_last_t_ns": 678259051105523,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": -1.9286549331065743e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:54:25.705+00:00",
+      "matched_log_save_utc": "2026-11-22T14:54:41.245+00:00"
+    },
+    {
+      "file_stem": "g11_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 11,
+      "recorded_at_ms": 1795359334796,
+      "recorded_start_utc": "2026-11-22T14:55:34.796+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.449,
+      "accel_nyquist_hz": 99.7245,
+      "accel_first_t_ns": 678313170810084,
+      "accel_last_t_ns": 678328152083574,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 19.999999999999996,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": -1.9286549331065743e-15,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:55:34.804+00:00",
+      "matched_log_save_utc": "2026-11-22T14:55:50.313+00:00"
+    },
+    {
+      "file_stem": "g12_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 12,
+      "recorded_at_ms": 1795359358224,
+      "recorded_start_utc": "2026-11-22T14:55:58.224+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2990,
+      "accel_sample_rate_hz": 199.5129,
+      "accel_nyquist_hz": 99.75645,
+      "accel_first_t_ns": 678336600402793,
+      "accel_last_t_ns": 678351581892144,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:55:58.237+00:00",
+      "matched_log_save_utc": "2026-11-22T14:56:13.805+00:00"
+    },
+    {
+      "file_stem": "g13_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 13,
+      "recorded_at_ms": 1795359380473,
+      "recorded_start_utc": "2026-11-22T14:56:20.473+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2988,
+      "accel_sample_rate_hz": 199.4413,
+      "accel_nyquist_hz": 99.72065,
+      "accel_first_t_ns": 678358852145425,
+      "accel_last_t_ns": 678373828983394,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 9.999999999999998,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": -9.643274665532871e-16,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:56:20.483+00:00",
+      "matched_log_save_utc": "2026-11-22T14:56:36.054+00:00"
+    },
+    {
+      "file_stem": "g14_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 14,
+      "recorded_at_ms": 1795359402981,
+      "recorded_start_utc": "2026-11-22T14:56:42.981+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2988,
+      "accel_sample_rate_hz": 199.4373,
+      "accel_nyquist_hz": 99.71865,
+      "accel_first_t_ns": 678381360106258,
+      "accel_last_t_ns": 678396337247613,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:56:42.992+00:00",
+      "matched_log_save_utc": "2026-11-22T14:56:58.528+00:00"
+    },
+    {
+      "file_stem": "g15_C5_HAIRDRYER",
+      "condition_id": "C5_HAIRDRYER",
+      "group_index": 15,
+      "recorded_at_ms": 1795359423903,
+      "recorded_start_utc": "2026-11-22T14:57:03.903+00:00",
+      "wav_samples": 661500,
+      "source_pcm16_rail_samples": 0,
+      "accel_samples": 2989,
+      "accel_sample_rate_hz": 199.4329,
+      "accel_nyquist_hz": 99.71645,
+      "accel_first_t_ns": 678402279063579,
+      "accel_last_t_ns": 678417261544256,
+      "white_noise": {
+        "20": {
+          "actual_snr_db": 20.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "10": {
+          "actual_snr_db": 10.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        },
+        "0": {
+          "actual_snr_db": 0.0,
+          "pre_gain_out_of_pcm16_range_samples": 0,
+          "linear_gain": 1.0,
+          "post_gain_out_of_pcm16_range_samples": 0
+        }
+      },
+      "matched_log_start_utc": "2026-11-22T14:57:03.914+00:00",
+      "matched_log_save_utc": "2026-11-22T14:57:19.506+00:00"
+    }
+  ],
+  "all_blank_columns": {
+    "clean": [
+      "accel_band_50_100"
+    ],
+    "white_20db": [
+      "accel_band_50_100"
+    ],
+    "white_10db": [
+      "accel_band_50_100"
+    ],
+    "white_0db": [
+      "accel_band_50_100"
+    ]
+  }
+}

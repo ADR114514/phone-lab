@@ -1,0 +1,22 @@
+{
+  "gpu": "NVIDIA GeForce RTX 5070 Ti",
+  "computeCapability": "12.0",
+  "matlabVersion": "26.1.0.3203278 (R2026a)",
+  "cudaToolkitVersion": 12.8,
+  "coefficientsFitOnGpu": true,
+  "trainingGroups": 75,
+  "rawFeatureCount": 32,
+  "retainedFeatureCount": 31,
+  "lambda": 0.1,
+  "gamma": 0.032258064516129031,
+  "foldFitSeconds": [
+    0.5359003,
+    0.0027773,
+    0.0023657,
+    0.0026264,
+    0.0048993,
+    0.0030344
+  ],
+  "validation": "Blocked group-number 5-fold validation within one session; final fit on all 75 groups.",
+  "independentBlindTrials": 0
+}

@@ -1,4 +1,6 @@
 # PhoneLab · 手机内置传感器实测试验平台
+
+**项目三实测交付入口：** [声振诊断仪 · VD-20261122-002](02-20Days-Challenge/03-vibrodiag/) — 75 组训练、15 组独立盲测、时域／FFT 源码、MATLAB 模型、抗噪图表和真实盲测结果。
 > **同学下载站**：http://189.105.67.241/ （三款 APK + 《同学操作手册》PDF/Word/在线版，宝塔面板 + Nginx 部署）
 > **GitHub 仓库**：https://github.com/ADR114514/phone-lab
 
