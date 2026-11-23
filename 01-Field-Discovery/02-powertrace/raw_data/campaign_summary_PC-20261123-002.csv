@@ -1,0 +1,5 @@
+﻿condition_id,condition_label,duration_min,start_level_pct,end_level_pct,level_drop_pct,avg_power_w,peak_power_w,energy_wh,avg_current_ma,temp_start_c,temp_end_c,temp_rise_c,thermal_max,thermal_rise_events,avg_cpu_freq_mhz,avg_screen_brightness_pct,net_rx_mb,net_tx_mb,notes
+IDLE,待机,30.0,17,17,0,0.268,0.433,0.112,,25.8,25.8,0.0,0,0,1693,44,0.63,0.44,power_method=charge_counter; power_window_min=25.114; 能量仅覆盖有效观测窗口，不外推到整个工况
+VIDEO,短视频,30.0,17,12,5,2.991,3.482,0.748,,26.8,34.1,7.3,0,0,1401,37,273.73,43.41,采集期间充电：相关区间已排除，不代表纯放电功耗; 暂停或时间轴不连续：不跨边界估算; power_method=charge_counter; power_window_min=15.002; 能量仅覆盖有效观测窗口，不外推到整个工况
+NAVCAM,导航拍摄,30.0,14,11,3,1.288,1.978,0.429,,35.7,30.5,-5.2,0,0,1306,36,67.96,5.69,暂停或时间轴不连续：不跨边界估算; power_method=charge_counter; power_window_min=20.003; 能量仅覆盖有效观测窗口，不外推到整个工况
+GAME,高帧率游戏,55.1,10,22,-12,3.871,3.959,2.904,,29.1,38.1,9.0,2,1,2604,36,57.23,23.74,迟到样本 5 个; 暂停或时间轴不连续：不跨边界估算; power_method=charge_counter; power_window_min=45.001; 能量仅覆盖有效观测窗口，不外推到整个工况

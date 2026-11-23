@@ -1,0 +1,58 @@
+2026-11-23 07:11:49.790 I/PowerTraceCtrl: campaign PC-20261123-002 created at 20261123_071149_PC-20261123-002, order=IDLE,VIDEO,NAVCAM,GAME
+2026-11-23 07:11:49.790 I/PowerTraceCtrl: sampling interval 300 s, 6 points/condition, 30 min/condition; current sign convention: raw kept, power uses abs()
+2026-11-23 07:11:49.793 I/PowerTraceCtrl: access: notifications=true exactAlarm=true batteryUnrestricted=true usageStats=true charging=false autoBrightness=false network=WIFI location=true
+2026-11-23 07:11:49.922 I/PowerTraceRepo: new session file session_IDLE.csv (header written)
+2026-11-23 07:11:49.923 I/PowerTraceCtrl: sample #1 IDLE elapsed=0s power=n/aW temp=25.8C thermal=0 current=249uA
+2026-11-23 07:16:50.846 I/PowerTraceCtrl: sample #2 IDLE elapsed=300s power=0.316W temp=25.8C thermal=0 current=23uA
+2026-11-23 07:21:52.808 I/PowerTraceCtrl: sample #3 IDLE elapsed=600s power=0.118W temp=25.8C thermal=0 current=15uA
+2026-11-23 07:26:53.738 I/PowerTraceCtrl: sample #4 IDLE elapsed=900s power=0.158W temp=25.8C thermal=0 current=11uA
+2026-11-23 07:31:55.733 I/PowerTraceCtrl: sample #5 IDLE elapsed=1200s power=0.433W temp=25.8C thermal=0 current=20uA
+2026-11-23 07:36:56.779 I/PowerTraceCtrl: sample #6 IDLE elapsed=1500s power=0.316W temp=25.8C thermal=0 current=21uA
+2026-11-23 07:41:51.681 I/PowerTraceCtrl: condition IDLE completed (30 min)
+2026-11-23 07:41:51.811 I/PowerTraceRepo: new session file session_VIDEO.csv (header written)
+2026-11-23 07:41:51.812 I/PowerTraceCtrl: sample #1 VIDEO elapsed=0s power=n/aW temp=26.8C thermal=0 current=25uA
+2026-11-23 07:45:54.990 I/PowerTraceCtrl: campaign PC-20261123-002 paused
+2026-11-23 07:45:54.997 I/PowerTraceService: sampling paused
+2026-11-23 07:46:03.684 I/PowerTraceCtrl: campaign PC-20261123-002 resumed
+2026-11-23 07:46:04.829 I/PowerTraceCtrl: campaign PC-20261123-002 paused
+2026-11-23 07:46:04.835 I/PowerTraceService: sampling paused
+2026-11-23 08:31:45.340 I/PowerTraceExport: campaign csv written: 7 rows
+2026-11-23 08:31:45.343 I/PowerTraceExport: summary csv written: 4 rows
+2026-11-23 08:39:02.755 I/PowerTraceCtrl: campaign PC-20261123-002 resumed
+2026-11-23 08:39:58.388 I/PowerTraceCtrl: sample #2 VIDEO elapsed=300s power=n/aW temp=33.0C thermal=0 current=430uA
+2026-11-23 08:44:58.473 I/PowerTraceCtrl: sample #3 VIDEO elapsed=600s power=2.815W temp=32.5C thermal=0 current=604uA
+2026-11-23 08:49:58.524 I/PowerTraceCtrl: sample #4 VIDEO elapsed=900s power=3.482W temp=34.1C thermal=0 current=451uA
+2026-11-23 08:54:58.542 I/PowerTraceCtrl: sample #5 VIDEO elapsed=1200s power=2.675W temp=33.1C thermal=0 current=543uA
+2026-11-23 08:59:58.959 I/PowerTraceCtrl: sample #6 VIDEO elapsed=1500s power=n/aW temp=34.1C thermal=0 current=-3904uA
+2026-11-23 09:04:58.342 I/PowerTraceCtrl: condition VIDEO completed (30 min)
+2026-11-23 09:04:58.455 I/PowerTraceRepo: new session file session_NAVCAM.csv (header written)
+2026-11-23 09:04:58.456 I/PowerTraceCtrl: sample #1 NAVCAM elapsed=0s power=n/aW temp=35.7C thermal=0 current=569uA
+2026-11-23 09:06:44.826 W/PowerTraceCtrl: campaign PC-20261123-002 state normalised after restart
+2026-11-23 09:06:50.165 I/PowerTraceCtrl: campaign PC-20261123-002 paused
+2026-11-23 09:06:50.167 I/PowerTraceService: sampling paused
+2026-11-23 09:12:52.941 I/PowerTraceCtrl: campaign PC-20261123-002 resumed
+2026-11-23 09:16:01.212 I/PowerTraceCtrl: sample #2 NAVCAM elapsed=300s power=n/aW temp=34.3C thermal=0 current=337uA
+2026-11-23 09:21:01.242 I/PowerTraceCtrl: sample #3 NAVCAM elapsed=600s power=0.928W temp=32.3C thermal=0 current=316uA
+2026-11-23 09:26:01.277 I/PowerTraceCtrl: sample #4 NAVCAM elapsed=900s power=1.084W temp=31.3C thermal=0 current=451uA
+2026-11-23 09:31:01.315 I/PowerTraceCtrl: sample #5 NAVCAM elapsed=1200s power=1.161W temp=31.3C thermal=0 current=384uA
+2026-11-23 09:36:01.362 I/PowerTraceCtrl: sample #6 NAVCAM elapsed=1500s power=1.978W temp=30.5C thermal=0 current=362uA
+2026-11-23 09:41:01.149 I/PowerTraceCtrl: condition NAVCAM completed (30 min)
+2026-11-23 09:41:01.192 I/PowerTraceRepo: new session file session_GAME.csv (header written)
+2026-11-23 09:41:01.193 I/PowerTraceCtrl: sample #1 GAME elapsed=0s power=n/aW temp=29.1C thermal=0 current=304uA
+2026-11-23 09:42:03.509 I/PowerTraceCtrl: campaign PC-20261123-002 paused
+2026-11-23 09:42:03.512 I/PowerTraceService: sampling paused
+2026-11-23 09:46:01.242 E/PowerTraceService: pump failed, will retry on next schedule | JobCancellationException: Job was cancelled
+2026-11-23 10:11:17.856 I/PowerTraceCtrl: campaign PC-20261123-002 resumed
+2026-11-23 10:20:23.482 I/PowerTraceCtrl: sample #2 GAME elapsed=300s power=n/aW temp=38.8C thermal=2 current=1368uA LATE 307s
+2026-11-23 10:35:44.319 I/PowerTraceCtrl: sample #3 GAME elapsed=600s power=3.959W temp=39.7C thermal=2 current=2218uA LATE 928s
+2026-11-23 10:43:38.749 I/PowerTraceCtrl: sample #4 GAME elapsed=900s power=3.779W temp=39.8C thermal=2 current=2311uA LATE 1103s
+2026-11-23 10:52:22.921 I/PowerTraceCtrl: sample #5 GAME elapsed=1200s power=3.784W temp=38.8C thermal=1 current=1201uA LATE 1327s
+2026-11-23 11:05:23.541 I/PowerTraceCtrl: sample #6 GAME elapsed=1500s power=3.883W temp=38.1C thermal=1 current=3446uA LATE 1807s
+2026-11-23 11:05:23.547 I/PowerTraceCtrl: condition GAME completed (30 min)
+2026-11-23 11:05:23.612 I/PowerTraceExport: campaign csv written: 24 rows
+2026-11-23 11:05:23.616 I/PowerTraceExport: summary csv written: 4 rows
+2026-11-23 11:05:23.622 I/PowerTraceCtrl: campaign PC-20261123-002 finished: 4 conditions, 24 sampled rows
+2026-11-23 11:05:32.572 I/PowerTraceExport: campaign csv written: 24 rows
+2026-11-23 11:05:32.574 I/PowerTraceExport: summary csv written: 4 rows
+2026-11-23 11:05:33.892 I/PowerTraceExport: campaign csv written: 24 rows
+2026-11-23 11:05:33.892 I/PowerTraceExport: summary csv written: 4 rows
