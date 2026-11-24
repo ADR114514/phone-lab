@@ -18,6 +18,5 @@ rootProject.name = "phone-lab"
 
 include(":core")
 include(":apps:powertrace")
-include(":apps:signalmap")
 include(":apps:vibrodiag")
 include(":apps:chargeaudit")

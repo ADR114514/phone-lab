@@ -42,7 +42,7 @@
 <div class="wrap">
 <header>
   <h1>PhoneLab · 手机实测工具下载站</h1>
-  <div class="sub">四款 Android 实测 App：功耗热测 / 校园 WiFi 盲区测绘 / 声振诊断仪 / 充电宝效率核验</div>
+  <div class="sub">三款 Android 实测 App：功耗热测 / 声振诊断仪 / 充电宝效率核验</div>
   <div class="pill">Android 12 及以上 · 仅 arm64（ARMv8）设备 · debug 测试版</div>
 </header>
 
@@ -53,38 +53,26 @@
     <li>安装时系统会提示“未知来源应用”，允许浏览器/文件管理器安装即可。</li>
     <li>首次打开请按 App 内提示授予权限；<span class="warn">功耗实验必须拔掉充电线</span>。</li>
     <li><b>PowerTrace 开始采集前会强制检查系统权限</b>：通知、电池优化豁免、精确闹钟、后台活动/睡眠待机优化，缺一项不能开始（避免采集中断、数据作废）。</li>
-    <li><b>v1.4.0 新增：</b>PowerTrace 设置页加「功率诊断」（电荷计/电流/电压），并处理电荷计读数不变的情况（保留窗口、不写 0）；装新版后第 2 个采样点起显示瓦数。</li>
-    <li><b>v1.3.0：</b>SignalMap HTTP 探测默认改用国内可达地址，主地址失败自动回退并在 note 标注；网关不可达时 tcp_connect_ms 留空、不写 0。</li>
-    <li><b>v1.2.0：</b>三款 App 都支持删除错误数据后重新测量（功耗/测绘在「结果页 → 删除数据」，声振在「数据集 → 批量删除」）。</li>
-    <li><b>v2.1.0 PowerTrace 1.5.0：</b>一加/ColorOS 不暴露电荷计/能量计时，可用「电量%×电池容量」回退估算工况平均功率（设置→功率回退可改容量），旧批次重新导出即可看到瓦数；逐点功率仍留空、不造假。</li>
-    <li><b>v2.0.0：</b>ChargeAudit（课题07 充电宝容量/转换效率核验 App）——每 10 min 提醒记录检测仪电压/电流，自动读手机电量/温度/电荷计，自动算三段效率并导出 CSV/ZIP。</li>
+    <li><b>升级建议：</b>先导出备份，再直接覆盖安装；不要先卸载或清除数据。</li>
+    <li><b>PowerTrace 1.5.1：</b>修复结果页重读功率和缺失显示。旧批次可刷新派生文件；没有可靠原始读数时显示「不可用」，不填 0 W。</li>
+    <li><b>VibroDiag 1.5.0：</b>盲测使用内置 MATLAB CUDA 训练的核岭模型，手机离线预测。新版结果导出模型版本和分类分数。</li>
+    <li><b>ChargeAudit 1.0.3：</b>结果页可补记结束原因；未录到停机末点的耗尽会明确标注，不补造读数、不计算整程效率。保留原会话和 CP11QC 铭牌预设。</li>
     <li>下载后建议核对 SHA-256；完整操作请下载 <a href="docs/manual.pdf" style="color:var(--acc)">《同学操作手册（PDF）》</a>。</li>
   </ol>
 </div>
 
 <h2>① 下载 App</h2>
+<p class="size">以下为最新修复版 · <a href="apk/SHA256SUMS-current.txt" style="color:var(--acc)" download>下载 SHA-256 校验值</a></p>
 
 <div class="card app">
   <div class="meta">
     <h3>PowerTrace · 功耗热测仪</h3>
     <span class="tag">课题02</span><span class="tag">4 工况 × 30 min × 6 点</span>
-    <div class="size">v1.5.0 · 26.5 MB · com.mobilelab.powertrace</div>
-    <div class="hash">SHA-256: 977283b139c2bf02c422c23fd9867620e132bc6dbbb1cde3f23f1b3443e654ee</div>
+    <div class="size">v1.5.1 · 26.8 MB · com.mobilelab.powertrace</div>
+    <div class="hash">SHA-256: d92b165ba623ff59d0efe1f07303fda60b5432310710f14bec5126830ee5c332</div>
   </div>
   <div>
-    <a class="btn" href="apk/PowerTrace-1.5.0-arm64-v8a-debug.apk" download>下载 APK</a>
-  </div>
-</div>
-
-<div class="card app">
-  <div class="meta">
-    <h3>SignalMap · 校园信号测绘</h3>
-    <span class="tag">课题03</span><span class="tag">8 点位 × 3 次</span>
-    <div class="size">v1.4.0 · 31.3 MB · com.mobilelab.signalmap</div>
-    <div class="hash">SHA-256: b80b47fdd91e19ffd3ab6c28603717eb2ed17e2bf73cb68e95415e5b4c95e005</div>
-  </div>
-  <div>
-    <a class="btn" href="apk/SignalMap-1.4.0-arm64-v8a-debug.apk" download>下载 APK</a>
+    <a class="btn" href="apk/PowerTrace-1.5.1-arm64-v8a-debug.apk" download>下载 APK</a>
   </div>
 </div>
 
@@ -92,11 +80,11 @@
   <div class="meta">
     <h3>VibroDiag · 声振诊断仪</h3>
     <span class="tag">项目三</span><span class="tag">5 工况 × 15 组</span>
-    <div class="size">v1.4.0 · 26.5 MB · com.mobilelab.vibrodiag</div>
-    <div class="hash">SHA-256: 0c561a3d1d8bdfaf3fd032e1662660ac98dd0fe2c1af771466bc0e5625f937cd</div>
+    <div class="size">v1.5.0 · 26.9 MB · com.mobilelab.vibrodiag</div>
+    <div class="hash">SHA-256: 74e39e69c6f22c222af8b1031f06ff7409d9c882ad9389458459cf4610237314</div>
   </div>
   <div>
-    <a class="btn" href="apk/VibroDiag-1.4.0-arm64-v8a-debug.apk" download>下载 APK</a>
+    <a class="btn" href="apk/VibroDiag-1.5.0-arm64-v8a-debug.apk" download>下载 APK</a>
   </div>
 </div>
 
@@ -104,16 +92,16 @@
   <div class="meta">
     <h3>ChargeAudit · 充电宝效率核验</h3>
     <span class="tag">课题07</span><span class="tag">10 min / 点 · 完整放电</span>
-    <div class="size">v1.0.0 · 26.0 MB · com.mobilelab.chargeaudit</div>
-    <div class="hash">SHA-256: 04594eccf181722a8e55f600580b455df6c081c38c26c558a23bdb36fbad32f9</div>
+    <div class="size">v1.0.3 · 26.1 MB · com.mobilelab.chargeaudit</div>
+    <div class="hash">SHA-256: 95ff4777f3ce61c69615e8cad0a77ab3ac2a4c573e2052457069ecdbbe7d7488</div>
   </div>
   <div>
-    <a class="btn" href="apk/ChargeAudit-1.0.0-arm64-v8a-debug.apk" download>下载 APK</a>
+    <a class="btn" href="apk/ChargeAudit-1.0.3-arm64-v8a-debug.apk" download>下载 APK</a>
   </div>
 </div>
 <h2>② 操作手册</h2>
 <div class="card">
-  <p>从安装、权限、三次实验到数据提交，完整步骤见手册：</p>
+  <p>手册包含功耗热测、充电宝效率和声振诊断的采集、导出与提交步骤。</p>
   <a class="btn" href="docs/manual.pdf" download>下载 PDF 手册</a>
   <a class="btn ghost" href="docs/manual.docx" download>下载 Word 手册</a>
   <a class="btn ghost" href="docs/manual.html">在线查看</a>
@@ -125,9 +113,8 @@
     <tr><th>问题</th><th>处理</th></tr>
     <tr><td>提示“无法安装 / 已损坏”</td><td>确认系统 Android 12+、arm64；用系统浏览器重新下载；允许“未知来源”。</td></tr>
     <tr><td>提示“有风险”</td><td>debug 测试包会提示风险，确认后继续安装（仅供课程使用）。</td></tr>
-    <tr><td>功耗数据全为 0 / 充电标记</td><td>拔掉充电线；关闭自动亮度；确认电池优化已豁免。</td></tr>
+    <tr><td>功率显示不可用</td><td>拔线后查看「设置 → 功率诊断」。旧批次可刷新派生文件；无可靠原始读数不能恢复准确瓦数。</td></tr>
     <tr><td>待机 5 分钟采样迟到</td><td>系统设置里关闭“睡眠待机优化”，允许 App 后台活动；先试采 10 分钟确认前 3 点。</td></tr>
-    <tr><td>WiFi 读不到 RSSI</td><td>打开系统定位开关，并授予定位权限（Android 12+ 强制要求）。</td></tr>
     <tr><td>录音无声/特征异常</td><td>确认麦克风未被占用、手机壳不挡麦克风；安静环境重录。</td></tr>
   </table>
 </div>
@@ -135,7 +122,6 @@
 <h2>③ 界面预览</h2>
 <div class="grid">
   <div class="card"><img class="shot" src="assets/powertrace-home.png" alt="PowerTrace 首页"><div class="size" style="text-align:center">PowerTrace 功耗热测</div></div>
-  <div class="card"><img class="shot" src="assets/signalmap-measure.png" alt="SignalMap 点位"><div class="size" style="text-align:center">SignalMap 校园信号测绘</div></div>
   <div class="card"><img class="shot" src="assets/vibrodiag-features.png" alt="VibroDiag 特征"><div class="size" style="text-align:center">VibroDiag 声振诊断</div></div>
 </div>
 
@@ -143,7 +129,6 @@
 <div class="card">
   <ul>
     <li><b>功耗实验</b>：拔线、关闭自动亮度、固定亮度、环境 20–28 °C；每工况 30 min，工况间静置 10 min 降温。</li>
-    <li><b>WiFi 测绘</b>：定位开关必须打开；同一时段测完 8 个点位；每点位拍照并记录墙体材质/遮挡。</li>
     <li><b>声振实验</b>：手机固定在同一位置（30 cm），5 工况 × 15 组；盲测时录屏 2–4 分钟作为交付视频。</li>
     <li>数据只保存在手机 App 私有目录，用 App 内“导出/分享”保存；不要用第三方清理软件清数据。</li>
   </ul>
@@ -151,7 +136,7 @@
 
 <div class="foot">
   PhoneLab 课程实测项目 · 服务器部署于宝塔面板（Nginx）· 仅用于课程教学，请勿外传安装包与实验数据。<br>
-  更新日期：2026-11-21 · 仓库：phone-lab（详见操作手册附录）
+  更新日期：2026-11-24 · <a href="https://github.com/ADR114514/ICEC-2026-0056-hanzitai" style="color:var(--acc)">考号仓库与交付资料</a>
 </div>
 </div>
 </body>

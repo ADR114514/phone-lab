@@ -15,7 +15,7 @@ $ErrorActionPreference = "Stop"
 $repo = Resolve-Path (Join-Path $PSScriptRoot "..")
 $apps = @(
     @{ Pkg = "com.mobilelab.powertrace"; Apk = "apps/powertrace/build/outputs/apk/debug/powertrace-debug.apk"; Tag = "powertrace" },
-    @{ Pkg = "com.mobilelab.signalmap";  Apk = "apps/signalmap/build/outputs/apk/debug/signalmap-debug.apk";  Tag = "signalmap"  },
+    @{ Pkg = "com.mobilelab.chargeaudit"; Apk = "apps/chargeaudit/build/outputs/apk/debug/chargeaudit-debug.apk"; Tag = "chargeaudit" },
     @{ Pkg = "com.mobilelab.vibrodiag";  Apk = "apps/vibrodiag/build/outputs/apk/debug/vibrodiag-debug.apk";  Tag = "vibrodiag"  }
 )
 

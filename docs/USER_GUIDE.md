@@ -3,8 +3,6 @@
 > 安装包：`apps/<app>/build/outputs/apk/debug/<app>-debug.apk`（Android 12+，arm64 真机）。
 > 安装后按本文操作；每步的数据都会落在 App 私有目录，导出用 App 内"导出/分享"按钮。
 
-> 测绘完成后可在「测量结果 → 点位照片」直接查看/点开大图；导出 ZIP 的 photos/ 目录包含原图；若点位引用丢失，结果页还会兜底列出 photos/ 中未关联的照片。
-
 ## 通用准备
 
 1. 打开开发者选项 + USB 调试（可选，用于 `tools/pull-data.ps1` 直接取数据）。
@@ -34,27 +32,7 @@
 
 ---
 
-## 二、SignalMap 校园信号测绘（课题03）
-
-### 首次配置
-1. 连接校园 WiFi（或要测的目标 SSID）。
-2. **打开系统定位开关**；App 首页环境检查卡应全绿（定位权限、附近 WiFi 权限、WiFi 已连接）。
-3. 允许相机权限用于点位拍照。
-
-### 测一个点位（每点 3 次）
-1. 首页 → 开始/继续测量 → 选中 P01…P08（可先编辑名称/墙体材质/遮挡/距离）。
-2. 在点位站定（建议地面做标记），手机竖屏朝固定方向。
-3. 首次到该点：拍照（拍墙体与 AP 方向）；然后点"开始第 1 次测量"。
-4. 等待 30–60 s（自动完成扫描/RTT/HTTP）→ 自动记录；重复 3 次（间隔 ≥30 s）。
-5. 8 个点位全部完成后 → 结果页 → 导出 ZIP（含 survey CSV、照片、扫描明细）。
-
-### 注意
-- 定位关掉 / 未连 WiFi 时 App 不允许开始，这是 Android 12 的限制，不是 Bug。
-- 扫描结果被系统节流时（部分机型）会记录"受限"，可在 note 里注明。
-
----
-
-## 三、VibroDiag 声振诊断仪（项目三）
+## 二、VibroDiag 声振诊断仪（项目三）
 
 ### 首次配置
 1. 允许录音权限（以及通知权限）；确认手机壳不遮挡麦克风。
@@ -78,21 +56,32 @@
 
 ---
 
+## 三、ChargeAudit（课题07 充电宝效率核验 App）
+
+1. 首页先核对铭牌（默认 Huawei CP11QC：34.49Wh / 6200mAh@5V）；
+2. 充电宝充满、手机约 20% 电量，USB 检测仪串在充电宝与手机之间；
+3. 点「开始新会话」，每 10 min App 会提醒（需通知/精确闹钟权限），录入检测仪电压/电流；
+4. 手机电量、温度、电荷计由 App 自动读取；保存后自动安排下一次提醒；
+5. 手机到 100% 继续记录，直到充电宝自动关机；
+6. 「结束会话」后查看效率（E_out/E_phone/η_output/η_charge/η_total）并导出 ZIP（CSV+manifest+summary）。
+
+> [课题07实验流程与计算口径](TOPIC07_CHARGE_EFFICIENCY.md) · [实测归档](../01-Field-Discovery/07-chargeaudit/) · [报告模板](report/课题07_充电宝容量与转换效率核验.md)
+
+---
+
 ## 数据交给分析管线
 
 ```bash
 # 把手机导出的目录放到：
 data/raw/power/<session>/     # PowerTrace ZIP 解压后
-data/raw/wifi/<session>/      # SignalMap ZIP 解压后
 data/raw/vibro/<session>/     # VibroDiag ZIP 解压后
 
 # 跑分析
 python analysis/power/analyze.py --data data/raw/power/<session> --out analysis/out/power
-python analysis/wifi/analyze.py  --data data/raw/wifi/<session>  --out analysis/out/wifi
 python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/out/vibro
 ```
 
-分析输出：`analysis/out/<x>/figures/*.png`、`tables/*.csv`、`*_report.md`；把图表插入 `docs/report/` 下的报告模板即可。
+功耗与声振的分析输出在 `analysis/out/<x>/`，包含 `figures/*.png`、`tables/*.csv` 与 `*_report.md`。课题07的分析命令见[充电宝核验指南](TOPIC07_CHARGE_EFFICIENCY.md#4-一键分析)。图表可插入 `docs/report/` 下的相应报告模板。
 
 
 ### VibroDiag 首页/采集页改版
@@ -103,12 +92,11 @@ python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/
 - 采集页顶部显示总进度（已完成 x/75）与本工况进度，保存后明确“采集下一组/本工况已完成”的下一步。
 
 
-### 三款 App 的 UI 优化（2026-11-21）
+### PowerTrace 与 VibroDiag 的 UI 优化（2026-11-21）
 
-- **统一「下一步」卡片**：每个 App 首页都会自动判断你现在该做什么（新建/继续采集、盲测、评估、导出），并给出唯一主按钮；
-- **进度可视化**：功耗（4 工况 × 6 点，x/24）、WiFi（8 点位 × 3 次，x/24）、声振（5 工况 × 15 组，x/75）都在首页显示总进度与分段进度；
-- **门禁说明**：按钮不可用时直接写明原因（未充电检查、环境未就绪、数据不足 25 组等），避免“点不动不知道为什么”；
-- **SignalMap 结果页**：新增「点位照片」卡片，缩略图 + 点击全屏查看，照片引用丢失时兜底列出 photos/ 原图；
+- **下一步卡片**：首页提示新建或继续采集、盲测、评估或导出。
+- **进度可视化**：功耗（4 工况 × 6 点，x/24）、声振（5 工况 × 15 组，x/75）在首页显示总进度与分段进度。
+- **门禁说明**：按钮不可用时显示具体原因，例如当前正在充电或声振数据不足 25 组。
 - **VibroDiag 采集页**：保存后明确显示“下一组 / 本工况已完成”，并可直接查看数据集；
 - **PowerTrace 采集页**：首页直接显示当前工况第几点、总进度，正在充电会红色警告“数据会作废”。
 
@@ -116,17 +104,8 @@ python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/
 ### 删除错误数据（v1.2.0）
 
 - **PowerTrace**：结果页底部「删除数据（不可恢复）」→ 删除本批次（CSV/log/manifest + 状态），之后可新建批次重测；采集中需先暂停/放弃。
-- **SignalMap**：结果页「删除数据（不可恢复）」→ 删除本会话（survey/scan/photos/进度），可重新测；建议先导出 ZIP 备份。
 - **VibroDiag**：数据集页「批量删除」→ 删除某工况全部组或全部数据（同步重建 dataset_index 并清空盲测/评估结果）。
 - 删除不可撤销；重要数据先导出 ZIP。
-
-
-### SignalMap 网络探测说明（v1.3.0）
-
-- 默认 HTTP 地址改为国内可访问的 `https://www.baidu.com/robots.txt`；若主地址全部失败，会自动回退 `http://connect.rom.miui.com/generate_204` 并在该行 note 标注；
-- “网关不可达”是校园 AP 禁止客户端 TCP 连网关的常见限制：`tcp_connect_ms` 留空、不写 0，RSSI/RTT/丢包仍然有效；
-- HTTP 探测失败只会让 `http_ttfb_ms` 等列留空，该行仍有效；报告里注明“HTTP 探测受网络限制”即可；
-- 时延主指标建议用互联网 TCP RTT（p95/loss），不要用空的 `tcp_connect_ms` 做比较。
 
 
 ### PowerTrace 功率为空怎么排查（v1.4.0）
@@ -137,19 +116,6 @@ python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/
 4. 必须拔掉充电线（充电时电荷计上升，无法算功率）；
 5. 部分机型电荷计只在 1%/数 mAh 变化时更新：App 会保留旧读数、等下一次变化用更长窗口计算，并标 `power_window=...s`；
 6. 若诊断里电荷计显示“不可用”，该机型只能用外接功率计/电流表，App 会留空而不是写 0。
-
-
-### ChargeAudit（课题07 充电宝效率核验 App）
-
-1. 首页先核对铭牌（默认 Huawei CP11QC：34.49Wh / 6200mAh@5V）；
-2. 充电宝充满、手机约 20% 电量，USB 检测仪串在充电宝与手机之间；
-3. 点「开始新会话」，每 10 min App 会提醒（需通知/精确闹钟权限），录入检测仪电压/电流；
-4. 手机电量、温度、电荷计由 App 自动读取；保存后自动安排下一次提醒；
-5. 手机到 100% 继续记录，直到充电宝自动关机；
-6. 「结束会话」后查看效率（E_out/E_phone/η_output/η_charge/η_total）并导出 ZIP（CSV+manifest+summary）。
-
-> 详细实验流程/公式见 docs/TOPIC07_CHARGE_EFFICIENCY.md。
-
 
 ### PowerTrace 1.5.0：一加/ColorOS 功率回退
 

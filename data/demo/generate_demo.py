@@ -1,19 +1,15 @@
 """生成 data/demo 合成演示数据（SYNTHETIC DEMO DATA）。
 
-!!! 本脚本产出的一切都是**合成数据**，仅用于让 analysis/ 三条管线端到端跑通、
+!!! 本脚本产出的一切都是**合成数据**，仅用于让 analysis/ 功耗与声振管线端到端跑通、
     验证 CSV 契约与图表流程；它们不是真机实测数据，不能写进课程报告的结果部分。
     每一份 CSV/JSON 都带 synthetic 标记或 note 说明。
 
-三个数据集的合成思路：
+两个数据集的合成思路：
   1) power   : 按 4 工况顺序模拟 30 min x 4 的电量/温度/热节流过程，功率水平取
                待机 0.60 W / 短视频约 2.5 W / 导航拍摄约 4.4 W / 游戏约 5.8 W，
                电量从 100% 连续下降到约 61%；GAME 后段出现 thermal_status 上升 +
                CPU 频率下降的热节流，用于验证节流检测。
-  2) wifi    : 以 P01（无遮挡基准点，5 m）为参考，按对数距离路径损耗
-               RSSI = P0 - 20*log10(d/d0) - 材质附加衰减 + 噪声 生成 8 点 x 3 次，
-               材质附加衰减取混凝土 18 dB / 金属 25 dB / 玻璃 6 dB / 混合 14 dB，
-               与 docs/ops 里的经验值一致；延迟、抖动、丢包随 RSSI 与遮挡恶化。
-  3) vibro   : 5 工况 x 3 训练组 + 3 盲测组，用正弦/谐波 + 噪声合成：
+  2) vibro   : 5 工况 x 3 训练组 + 3 盲测组，用正弦/谐波 + 噪声合成：
                正常 = 基频 + 强谐波；失衡 = 1x 增大 + 边带；遮挡 = 高频衰减 + 宽带噪声；
                吹风机 = 高频宽带 + 电机音。WAV 为 3 s / 22050 Hz / 16-bit PCM（控制仓库体积）。
 
@@ -25,7 +21,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import json
 import math
 import sys
@@ -48,7 +43,6 @@ DISCLAIMER = ("本目录全部数据由 data/demo/generate_demo.py 合成，仅�
               "不是真机实测数据；课程报告中的结果必须使用 data/raw 下的真实采集数据。")
 TZ = timezone(timedelta(hours=8))
 POWER_START = datetime(2026, 11, 18, 13, 0, 0, tzinfo=TZ)
-WIFI_START = datetime(2026, 11, 18, 10, 0, 0, tzinfo=TZ)
 VIBRO_START = datetime(2026, 11, 18, 15, 0, 0, tzinfo=TZ)
 
 
@@ -478,197 +472,7 @@ def write_power_raw(path: Path, rows: list[dict], condition: dict, rng: np.rando
     write_csv(path, POWER_RAW_HEADER, out)
 
 
-# ------------------------------------------------------------------ 02 课题03 WiFi
-
-WIFI_SESSION_ID = "WS-20261118-001"
-WIFI_FREQ = 2437
-WIFI_CHANNEL = 6
-WIFI_SERVING_BSSID = "a1b2c3d4e5f60718"
-
-WIFI_POINTS = [
-    {"id": "P01", "name": "教学楼 2F 走廊中段（基准点）", "type": "corridor", "material": "none",
-     "obstruction": "无墙体遮挡，AP 在走廊上方吊顶内", "distance": 5.0, "floor": 2,
-     "material_db": 0.0, "rssi_std": 0.7, "latency_base": 1.0, "note": "基准点，参考距离 5 m"},
-    {"id": "P02", "name": "走廊 90° 转角", "type": "corner", "material": "concrete",
-     "obstruction": "两侧承重墙，转角 90°，非视距", "distance": 10.0, "floor": 2,
-     "material_db": 18.0, "rssi_std": 1.7, "latency_base": 1.15, "note": "多径明显，3 次重复波动大"},
-    {"id": "P03", "name": "电梯口", "type": "elevator", "material": "metal",
-     "obstruction": "金属电梯门与井道，强反射", "distance": 10.0, "floor": 2,
-     "material_db": 25.0, "rssi_std": 1.9, "latency_base": 1.25, "note": "金属屏蔽，信号弱且抖动"},
-    {"id": "P04", "name": "楼梯间", "type": "stairwell", "material": "concrete",
-     "obstruction": "混凝土楼梯间隔墙 + 上下楼层反射", "distance": 14.0, "floor": 2,
-     "material_db": 18.0, "rssi_std": 1.5, "latency_base": 1.1, "note": "混响/多径，延迟抖动"},
-    {"id": "P05", "name": "宿舍门口（金属门）", "type": "dorm", "material": "metal",
-     "obstruction": "金属防盗门关闭，门缝泄漏", "distance": 16.0, "floor": 3,
-     "material_db": 25.0, "rssi_std": 2.1, "latency_base": 1.3, "note": "近盲区，丢包明显"},
-    {"id": "P06", "name": "教室靠窗（玻璃幕墙）", "type": "classroom", "material": "glass",
-     "obstruction": "单层玻璃幕墙 + 窗帘", "distance": 16.0, "floor": 2,
-     "material_db": 6.0, "rssi_std": 0.8, "latency_base": 1.05, "note": "玻璃衰减小，但窗外反射"},
-    {"id": "P07", "name": "实验室设备间（机柜）", "type": "lab", "material": "mixed",
-     "obstruction": "机柜金属板 + 轻质隔墙混合", "distance": 20.0, "floor": 1,
-     "material_db": 14.0, "rssi_std": 1.6, "latency_base": 1.2, "note": "设备噪声与同频干扰多"},
-    {"id": "P08", "name": "室外连廊/操场", "type": "outdoor", "material": "none",
-     "obstruction": "无墙体，视距但距离远", "distance": 30.0, "floor": 1,
-     "material_db": 0.0, "rssi_std": 0.9, "latency_base": 1.1, "note": "距离衰减主导，无阻挡"},
-]
-
-WIFI_BASE_RSSI = -49.0   # P01 距 AP 5 m 处的 RSSI
-WIFI_REF_DISTANCE = 5.0
-WIFI_PATHLOSS_N = 2.0
-
-WIFI_SURVEY_HEADER = [
-    "session_id", "point_id", "point_name", "point_type", "wall_material", "obstruction",
-    "distance_m", "floor", "photo_file", "repeat_index", "timestamp_iso", "ssid", "bssid",
-    "rssi_dbm", "link_speed_mbps", "tx_link_mbps", "rx_link_mbps", "frequency_mhz", "channel",
-    "wifi_standard", "latency_avg_ms", "latency_min_ms", "latency_max_ms", "latency_median_ms",
-    "latency_p95_ms", "jitter_ms", "loss_pct", "tcp_connect_ms", "http_ttfb_ms", "http_total_ms",
-    "down_kbps", "ap_count", "strongest_neighbor_rssi", "neighbor_channels", "note",
-]
-
-WIFI_DEVICE = {
-    "model": "Pixel 7", "manufacturer": "Google", "brand": "google",
-    "device": "panther", "androidRelease": "14", "sdkInt": 34,
-    "socManufacturer": "Google", "socModel": "Tensor G2",
-    "abi": "arm64-v8a", "supportedAbis": "arm64-v8a;armeabi-v7a",
-    "screenWidthPx": 1080, "screenHeightPx": 2400, "densityDpi": 420,
-    "refreshRateHz": 90.0, "batteryCapacityMah": 4355,
-    "locale": "zh-CN", "timeZone": "Asia/Shanghai",
-}
-
-
-def rssi_for_point(point: dict) -> float:
-    free_space = WIFI_BASE_RSSI - 10.0 * WIFI_PATHLOSS_N * math.log10(point["distance"] / WIFI_REF_DISTANCE)
-    return free_space - point["material_db"]
-
-
-def latency_for_rssi(rssi: float, point: dict, rng: np.random.Generator) -> float:
-    """延迟随 RSSI 恶化：以 -50 dBm 为 8 ms 基准，每降 10 dB 延迟约 x1.8。"""
-    base = 8.0 * (1.8 ** ((WIFI_BASE_RSSI - rssi) / 10.0))
-    return max(3.0, base * point["latency_base"] * (1.0 + rng.normal(0.0, 0.12)))
-
-
-def generate_wifi_demo(outdir: Path, rng: np.random.Generator) -> None:
-    session_dir = ensure_dir(outdir / "20261118_WS-20261118-001")
-    points = WIFI_POINTS
-    survey_rows: list[list] = []
-    points_rows: list[list] = []
-    for point in points:
-        points_rows.append([
-            point["id"], point["name"], point["type"], point["material"],
-            point["obstruction"], num(point["distance"], 1), int_field(point["floor"]), "",
-        ])
-        for repeat in range(1, 4):
-            moment = WIFI_START + timedelta(minutes=2 * (len(points) * (repeat - 1)
-                                                          + points.index(point)), seconds=20 * repeat)
-            rssi_true = rssi_for_point(point)
-            rssi = rssi_true + rng.normal(0.0, point["rssi_std"])
-            rssi = int(round(min(-30.0, max(-92.0, rssi))))
-            latency_avg = latency_for_rssi(rssi, point, rng)
-            jitter = max(0.4, latency_avg * (0.18 + 0.02 * point["rssi_std"]) * abs(rng.normal(1.0, 0.3)))
-            latency_min = latency_avg * (0.55 + rng.normal(0.0, 0.04))
-            latency_max = latency_avg * (2.6 + rng.normal(0.0, 0.35))
-            latency_median = latency_avg * (0.92 + rng.normal(0.0, 0.03))
-            latency_p95 = latency_avg * (1.9 + 0.12 * point["rssi_std"]) + jitter * 1.5
-            loss_pct = max(0.0, (abs(rssi) - 68.0) * 0.32 + point["material_db"] * 0.12
-                           + rng.normal(0.0, 0.3))
-            if point["material"] == "none":
-                loss_pct *= 0.35
-            loss_pct = min(18.0, loss_pct)
-            ap_count, strongest, neighbor_channels = scan_summary(point, rssi, rng)
-            scan_rows = build_scan_rows(point, repeat, rssi, rng)
-            scan_path = session_dir / f"scan_{WIFI_SESSION_ID}_{point['id']}_r{repeat}.csv"
-            write_csv(scan_path, ["timestamp_iso", "bssid", "ssid", "frequency_mhz", "channel",
-                                  "rssi_dbm", "link_speed_mbps", "capabilities"], scan_rows)
-            note = point["note"]
-            survey_rows.append([
-                WIFI_SESSION_ID, point["id"], point["name"], point["type"], point["material"],
-                point["obstruction"], num(point["distance"], 1), int_field(point["floor"]), "",
-                str(repeat), iso_local(moment), "DEMO-CampusNet", WIFI_SERVING_BSSID,
-                int_field(rssi), "72", "72", "72", int_field(WIFI_FREQ), int_field(WIFI_CHANNEL),
-                "2.4G", num(latency_avg, 1), num(latency_min, 1), num(latency_max, 1),
-                num(latency_median, 1), num(latency_p95, 1), num(jitter, 1), num(loss_pct, 1),
-                num(latency_avg * 1.25, 1), num(latency_avg * 2.8, 1), num(latency_avg * 5.4, 1),
-                "", int_field(ap_count), int_field(strongest), neighbor_channels, note,
-            ])
-    write_csv(session_dir / f"survey_{WIFI_SESSION_ID}.csv", WIFI_SURVEY_HEADER, survey_rows)
-    write_csv(session_dir / "points.csv",
-              ["point_id", "point_name", "point_type", "wall_material", "obstruction",
-               "distance_m", "floor", "photo_file"], points_rows)
-    manifest = {
-        "schema": "phonelab.manifest/1",
-        "project": "03-wifi-survey",
-        "app": "SignalMap",
-        "appVersion": "1.0.0-demo",
-        "generatedAt": 1763431200000,
-        "synthetic": True,
-        "dataSource": SYNTHETIC_TAG,
-        "disclaimer": DISCLAIMER,
-        "device": WIFI_DEVICE,
-        "session": {
-            "sessionId": WIFI_SESSION_ID,
-            "startedAt": iso_local(WIFI_START),
-            "ssid": "DEMO-CampusNet",
-            "servingAp": {"bssid": WIFI_SERVING_BSSID, "frequencyMhz": WIFI_FREQ,
-                          "channel": WIFI_CHANNEL, "referenceRssiDbm": WIFI_BASE_RSSI,
-                          "referenceDistanceM": WIFI_REF_DISTANCE},
-            "measurement": {
-                "repeatsPerPoint": 3,
-                "tcpRttCount": 20,
-                "tcpTarget": "223.5.5.5:443",
-                "httpUrl": "https://connectivitycheck.gstatic.com/generate_204",
-                "httpCount": 5,
-                "gatewayTcpCount": 5,
-                "throughputTestEnabled": False,
-            },
-            "syntheticMaterialAttenuationDb": {"concrete": 18, "metal": 25, "glass": 6, "mixed": 14},
-        },
-    }
-    write_json(session_dir / "manifest.json", manifest)
-    (session_dir / "session.log").write_text(
-        "2026-11-18T10:00:00+08:00 INFO  session started (SYNTHETIC DEMO DATA), 8 points x 3 repeats\n"
-        "2026-11-18T11:12:00+08:00 INFO  survey finished 24/24 rows\n",
-        encoding="utf-8")
-    print(f"[wifi] 写出 {session_dir.relative_to(outdir)}：survey(24 行) + points + 24 个 scan CSV")
-
-
-def scan_summary(point: dict, serving_rssi: int, rng: np.random.Generator) -> tuple[int, int, str]:
-    """返回 (扫描到的 AP 数, 最强邻道 RSSI, 邻道信道列表)。"""
-    live = not serving_rssi < -84
-    ap_count = int(rng.integers(5, 15)) if live else int(rng.integers(3, 9))
-    strongest = int(round(min(-32, serving_rssi + rng.uniform(2.0, 16.0))))
-    channels = sorted({int(rng.choice([1, 6, 11])) for _ in range(int(rng.integers(1, 4)))})
-    return ap_count, strongest, ";".join(str(channel) for channel in channels)
-
-
-def build_scan_rows(point: dict, repeat: int, serving_rssi: int, rng: np.random.Generator) -> list[list]:
-    """生成一次扫描的邻道明细；服务 AP 固定 ch6，另外混入同信道与邻信道 AP。"""
-    moment = WIFI_START + timedelta(minutes=2 * (WIFI_POINTS.index(point) + 3 * (repeat - 1)))
-    rows = [[iso_local(moment), WIFI_SERVING_BSSID, "DEMO-CampusNet", str(WIFI_FREQ),
-             str(WIFI_CHANNEL), str(serving_rssi), "72", "WPA2-PSK-CCMP"]]
-    ssid_pool = ["DEMO-CampusNet", "DEMO-CampusNet-5G", "Neighbor-2F", "CMCC-DEMO",
-                 "Dorm-Hotspot", "Lab-Router", "Stair-AP", "Outdoor-CPE"]
-    channels_24 = [1, 6, 11]
-    extra = int(rng.integers(4, 12))
-    for index in range(extra):
-        channel = int(rng.choice(channels_24))
-        frequency = {1: 2412, 6: 2437, 11: 2462}[channel]
-        same_channel = channel == WIFI_CHANNEL
-        rssi = serving_rssi + (rng.uniform(-8, 4) if same_channel else rng.uniform(-16, -2))
-        rssi = int(round(min(-35, max(-92, rssi))))
-        digest = hashlib.md5(f"PHONELAB-DEMO-AP-{point['id']}-{repeat}-{index}".encode("utf-8")).hexdigest()
-        bssid = digest[:12] + "00"
-        ssid = ssid_pool[index % len(ssid_pool)]
-        if rng.random() < 0.35:
-            frequency = int(rng.choice([5180, 5220, 5745]))
-            channel = {5180: 36, 5220: 44, 5745: 149}[frequency]
-        rows.append([iso_local(moment), bssid[:12] + "a0", ssid, str(frequency), str(channel),
-                     str(rssi), str(int(rng.choice([54, 72, 144, 300, 866]))),
-                     "WPA2-PSK-CCMP/WPA3-SAE"])
-    rows.sort(key=lambda row: -int(row[5]))
-    return rows
-
-
-# ------------------------------------------------------------------ 03 项目三 声振
+# ------------------------------------------------------------------ 02 项目三 声振
 
 VIBRO_SESSION_ID = "VD-20261118-001"
 VIBRO_SAMPLE_RATE = 22050
@@ -964,18 +768,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", default=str(REPO_ROOT / "data" / "demo"),
                         help="输出根目录，默认 <repo>/data/demo")
     parser.add_argument("--seed", type=int, default=20261118, help="随机种子（可复现）")
-    parser.add_argument("--only", choices=["power", "wifi", "vibro"], default=None,
+    parser.add_argument("--only", choices=["power", "vibro"], default=None,
                         help="只生成某一类数据")
     args = parser.parse_args(argv)
     outdir = Path(args.out).resolve()
     ensure_dir(outdir)
-    rng = np.random.default_rng(args.seed)
     if args.only in (None, "power"):
-        generate_power_demo(outdir / "power", rng)
-    if args.only in (None, "wifi"):
-        generate_wifi_demo(outdir / "wifi", rng)
+        generate_power_demo(outdir / "power", np.random.default_rng(args.seed))
     if args.only in (None, "vibro"):
-        generate_vibro_demo(outdir / "vibro", rng)
+        generate_vibro_demo(outdir / "vibro", np.random.default_rng(args.seed))
     print(f"完成：合成演示数据已写入 {outdir}（synthetic，非真实实验数据）")
     return 0
 

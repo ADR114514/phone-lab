@@ -12,7 +12,7 @@ New-Item -ItemType Directory -Path $OutDir -Force | Out-Null
 
 $targets = @(
     @{ Name = "phone-lab-powertrace"; Prefix = "apps/powertrace" },
-    @{ Name = "phone-lab-signalmap";  Prefix = "apps/signalmap"  },
+    @{ Name = "phone-lab-chargeaudit"; Prefix = "apps/chargeaudit" },
     @{ Name = "phone-lab-vibrodiag";  Prefix = "apps/vibrodiag"  }
 )
 

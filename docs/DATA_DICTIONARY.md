@@ -10,16 +10,16 @@
 - 时间：毫秒时间戳一律为 Unix epoch ms；另有 ISO 8601 本地时间列（带时区偏移）与 UTC 列。
 - 布尔值：`1`/`0`；无数据：空字段（不要写 NaN、null、N/A）。
 - 数值保留：电流为 µA 整数，电压 mV 整数，温度 °C 一位小数，功率 W 三位小数。
-- 设备/会话标识在同一份导出中保持一致。
+- 设备/会话标识在同一份导出中保持一致。ChargeAudit 专用字段与文件名见第三节。
 
 ## 0. 通用 manifest.json
 
-每个实验会话目录都写一个 `manifest.json`，记录设备与 App 元数据：
+PowerTrace 与 VibroDiag 的 `manifest.json` 记录设备与 App 元数据。ChargeAudit 使用第三节的专用 schema。
 
 ```json
 {
   "schema": "phonelab.manifest/1",
-  "project": "02-power-thermal | 03-wifi-survey | 03-vibro-diag",
+  "project": "02-power-thermal | 03-vibro-diag",
   "app": "PowerTrace",
   "appVersion": "1.0.0",
   "generatedAt": 1730000000000,
@@ -123,82 +123,11 @@ experiments/powertrace/<stamp>_<campaignId>/
 
 ---
 
-# 二、课题03 · SignalMap 校园无线盲区测绘
-
-会话 ID：`WS-<yyyyMMdd>-<序号>`。
-
-## 2.1 主表：`survey_<sessionId>.csv`
-
-8 个点位 × 3 次重复 = 24 行。
-
-| 列 | 类型 | 单位 | 说明 |
-|---|---|---|---|
-| session_id | string | | |
-| point_id | string | | P01..P08 |
-| point_name | string | | 点位名称，如"三教 2F 走廊中段" |
-| point_type | string | | corridor/corner/elevator/stairwell/classroom/dorm/lab/outdoor |
-| wall_material | string | | concrete/brick/gypsum/glass/metal/mixed/none |
-| obstruction | string | | 遮挡描述（如"两侧承重墙，转角 90°"） |
-| distance_m | double | m | 到最近 AP 估计距离，可空 |
-| floor | int | | 楼层，可空 |
-| photo_file | string | | 相对路径，如 `photos/P01_20261118_101500.jpg`，可空 |
-| repeat_index | int | | 1..3 |
-| timestamp_iso | string | | 测量开始时间 |
-| ssid | string | | 关联 SSID（脱敏可写"校园网"） |
-| bssid | string | | 关联 AP MAC（分析前哈希脱敏，见 SOP） |
-| rssi_dbm | int | dBm | `WifiManager.getConnectionInfo().rssi` |
-| link_speed_mbps | int | Mbps | 协商速率 |
-| tx_link_mbps | int | Mbps | |
-| rx_link_mbps | int | Mbps | |
-| frequency_mhz | int | MHz | 2.4G/5G 判定 |
-| channel | int | | |
-| wifi_standard | string | | 由 frequency/能力推断：2.4G/5G/6G |
-| latency_avg_ms | double | ms | TCP 建连 RTT 均值（目标见 2.3） |
-| latency_min_ms | double | ms | |
-| latency_max_ms | double | ms | |
-| latency_median_ms | double | ms | |
-| latency_p95_ms | double | ms | |
-| jitter_ms | double | ms | RTT 标准差 |
-| loss_pct | double | % | 失败次数/总尝试 ×100 |
-| tcp_connect_ms | double | ms | 到网关 TCP 建连耗时均值 |
-| http_ttfb_ms | double | ms | HTTP 首字节时间均值 |
-| http_total_ms | double | ms | HTTP 总耗时均值 |
-| down_kbps | double | kbps | 可选吞吐测试（默认关闭） |
-| ap_count | int | | 扫描到的 AP 数 |
-| strongest_neighbor_rssi | int | dBm | 邻道最强 AP 的 RSSI |
-| neighbor_channels | string | | 邻道信道列表，如 `1;6;11` |
-| note | string | | 异常/环境备注 |
-
-## 2.2 扫描明细：`scan_<sessionId>_<pointId>_r<repeat>.csv`
-
-`timestamp_iso, bssid, ssid, frequency_mhz, channel, rssi_dbm, link_speed_mbps, capabilities`
-
-## 2.3 测量口径（必须与代码一致）
-
-- 延迟测试默认目标：`https://connectivitycheck.gstatic.com/generate_204`（可在设置里改）。
-- 每轮：20 次 TCP 建连（Socket 到 `223.5.5.5:443`，超时 1000ms）测 RTT；5 次 HTTP GET 测 TTFB/总耗时；网关 TCP 建连 5 次。
-- 每点重复 3 次，每次间隔 ≥30 s；同一轮内 App 保持前台、屏幕常亮。
-- 位置开关必须打开：Android 12 起 `getConnectionInfo().rssi` 与 `getScanResults()` 都受定位权限/定位开关约束。
-
-## 2.4 目录结构
-
-```
-experiments/signalmap/<stamp>_<sessionId>/
-  manifest.json
-  survey_<sessionId>.csv
-  points.csv                 # point_id,point_name,point_type,wall_material,obstruction,distance_m,floor,photo_file
-  scan_*_r*.csv
-  photos/P01_*.jpg ...
-  session.log
-```
-
----
-
-# 三、项目三 · VibroDiag 声振诊断仪
+# 二、项目三 · VibroDiag 声振诊断仪
 
 会话 ID：`VD-<yyyyMMdd>-<序号>`。
 
-## 3.1 5 种工况（默认，可在 App 内改名但不改 ID）
+## 2.1 5 种工况（默认，可在 App 内改名但不改 ID）
 
 | condition_id | 中文 | 设备/模拟方式 |
 |---|---|---|
@@ -210,7 +139,7 @@ experiments/signalmap/<stamp>_<sessionId>/
 
 每组 15 次，每次 15 s（可 5–30 s 配置）。总计 75 组。
 
-## 3.2 单次采集文件
+## 2.2 单次采集文件
 
 每个工况一个目录，每次采集一个子目录（组号两位补零），文件名前缀与目录名一致：
 
@@ -272,11 +201,11 @@ experiments/signalmap/<stamp>_<sessionId>/
 
 > 特征提取必须在 App（Kotlin）与 `analysis/features.py`（Python）两侧实现一致；以 `docs/feature_spec.md` 为准。
 
-## 3.3 数据集索引：`dataset_index.csv`
+## 2.3 数据集索引：`dataset_index.csv`
 
 `session_id, condition_id, condition_label, groups_collected, target_groups, complete`
 
-## 3.4 盲测表：`blind_test_<sessionId>.csv`
+## 2.4 盲测表：`blind_test_<sessionId>.csv`
 
 每行一次盲测：`session_id, trial_index, condition_id_true, condition_id_predicted, predicted_confidence,
 correct, features_file, model, timestamp_iso`
@@ -287,12 +216,12 @@ correct, features_file, model, timestamp_iso`
 其 `meta.json` 必须带 `"blind_trial": true` 与 `"exclude_from_dataset": true`；
 分析脚本必须按目录名或这两个字段排除，否则盲测样本会混入训练集导致准确率虚高。
 
-## 3.5 抗噪评估：`noise_eval_<sessionId>.csv`
+## 2.5 抗噪评估：`noise_eval_<sessionId>.csv`
 
 `session_id, snr_db, condition_id, trials, correct, accuracy, model, noise_type, timestamp_iso`
 （snr_db 取 20/10/5/0/-5；noise_type = white/pink）
 
-## 3.6 评估报告：`evaluation_<sessionId>.json`
+## 2.6 评估报告：`evaluation_<sessionId>.json`
 
 ```json
 {
@@ -307,7 +236,7 @@ correct, features_file, model, timestamp_iso`
 }
 ```
 
-## 3.7 目录结构
+## 2.7 目录结构
 
 ```
 experiments/vibrodiag/<stamp>_<sessionId>/
@@ -332,16 +261,22 @@ experiments/vibrodiag/<stamp>_<sessionId>/
 
 ---
 
+# 三、课题07 · ChargeAudit 充电宝容量与转换效率核验
+
+导出 ZIP 包含 `chargeaudit_<sessionId>.csv`、`manifest.json` 和有汇总结果时的 `summary.json`。清单使用 `phonelab.charge/1`，`project` 为 `07-charge-bank-efficiency`。仪表读数、手机电池状态、采样时间和备注的字段见[课题07数据表与模板](TOPIC07_CHARGE_EFFICIENCY.md#23-数据表字段)。
+
+---
+
 # 四、Python 分析管线输入输出
 
 | 脚本 | 输入 | 输出 |
 |---|---|---|
 | `analysis/power/analyze.py` | PowerTrace 导出目录 | `figures/*.png`、`tables/*.csv`、`power_report.md` |
-| `analysis/wifi/analyze.py` | SignalMap 导出目录 | 衰减表、盲区地图 CSV、`figures/*.png`、`wifi_report.md` |
+| `analysis/charge/analyze.py` | ChargeAudit 导出 CSV 与可选会话清单 | `figures/*.png`、`tables/*.csv`、`charge_report.md` |
 | `analysis/vibro/analyze.py` | VibroDiag 导出目录 | 特征表、混淆矩阵、抗噪曲线、`vibro_report.md` |
-| `analysis/report/build_report.py` | 三个 `*_report.md` | 合并的课程报告草稿 |
+| `analysis/report/build_report.py` | 功耗、充电宝与声振的 `*_report.md` | `analysis/out/report/course_report_draft.md` |
 
-所有脚本遵守：`python analysis/<x>/analyze.py --data data/raw/<app>/<session> --out analysis/out/<x>`。
+功耗与声振的分析脚本使用 `--data <会话目录> --out <输出目录>`；充电分析使用 `--csv <采样表> --meta <会话清单> --out <输出目录>`。
 
 特征一致性：`analysis/vibro/features.py` 与 App 的 `FeatureExtractor.kt` 必须逐条对齐 `docs/feature_spec.md` 第 4 节；
 仓库内已有 Kotlin 侧单测 `FeatureParityTest` 用同一份 WAV 与 Python 结果比对（容差 1e-3 相对 + 1e-6 绝对）。

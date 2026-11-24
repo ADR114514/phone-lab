@@ -34,7 +34,7 @@ def normalise_target(raw: str) -> str | None:
     if target.startswith(("C:", "D:", "E:")):
         return None
     # Templates intentionally reference files the student creates later
-    # (e.g. data/raw/wifi/<session>/photos/P01.jpg), skip placeholders.
+    # (e.g. data/raw/power/<session>/manifest.json), skip placeholders.
     if "<" in target or ">" in target or "{{" in target:
         return None
     # Drop anchors / query strings but keep URL-encoded spaces.

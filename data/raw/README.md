@@ -7,7 +7,7 @@
 ```
 data/raw/
 ├── power/<session>/       # PowerTrace 批次目录（4 个 session_*.csv + campaign_*.csv + summary + manifest + log）
-├── wifi/<session>/        # SignalMap 会话目录（survey_*.csv + points.csv + scan_*.csv + photos/）
+├── topic07/<session>/     # ChargeAudit 实验记录（逐点 CSV、铭牌参数与仪表原始记录）
 └── vibro/<session>/       # VibroDiag 会话目录（5 工况 × 15 组 + dataset_index/blind_test/noise_eval/evaluation）
 ```
 

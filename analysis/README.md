@@ -11,11 +11,11 @@ FFT、滤波、最小二乘、kNN、统计量全部用 numpy 自行实现。数�
 analysis/
 ├── common/               # 公共模块
 │   ├── io_utils.py       # 兼容 BOM/编码的 CSV 读写、字段校验、缺失值处理
-│   ├── stats_utils.py    # 均值/分位数/相关系数/最小二乘/非负消除/路径损耗拟合
+│   ├── stats_utils.py    # 均值/分位数/相关系数/最小二乘/非负消除
 │   ├── plot_utils.py     # matplotlib Agg 后端 + 中文字体 + 统一风格
 │   └── md_utils.py       # Markdown 表格/图片/报告拼装
 ├── power/analyze.py      # 课题02：功耗、发热、模块归因、热节流、省电建议
-├── wifi/analyze.py       # 课题03：RSSI/延迟/丢包、路径损耗、材质衰减、多径、干扰、盲区分级
+├── charge/analyze.py     # 课题07：充电电压/电流、能量积分、铭牌比对
 ├── vibro/
 │   ├── features.py       # 32 维声振特征（严格对齐 feature_spec 第 4 节，可单独自检）
 │   ├── model.py          # z-score + kNN(k=3)、LOOCV、白/粉红噪声、谱减法去噪
@@ -63,10 +63,8 @@ python analysis/tests/run_all.py --regenerate
 # 课题02 功耗（默认自动找 data/demo/power 或 data/raw/power 下最新会话）
 python analysis/power/analyze.py --data data/raw/power/<session> --out analysis/out/power
 
-# 课题03 无线
-python analysis/wifi/analyze.py --data data/raw/wifi/<session> --out analysis/out/wifi
-#   --reference-point P01     指定路径损耗参考点
-#   --n-pathloss 2.0          强制指定路径损耗指数 n（默认用无遮挡点位拟合）
+# 课题07 充电宝（逐点记录和本次实验的铭牌参数）
+python analysis/charge/analyze.py --csv data/raw/topic07/<session>.csv --meta data/templates/topic07/session_meta.json --out analysis/out/charge
 
 # 项目三 声振
 python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/out/vibro
@@ -79,7 +77,7 @@ python analysis/vibro/analyze.py --data data/raw/vibro/<session> --out analysis/
 python analysis/report/build_report.py
 ```
 
-所有脚本都支持 `--data` 省略：省略时会在 `data/demo/<app>` 与 `data/raw/<app>` 下寻找最新会话目录。
+功耗与声振脚本可省略 `--data`，脚本会在 `data/demo/<app>` 与 `data/raw/<app>` 下寻找会话目录。课题07使用 `--csv` 指定逐点记录。
 
 ## 输出结构
 
@@ -92,13 +90,10 @@ analysis/out/
 │   └── tables/{sample_quality,condition_metrics,energy_crosscheck,
 │               module_attribution,attribution_fit,thermal_analysis,
 │               increment_decomposition}.csv
-├── wifi/
-│   ├── wifi_report.md
-│   ├── figures/{rssi_bar,latency_dist,attenuation_material_box,pathloss_fit,
-│   │            blind_zone_map,interference}.png
-│   └── tables/{survey_quality,point_metrics,pathloss_points,pathloss_fit,
-│               material_attenuation,multipath_correlation,interference,
-│               channel_occupancy,blind_zone_grades}.csv
+├── charge/                # 课题07正式运行输出，样例输出位于 charge-demo/
+│   ├── charge_report.md
+│   ├── figures/{voltage_current_power,cumulative_energy,efficiency,energy_waterfall}.png
+│   └── tables/{charge_points,summary}.csv
 ├── vibro/
 │   ├── vibro_report.md
 │   ├── evaluation_<session>.json
@@ -120,15 +115,10 @@ analysis/out/
 - 热节流 = thermal_status 上升 **且** CPU 平均频率后半段较前半段下降 ≥5%；
 - 数据质量：24 行完整性、缺失采样点、迟到样本（间隔 >390 s）、充电异常、电量回升、功率重算一致性。
 
-### 课题03 无线
+### 课题07 充电宝
 
-- 每点位 3 次重复：RSSI 均值/标准差、延迟均值/P95、抖动、丢包、稳定性评分；
-- 路径损耗 `RSSI(d) = P0 − 10n·log10(d/d0)`：以基准点（默认 P01）为 (P0, d0)，
-  只用无墙体点位拟合 n，避免把墙体损耗混进 n；
-- 等效附加衰减 = 自由空间预测 − 实测；按材质分组统计并与经验值（混凝土 18 / 金属 25 / 玻璃 6 / 混合 14 dB）对照；
-- 多径：RSSI 标准差、延迟抖动与遮挡复杂度/附加衰减的 Pearson + Spearman 相关；
-- 邻道干扰：从 `scan_*.csv` 统计同信道 AP 数与最强同信道 RSSI；
-- 盲区分级：强 / 中 / 弱 / 盲区，并给出补点、信道规划、频段引导建议。
+- 按采样时间对 USB 输出功率积分得到本次记录覆盖时段的输出能量。
+- 额定能量与输出能量的比较需结合完整放电记录和本次实验的铭牌参数。
 
 ### 项目三 声振
 
@@ -145,8 +135,7 @@ analysis/out/
 ## 合成演示数据 vs 真机数据
 
 - `data/demo/` 是 **synthetic** 合成数据（见 [data/demo/README.md](../data/demo/README.md)），
-  用于验证管线；三条管线检测到 `data/demo` 或 manifest 里的 `synthetic: true` 时，
-  会在报告开头标注 SYNTHETIC；
+  用于验证功耗与声振管线，输出报告会标注 SYNTHETIC。课题07样例使用 `data/templates/topic07/` 的模板，端到端自检另用临时合成记录。
 - 课程报告必须使用 `data/raw/<app>/<session>` 的真机导出数据；`docs/report/` 里的模板
   预留了与 `analysis/out/*/figures` 对应的图片占位与表格结构。
 

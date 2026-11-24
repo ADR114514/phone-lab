@@ -50,5 +50,5 @@ if ($LASTEXITCODE -ne 0) { Write-Error "git push failed"; exit $LASTEXITCODE }
 Write-Host ""
 Write-Host "Pushed. Next:"
 Write-Host "  1) open $RepoUrl and check the README renders"
-Write-Host "  2) add repository topics (android, kotlin, jetpack-compose, signal-processing, fft, wifi)"
+Write-Host "  2) add repository topics (android, kotlin, jetpack-compose, signal-processing, fft, battery-testing)"
 Write-Host "  3) (optional) enable GitHub Actions under the Actions tab"

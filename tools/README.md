@@ -10,8 +10,8 @@
 | `split-repos.ps1` | 可选：把单仓拆成三个独立仓库（保留子树历史） |
 
 ```bash
-# 例：把三台实验数据拉下来
+# 例：拉取三个项目的实验数据
 powershell -File tools/pull-data.ps1 -Package com.mobilelab.powertrace -AppTag power
-./tools/pull-data.sh com.mobilelab.signalmap wifi
+./tools/pull-data.sh com.mobilelab.chargeaudit topic07
 ./tools/pull-data.sh com.mobilelab.vibrodiag vibro
 ```

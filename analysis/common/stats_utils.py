@@ -18,7 +18,6 @@ __all__ = [
     "rmse",
     "ols",
     "ols_nonnegative_elimination",
-    "log_distance_pathloss",
     "linear_slope",
     "correlation_table",
 ]
@@ -154,46 +153,6 @@ def ols_nonnegative_elimination(X, y, protect_first: bool = True) -> tuple[np.nd
         beta, *_ = ols(X[:, active], y)
         full[active] = beta
     return full, removed
-
-
-def log_distance_pathloss(distances, rssi, reference_distance: float | None = None,
-                          fixed_n: float | None = None) -> dict:
-    """对数距离路径损耗模型 P(d) = P0 - 10 n log10(d/d0) 的参数估计。
-
-    - reference_distance 给定时以该距离为 d0，P0 取该距离的 RSSI 均值；
-    - fixed_n 给定时不拟合 n；否则用最小二乘拟合 n（模型对 n 线性）；
-    - 返回 dict: p0_dbm, d0_m, n, r2, n_points, mode。
-    """
-    d = np.asarray(distances, dtype=float).ravel()
-    r = np.asarray(rssi, dtype=float).ravel()
-    mask = np.isfinite(d) & np.isfinite(r) & (d > 0)
-    d, r = d[mask], r[mask]
-    result = {"p0_dbm": float("nan"), "d0_m": float("nan"), "n": 2.0,
-              "r2": float("nan"), "n_points": int(d.size), "mode": "fallback"}
-    if d.size == 0:
-        return result
-    d0 = float(reference_distance) if reference_distance else float(np.median(d))
-    if d0 <= 0:
-        return result
-    # 参考点：距离最接近 d0 的样本的 RSSI 均值，避免单点噪声
-    near = np.isclose(d, d0)
-    p0 = float(np.mean(r[near])) if near.any() else float(np.mean(r))
-    result.update({"p0_dbm": p0, "d0_m": d0})
-    x = -10.0 * np.log10(d / d0)  # n 的线性特征
-    if fixed_n is not None:
-        n = float(fixed_n)
-        y_hat = p0 + n * x
-        result.update({"n": n, "r2": r_squared(r, y_hat),
-                       "mode": "fixed_n"})
-        return result
-    denom = float(np.sum(x * x))
-    if denom < 1e-12:
-        result["mode"] = "too_close"
-        return result
-    n = float(np.sum(x * (r - p0)) / denom)
-    y_hat = p0 + n * x
-    result.update({"n": n, "r2": r_squared(r, y_hat), "mode": "fitted"})
-    return result
 
 
 def linear_slope(x, y) -> float:

@@ -3,7 +3,6 @@
 
 用法：
   python analysis/check_plausibility.py --power data/raw/power/<session>/campaign_*.csv
-  python analysis/check_plausibility.py --wifi  data/raw/wifi/<session>/survey_*.csv
   python analysis/check_plausibility.py --vibro analysis/out/vibro/tables/features_all.csv
   python analysis/check_plausibility.py --demo    # 跑 data/demo 与 analysis/out 的演示数据
 退出码：0 通过（可含 WARN）；1 存在 FAIL。
@@ -102,43 +101,6 @@ def check_power(c: Checker, csv_paths: list[str]) -> None:
               f"电量回升的工况数：{trend_bad}（应为 0）")
 
 
-def check_wifi(c: Checker, csv_path: str) -> None:
-    df = pd.read_csv(csv_path)
-    n = len(df)
-    c.add("WiFi/行数", "PASS" if n >= 24 else ("WARN" if n >= 8 else "FAIL"), f"共 {n} 行（目标 24 = 8 点 × 3 次）")
-
-    point_col = "point_id" if "point_id" in df.columns else ("point" if "point" in df.columns else None)
-    if point_col is None:
-        c.add("WiFi/点位列", "FAIL", "找不到 point_id 列")
-        return
-    df[point_col] = df[point_col].astype(str)
-    pts = df[point_col].unique()
-    c.add("WiFi/点位数", "PASS" if len(pts) >= 6 else "FAIL", f"点位 {list(pts)[:10]}（目标 8）")
-
-    if "rssi_dbm" in df.columns:
-        rssi = _to_num(df["rssi_dbm"])
-        means = df.assign(_r=rssi).groupby(point_col)["_r"].mean()
-        spread = float(means.max() - means.min())
-        c.add("WiFi/跨点RSSI极差", "PASS" if spread >= 15 else ("WARN" if spread >= 8 else "FAIL"),
-              f"点位均值 {means.round(1).to_dict()}，极差 {spread:.1f} dB（目标 ≥15 dB）")
-        within = df.assign(_r=rssi).groupby(point_col)["_r"].std(ddof=0)
-        bad = within[within > 6]
-        c.add("WiFi/重复性", "WARN" if len(bad) else "PASS",
-              "单点 3 次重复标准差应 ≤6 dB；超标点：" + (bad.round(1).to_dict().__str__() if len(bad) else "无"))
-    else:
-        c.add("WiFi/RSSI列", "FAIL", "缺少 rssi_dbm 列")
-
-    rtt_cols = [c for c in df.columns if "rtt" in c or "latency" in c or "tcp_connect" in c]
-    if rtt_cols:
-        col = rtt_cols[0]
-        v = _to_num(df[col]).dropna()
-        if len(v):
-            q95 = float(v.quantile(0.95))
-            c.add("WiFi/延迟可测", "PASS" if q95 > 0 else "WARN", f"{col} p95 ≈ {q95:.1f} ms")
-    else:
-        c.add("WiFi/延迟列", "WARN", "没有 RTT/latency 列")
-
-
 def fisher_ratio(X: np.ndarray, y: np.ndarray) -> float:
     classes = np.unique(y)
     overall = X.mean(axis=0)
@@ -202,7 +164,6 @@ def check_vibro(c: Checker, csv_path: str) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--power", nargs="+", help="campaign_*.csv 路径")
-    ap.add_argument("--wifi", help="survey_*.csv 路径")
     ap.add_argument("--vibro", help="features_all.csv 或合并后的特征表路径")
     ap.add_argument("--demo", action="store_true", help="用 data/demo 与 analysis/out 演示数据自检")
     args = ap.parse_args()
@@ -211,27 +172,17 @@ def main() -> int:
     if args.demo:
         power = sorted(glob.glob(str(ROOT / "data/demo/power/*/campaign_*.csv")))
         vibro = ROOT / "analysis/out/vibro/tables/features_all.csv"
-        wifi = None
-        for cand in glob.glob(str(ROOT / "data/demo/wifi/*/survey_*.csv")) + glob.glob(str(ROOT / "data/raw/wifi/*/survey_*.csv")):
-            wifi = cand
-            break
         if power:
             check_power(c, power)
-        if wifi:
-            check_wifi(c, wifi)
-        else:
-            print("[skip] 找到不到 survey_*.csv（WiFi 演示数据只有 scan 明细），WiFi 检查跳过")
         if vibro.exists():
             check_vibro(c, str(vibro))
     else:
         if args.power:
             check_power(c, args.power)
-        if args.wifi:
-            check_wifi(c, args.wifi)
         if args.vibro:
             check_vibro(c, args.vibro)
     if not c.rows:
-        ap.error("至少给一个 --power/--wifi/--vibro 或 --demo")
+        ap.error("至少给一个 --power/--vibro 或 --demo")
     return c.report("PhoneLab 数据可信度 / 区分度自检")
 
 

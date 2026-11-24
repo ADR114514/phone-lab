@@ -14,7 +14,7 @@ matplotlib.use("Agg")  # 必须在 pyplot 之前：禁止交互窗口
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib import font_manager  # noqa: E402
 
-__all__ = ["setup", "save", "PALETTE", "CONDITION_COLORS", "GRADE_COLORS", "cjk_available"]
+__all__ = ["setup", "save", "PALETTE", "CONDITION_COLORS", "cjk_available"]
 
 PALETTE = [
     "#2E5BFF",  # 蓝
@@ -32,13 +32,6 @@ CONDITION_COLORS = {
     "VIDEO": "#2E5BFF",
     "NAVCAM": "#FF6B35",
     "GAME": "#E74C3C",
-}
-
-GRADE_COLORS = {
-    "强": "#00A878",
-    "中": "#F2C230",
-    "弱": "#FF6B35",
-    "盲区": "#E74C3C",
 }
 
 _CJK_CANDIDATES = [

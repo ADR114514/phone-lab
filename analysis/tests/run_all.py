@@ -1,4 +1,4 @@
-"""端到端自检：用 data/demo 合成数据跑通三条分析管线并断言关键输出。
+"""端到端自检：用合成数据跑通三条分析管线并断言关键输出。
 
 用法（仓库根目录）：
     python analysis/tests/run_all.py                # 默认：数据缺失时自动生成
@@ -8,11 +8,11 @@
 检查内容：
   1) Python 版本与依赖（numpy / pandas / matplotlib，明确不需要 scipy/sklearn）；
   2) data/demo 合成数据齐全、每个 manifest 带 synthetic 标记、总体积 < 15 MB；
-  3) analysis/power|wifi|vibro/analyze.py 端到端运行并产出 figures/tables/report；
-  4) 对输出数值做合理性断言（行数、功率排序、材质衰减区间、LOOCV/盲测准确率、
+  3) analysis/power|charge|vibro/analyze.py 端到端运行并产出 figures/tables/report；
+  4) 对输出数值做合理性断言（行数、功率排序、充电能量、LOOCV/盲测准确率、
      抗噪曲线单调性、去噪增益等）；
   5) analysis/report/build_report.py 合并三份报告为课程总报告草稿；
-  6) 所有报告都明确标注 synthetic（演示数据）。
+  6) 合并报告明确标注 synthetic（演示数据）。
 
 退出码：0 = 全绿；1 = 有失败项。
 """
@@ -100,7 +100,6 @@ def check_environment() -> None:
 def check_demo_data(regenerate: bool) -> bool:
     expected = [
         DEMO_DIR / "power" / "20261118_PC-20261118-001" / "campaign_PC-20261118-001.csv",
-        DEMO_DIR / "wifi" / "20261118_WS-20261118-001" / "survey_WS-20261118-001.csv",
         DEMO_DIR / "vibro" / "20261118_VD-20261118-001" / "dataset_index.csv",
         DEMO_DIR / "README.md",
     ]
@@ -113,7 +112,7 @@ def check_demo_data(regenerate: bool) -> bool:
             return False
     missing = [path for path in expected if not path.is_file()]
     if not expect(not missing, "data/demo 关键文件齐全",
-                  "缺少: " + ", ".join(str(path.name) for path in missing) if missing else "4 类数据齐全"):
+                  "缺少: " + ", ".join(str(path.name) for path in missing) if missing else "功耗与声振数据齐全"):
         return False
     sizes = [path.stat().st_size for path in DEMO_DIR.rglob("*") if path.is_file()]
     total = sum(sizes)
@@ -122,7 +121,7 @@ def check_demo_data(regenerate: bool) -> bool:
     readme = (DEMO_DIR / "README.md").read_text(encoding="utf-8").lower()
     expect("synthetic" in readme or "合成" in readme, "data/demo README 标注 synthetic")
     manifests = list(DEMO_DIR.rglob("manifest.json"))
-    expect(len(manifests) >= 3, "每套演示数据都有 manifest.json", f"{len(manifests)} 个")
+    expect(len(manifests) >= 2, "每套演示数据都有 manifest.json", f"{len(manifests)} 个")
     marked = 0
     for manifest_path in manifests:
         try:
@@ -174,51 +173,6 @@ def check_power() -> None:
     expect("活动指示量回归" in report_text, "报告声明“活动指示量回归”而非电流计")
     expect("SYNTHETIC" in report_text, "功耗报告标注 synthetic")
     expect(report_text.count("figures/") >= 5, "功耗报告引用 >=5 张图")
-
-
-def check_wifi() -> None:
-    data_dir = DEMO_DIR / "wifi" / "20261118_WS-20261118-001"
-    out_dir = OUT_DIR / "wifi"
-    if not run_script(ANALYSIS_DIR / "wifi" / "analyze.py",
-                      ["--data", data_dir, "--out", out_dir], "课题03 WiFi 管线"):
-        return
-    report = out_dir / "wifi_report.md"
-    expect(report.is_file() and report.stat().st_size > 2000, "wifi_report.md 生成")
-    figures = sorted((out_dir / "figures").glob("*.png"))
-    expect(len(figures) >= 5, "WiFi 图数量 >= 5", f"{len(figures)} 张")
-    expect(all(png_ok(path) for path in figures), "WiFi 图为有效 PNG")
-    survey_path = out_dir / "tables" / "point_metrics.csv"
-    if not expect(survey_path.is_file(), "point_metrics.csv 生成"):
-        return
-    points = pd.read_csv(survey_path, encoding="utf-8-sig")
-    expect(len(points) == 8, "8 个点位指标行", f"{len(points)} 行")
-    material = pd.read_csv(out_dir / "tables" / "material_attenuation.csv", encoding="utf-8-sig")
-    values = dict(zip(material["wall_material"], material["excess_mean_db"]))
-    # 演示数据由已知材质衰减参数合成（混凝土 18 / 金属 25 / 玻璃 6 / 混合 14 dB），
-    # 3 次重复的随机波动会让实测均值偏离 0.5~3 dB，这里按“参数 ± 容差”断言。
-    expect(abs(float(values.get("glass", 99)) - 6.0) <= 1.0, "玻璃附加衰减 ≈6 dB",
-           f"{float(values.get('glass', float('nan'))):.1f} dB（容差 ±1.0）")
-    expect(abs(float(values.get("concrete", 0)) - 18.0) <= 3.0, "混凝土附加衰减 ≈18 dB",
-           f"{float(values.get('concrete', float('nan'))):.1f} dB（容差 ±3.0）")
-    expect(abs(float(values.get("metal", 0)) - 25.0) <= 4.0, "金属附加衰减 ≈25 dB",
-           f"{float(values.get('metal', float('nan'))):.1f} dB（容差 ±4.0）")
-    expect(abs(float(values.get("none", 99))) <= 2.0, "无墙体附加衰减 ≈0 dB",
-           f"{float(values.get('none', float('nan'))):.1f} dB（容差 ±2.0）")
-    fit = pd.read_csv(out_dir / "tables" / "pathloss_fit.csv", encoding="utf-8-sig")
-    n_value = float(fit["n"].iloc[0])
-    expect(1.5 <= n_value <= 3.0, "路径损耗指数 n 在合理区间", f"n={n_value:.2f}")
-    blind = pd.read_csv(out_dir / "tables" / "blind_zone_grades.csv", encoding="utf-8-sig")
-    expect(len(blind) == 8 and blind["blind_zone_grade"].isin(["强", "中", "弱", "盲区"]).all(),
-           "8 个点位均有盲区分级", "分级: " + ", ".join(blind["blind_zone_grade"].tolist()))
-    grades = set(blind["blind_zone_grade"])
-    expect(len(grades) >= 3, "盲区分级覆盖 >=3 档", "、".join(sorted(grades)))
-    multipath = pd.read_csv(out_dir / "tables" / "multipath_correlation.csv", encoding="utf-8-sig")
-    expect(len(multipath) >= 5, "多径相关性表 >=5 对指标")
-    interference = pd.read_csv(out_dir / "tables" / "interference.csv", encoding="utf-8-sig")
-    expect(len(interference) == 8, "邻道干扰表 8 行")
-    report_text = report.read_text(encoding="utf-8")
-    expect("SYNTHETIC" in report_text, "WiFi 报告标注 synthetic")
-    expect("补点" in report_text and "信道" in report_text, "WiFi 报告包含补点/信道建议")
 
 
 def check_vibro() -> None:
@@ -282,8 +236,8 @@ def check_report_builder() -> None:
         return
     text = draft.read_text(encoding="utf-8")
     expect(len(text) > 5000, "总报告草稿长度合理", f"{len(text)} 字符")
-    for keyword in ("课题02", "课题03", "项目三", "复现步骤"):
-        expect(keyword in text, f"总报告包含《{keyword}》章节")
+    for section in ("课题02", "课题07", "项目三", "复现步骤"):
+        expect(f'<a id="{section}"></a>' in text, f"总报告包含《{section}》章节")
     expect("SYNTHETIC" in text, "总报告标注 synthetic 数据来源")
 
 
@@ -301,7 +255,7 @@ def main(argv: list[str] | None = None) -> int:
     data_ok = check_demo_data(args.regenerate)
     if data_ok:
         check_power()
-        check_wifi()
+        run_script(HERE / "test_charge.py", [], "课题07 充电分析管线")
         check_vibro()
         if not args.skip_report:
             check_report_builder()
@@ -314,7 +268,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  - {name}：{detail}")
         print("结果：失败（见上方 [FAIL]）")
         return 1
-    print("结果：全绿 ✅（三条管线均可在 data/demo 上端到端运行）")
+    print("结果：全绿 ✅（三条管线均可在合成数据上端到端运行）")
     return 0
 
 

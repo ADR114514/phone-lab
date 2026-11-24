@@ -2,7 +2,7 @@
 # Usage: powershell -File tools/pull-data.ps1 -Package com.mobilelab.powertrace -AppTag power
 param(
     [Parameter(Mandatory = $true)][string]$Package,
-    [Parameter(Mandatory = $true)][ValidateSet('power', 'wifi', 'vibro')][string]$AppTag,
+    [Parameter(Mandatory = $true)][ValidateSet('power', 'topic07', 'vibro')][string]$AppTag,
     [string]$Adb = "adb"
 )
 

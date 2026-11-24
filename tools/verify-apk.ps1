@@ -11,7 +11,7 @@ $apksigner = Join-Path $buildTools.FullName "apksigner.bat"
 
 $apks = @(
     "apps/powertrace/build/outputs/apk/debug/powertrace-debug.apk",
-    "apps/signalmap/build/outputs/apk/debug/signalmap-debug.apk",
+    "apps/chargeaudit/build/outputs/apk/debug/chargeaudit-debug.apk",
     "apps/vibrodiag/build/outputs/apk/debug/vibrodiag-debug.apk"
 ) | ForEach-Object { Join-Path (Join-Path $PSScriptRoot "..") $_ }
 

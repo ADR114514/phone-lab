@@ -1,7 +1,7 @@
 """合并三份分析报告为课程总报告草稿（Markdown）。
 
-输入：analysis/out/{power,wifi,vibro}/*_report.md（由三条分析管线生成）
-      analysis/out/{power,wifi,vibro}/tables/*.csv（用于自动汇总关键结果）
+输入：analysis/out/{power,charge,vibro}/*_report.md 与对应分析表。
+      若没有课题07正式输出，使用 analysis/out/charge-demo/ 下的模板演示输出。
 输出：analysis/out/report/course_report_draft.md
 
 说明：
@@ -21,8 +21,6 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-import pandas as pd
-
 HERE = Path(__file__).resolve().parent
 ANALYSIS_DIR = HERE.parent
 REPO_ROOT = ANALYSIS_DIR.parent
@@ -34,7 +32,7 @@ from common import io_utils, md_utils  # noqa: E402
 
 REPORT_FILES = {
     "power": ("课题02 · 个人手机多工况发热与掉电实测", "power_report.md"),
-    "wifi": ("课题03 · 教学楼/宿舍无线信号盲区测绘", "wifi_report.md"),
+    "charge": ("课题07 · 充电宝容量与转换效率核验", "charge_report.md"),
     "vibro": ("项目三 · 手机声振诊断仪", "vibro_report.md"),
 }
 
@@ -80,12 +78,21 @@ def read_reports(root: Path) -> dict[str, dict]:
     reports = {}
     for key, (title, filename) in REPORT_FILES.items():
         path = root / key / filename
+        if key == "charge" and not path.is_file():
+            demo_path = root / "charge-demo" / filename
+            if demo_path.is_file():
+                path = demo_path
         if path.is_file():
             reports[key] = {"title": title, "path": path,
                             "text": path.read_text(encoding="utf-8")}
         else:
             reports[key] = {"title": title, "path": path, "text": ""}
     return reports
+
+
+def has_synthetic_report(reports: dict[str, dict]) -> bool:
+    return any("SYNTHETIC" in report["text"] or report["path"].parent.name == "charge-demo"
+               for report in reports.values())
 
 
 def load_power_metrics(root: Path):
@@ -95,16 +102,6 @@ def load_power_metrics(root: Path):
     return io_utils.coerce_numeric(io_utils.read_csv(path),
                                    ["avg_power_w", "level_drop_pct", "drop_rate_pct_per_h",
                                     "temp_rise_c", "thermal_max"])
-
-
-def load_wifi_tables(root: Path):
-    blind_path = root / "wifi" / "tables" / "blind_zone_grades.csv"
-    material_path = root / "wifi" / "tables" / "material_attenuation.csv"
-    fit_path = root / "wifi" / "tables" / "pathloss_fit.csv"
-    blind = io_utils.read_csv(blind_path) if blind_path.is_file() else None
-    material = io_utils.read_csv(material_path) if material_path.is_file() else None
-    fit = io_utils.read_csv(fit_path) if fit_path.is_file() else None
-    return blind, material, fit
 
 
 def load_vibro_evaluation(root: Path):
@@ -117,7 +114,7 @@ def load_vibro_evaluation(root: Path):
         return None
 
 
-def build_key_results(root: Path) -> list[str]:
+def build_key_results(root: Path, charge_dir: Path) -> list[str]:
     """从三套输出表里自动汇总“关键结果速览”，不解析报告正文。"""
     lines: list[str] = ["## 关键结果速览", ""]
     power = load_power_metrics(root)
@@ -132,22 +129,18 @@ def build_key_results(root: Path) -> list[str]:
               md_utils.fmt_number(row["temp_rise_c"], 1),
               md_utils.fmt_number(row["thermal_max"], 0)] for _, row in power.iterrows()]))
         lines.append("")
-    blind, material, fit = load_wifi_tables(root)
-    if blind is not None and len(blind):
-        counts = blind["blind_zone_grade"].value_counts().to_dict()
-        lines.append("### 课题03 无线盲区测绘")
-        lines.append("")
-        lines.append(f"- 点位分级：强 {counts.get('强', 0)}、中 {counts.get('中', 0)}、"
-                     f"弱 {counts.get('弱', 0)}、盲区 {counts.get('盲区', 0)}；"
-                     f"最差点位：{'、'.join(blind.head(2)['point_id'].astype(str).tolist())}。")
-        if material is not None and len(material):
-            material_text = "、".join(
-                f"{row['material_label']} {float(row['excess_mean_db']):.1f} dB"
-                for _, row in material.iterrows() if pd.notna(row["excess_mean_db"]))
-            lines.append(f"- 材质等效附加衰减：{material_text}。")
-        if fit is not None and len(fit):
-            lines.append(f"- 路径损耗指数 n = {float(fit['n'].iloc[0]):.2f}。")
-        lines.append("")
+    charge_path = charge_dir / "tables" / "summary.csv"
+    if charge_path.is_file():
+        charge = io_utils.read_csv(charge_path)
+        if len(charge):
+            label = "（模板演示）" if charge_dir.name == "charge-demo" else ""
+            row = charge.iloc[0]
+            lines.append(f"### 课题07 充电宝{label}")
+            lines.append("")
+            lines.append(f"- 采样 {md_utils.fmt_number(row['points'], 0)} 点，"
+                         f"覆盖 {md_utils.fmt_number(row['duration_h'], 2)} h，"
+                         f"该时段输出能量 {md_utils.fmt_number(row['e_usb_wh'], 3)} Wh。")
+            lines.append("")
     evaluation = load_vibro_evaluation(root)
     if evaluation:
         training = evaluation.get("training", {})
@@ -168,40 +161,40 @@ def build_key_results(root: Path) -> list[str]:
 
 
 def build_draft(root: Path, title: str, reports: dict[str, dict]) -> str:
-    synthetic = any("SYNTHETIC" in report["text"] for report in reports.values())
+    synthetic = has_synthetic_report(reports)
     generated = datetime.now().strftime("%Y-%m-%d %H:%M")
     lines: list[str] = [f"# {title}", ""]
-    lines.append(f"> 自动生成时间：{generated}；由 analysis/report/build_report.py 合并 "
-                 f"analysis/out/{{power,wifi,vibro}}/*_report.md。")
+    lines.append(f"> 自动生成时间：{generated}。由 analysis/report/build_report.py 合并各项目分析报告。")
     if synthetic:
         lines.append(">")
-        lines.append("> **数据来源声明：本稿中的分析结果基于 data/demo 合成演示数据（SYNTHETIC），"
-                     "用于证明分析管线与报告结构可用，不是真机实测结果。提交课程报告前必须替换为 "
-                     "data/raw 下的真实实验数据并重新运行三条管线。**")
+        lines.append("> **本稿包含合成演示数据（SYNTHETIC）。提交课程报告前，请用真实实验记录重新运行对应的分析。**")
     lines.append("")
     lines.append("## 目录")
     lines.append("")
     lines.append("1. [课题02 · 个人手机多工况发热与掉电实测](#课题02)")
-    lines.append("2. [课题03 · 教学楼/宿舍无线信号盲区测绘](#课题03)")
+    lines.append("2. [课题07 · 充电宝容量与转换效率核验](#课题07)")
     lines.append("3. [项目三 · 手机声振诊断仪](#项目三)")
     lines.append("4. [跨课题综合小结（待填写）](#综合小结)")
     lines.append("5. [复现步骤](#复现步骤)")
     lines.append("")
     lines.append("---")
     lines.append("")
-    lines.extend(build_key_results(root))
+    lines.extend(build_key_results(root, reports["charge"]["path"].parent))
     lines.append("---")
     lines.append("")
-    anchors = {"power": "课题02", "wifi": "课题03", "vibro": "项目三"}
-    part_numbers = {"power": "第一部分", "wifi": "第二部分", "vibro": "第三部分"}
-    for key in ("power", "wifi", "vibro"):
-        report = reports[key]
+    anchors = {"power": "课题02", "charge": "课题07", "vibro": "项目三"}
+    part_numbers = {"power": "第一部分", "charge": "第二部分", "vibro": "第三部分"}
+    for key, report in reports.items():
         lines.append(f'<a id="{anchors[key]}"></a>')
         lines.append("")
         lines.append(f"# {part_numbers[key]}：{report['title']}")
         lines.append("")
         if report["text"]:
-            lines.append(rebase_report_links(shift_headings(report["text"], levels=1), key))
+            directory = report["path"].parent.name
+            if directory == "charge-demo":
+                lines.append("> **SYNTHETIC 模板演示。记录仅覆盖前 30 分钟，无法据此判断完整放电效率或损耗。**")
+                lines.append("")
+            lines.append(rebase_report_links(shift_headings(report["text"], levels=1), directory))
             lines.append("")
         else:
             lines.append(f"> 未找到 {report['path']}，请先运行对应的 analyze.py。")
@@ -221,7 +214,7 @@ def build_draft(root: Path, title: str, reports: dict[str, dict]) -> str:
     lines.append("## 4.2 主要量化结论（填写模板）")
     lines.append("")
     lines.append("- 功耗：____ 工况平均功率最高（____ W），比待机高 ____ 倍；最有效的省电手段是 ____，预计可省 ____ W。")
-    lines.append("- 无线：____ 点位为盲区，主要由 ____ 材质遮挡导致；补点后预计 RSSI 提升 ____ dB。")
+    lines.append("- 充电宝：从满电到耗尽的输出能量为 ____ Wh，占铭牌能量 ____ Wh 的 ____%。")
     lines.append("- 声振：LOOCV 准确率 ____%，盲测 ____%；在 SNR ____ dB 以下需要降噪或加噪训练。")
     lines.append("")
     lines.append("## 4.3 反思与改进")
@@ -243,7 +236,7 @@ def build_draft(root: Path, title: str, reports: dict[str, dict]) -> str:
     lines.append("")
     lines.append("# 2) 三条分析管线")
     lines.append("python analysis/power/analyze.py --data data/demo/power/20261118_PC-20261118-001 --out analysis/out/power")
-    lines.append("python analysis/wifi/analyze.py --data data/demo/wifi/20261118_WS-20261118-001 --out analysis/out/wifi")
+    lines.append("python analysis/charge/analyze.py --csv data/templates/topic07/charge_discharge_template.csv --meta data/templates/topic07/session_meta.json --out analysis/out/charge-demo")
     lines.append("python analysis/vibro/analyze.py --data data/demo/vibro/20261118_VD-20261118-001 --out analysis/out/vibro")
     lines.append("")
     lines.append("# 3) 合并总报告草稿")
@@ -257,10 +250,10 @@ def build_draft(root: Path, title: str, reports: dict[str, dict]) -> str:
     lines.append("")
     lines.append("## 附录：本次生成的分析产物清单")
     lines.append("")
-    for key in ("power", "wifi", "vibro"):
-        lines.append(f"### {key}")
+    for report in reports.values():
+        base = report["path"].parent
+        lines.append(f"### {base.name}")
         lines.append("")
-        base = root / key
         if not base.is_dir():
             lines.append("- （无输出）")
             lines.append("")
@@ -287,7 +280,7 @@ def run(root: Path, out_dir: Path, title: str) -> dict:
     if missing:
         print(f"[report] 警告：缺少分报告 {missing}")
     return {"path": str(path), "found": found, "missing": missing,
-            "synthetic": any("SYNTHETIC" in report["text"] for report in reports.values())}
+            "synthetic": has_synthetic_report(reports)}
 
 
 def main(argv: list[str] | None = None) -> int:
