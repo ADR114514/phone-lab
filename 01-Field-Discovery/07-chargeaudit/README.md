@@ -4,7 +4,7 @@
 
 | [官网课题要求](https://icec.openkub.com/assessment.html#fieldTestSection) | 交付材料 |
 |---|---|
-| 铭牌额定 Wh 与实验布置 | [铭牌裁图](evidence/CP11QC-nameplate.jpg)、[USB 测量接线](evidence/USB测量接线.jpg)。铭牌电芯额定 **34.49 Wh**；USB 额定输出容量 **6200 mAh（5 V / 2 A）**，折合 **31.00 Wh**，不是本轮实测。 |
+| 铭牌额定 Wh 与实验布置 | [铭牌裁图](evidence/CP11QC-nameplate.jpg)、[USB 测量接线](evidence/USB测量接线.jpg)、[现场同框照](evidence/charge-test-field-overview.jpg)及[设备与 App 近照](evidence/charge-test-field-detail.jpg)。铭牌电芯额定 **34.49 Wh**；USB 额定输出容量 **6200 mAh（5 V / 2 A）**，折合 **31.00 Wh**，不是本轮实测。 |
 | 原始表和实际时间曲线 | [App 原始导出](raw_data/)、[19 点中文时序](results/App实测时序_19点.csv)、[电压／电流／功率／电量图](results/App放电曲线.png)。原始 CSV、会话信息和 App 原汇总不改写；[原始文件 SHA-256](SHA256SUMS-raw.txt)。 |
 | 能量复算与损耗讨论 | [区间复算表](results/App放电区间复算.csv)、[报告](报告.md)、[复算脚本](analyze_app.py)。采用 App 实际时间，不用照片替代 App 的冲突数值。 |
 
@@ -12,7 +12,9 @@
 
 **新版导出核对：**[结束状态](follow-up-export/manifest.json) · [新版能量汇总](follow-up-export/summary.json)。原始 19 条 CSV 与旧导出逐字节一致，因此不重复存放。2026-11-24 01:43:36（北京时间）是补记时间，不是实测停机时间。
 
-**未完成／待补：**同一轮的停机末段仪表读数、独立的充电宝输入侧原始表（用于计算 USB 往返效率）、本人校园现场同框照。[输入侧记录空表](输入侧记录空表.csv)只供记录，没有当作实测提交。铭牌参考比不写成实测效率。
+**现场照已归档。** 两张照片展示同一会话的充电宝、USB 表和 App 界面。界面仍显示「正在充电」及「保存第 20 点」，对应的第 20 条记录未出现在导出的 19 点 CSV 中。照片上的输入框数值不用于替换已保存的 App 数据。
+
+**仍无法从现有材料核算：**整程输出／铭牌比缺少停机末段读数；USB 往返效率还需要独立的充电宝输入侧原始记录。编号 2002–2011 的仪表照片所示读数与已有放电前段吻合，未作为独立输入侧测量。[输入侧记录空表](输入侧记录空表.csv)可用于单独记录输入数据。
 
 ## 复现
 
