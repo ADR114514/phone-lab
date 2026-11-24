@@ -825,6 +825,3 @@
 2026-11-23 00:54:21.845 I/AppState: dataset loaded: 75 samples
 2026-11-23 00:54:21.846 I/AppState: recording persisted b03_C3_IMBALANCE
 2026-11-23 00:54:22.882 I/AppState: blind trial 14 true=C3_IMBALANCE predicted=C2_NORMAL_HIGH correct=false model=matlab-rbf-ridge-VD-20261122-002-v1 score_margin=0.7942291749251382
-2026-11-23 01:01:55.165 I/AppState: LOOCV accuracy=0.9333333333333333 (70/75)
-2026-11-23 01:05:48.907 I/AppState: noise evaluation finished rows=50
-2026-11-23 01:06:42.582 I/AppState: evaluation report written /storage/emulated/0/Android/data/com.mobilelab.vibrodiag/files/experiments/vibrodiag/20261122_201328_VD-20261122-002/evaluation_VD-20261122-002.json
